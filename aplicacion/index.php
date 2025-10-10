@@ -82,33 +82,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div class="container mt-5" style="max-width: 400px;">
-        <h2 class="mb-4">Iniciar sesión</h2>
+    <div class="container d-flex mt-5 justify-content-center align-items-center vh-100 p-5" style="font-size: 1.2rem;">
+        <div>
+            <h2 class="mb-4 text-center">Iniciar sesión</h2>
 
-        <?php if (!empty($error)): ?>
-            <div class="alert alert-danger"><?= ($error) ?></div>
-        <?php endif; ?>
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger"><?= ($error) ?></div>
+            <?php endif; ?>
 
-        <form method="POST" action="">
-            <div class="mb-3">
-                <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="usuario@ejemplo.com" required value="<?= ($email) ?>" />
-            </div>
+            <form method="POST" action="">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="usuario@ejemplo.com" required value="<?= ($email) ?>" />
+                </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="············" required />
-            </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="········" required />
+                </div>
 
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="remember" name="remember" <?= $remember ? 'checked' : '' ?> />
-                <label class="form-check-label" for="remember">Recuérdame</label>
-            </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="remember" name="remember" <?= $remember ? 'checked' : '' ?> />
+                    <label class="form-check-label" for="remember">Recuérdame</label>
+                </div>
 
-            <button type="submit" class="btn btn-primary w-100">Entrar</button>
-        </form>
+                <button type="submit" name="action" value="login" class="btn btn-primary w-100">Entrar</button>
+            </form>
 
-        <p class="mt-3">¿No tienes cuenta? <a href="register.php">Regístrate</a></p>
+            <p class="mt-3">¿No tienes cuenta? <a href="register.php">Regístrate</a></p>
+        </div>
     </div>
 </body>
 
