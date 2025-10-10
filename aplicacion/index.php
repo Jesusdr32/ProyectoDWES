@@ -2,15 +2,15 @@
 session_start();
 
 
-// Incluir la clase CalendarDataAccess con la ruta correcta
+// Incluir la clase CalendarDataAccess
 require_once __DIR__ . '/../DesarrolloAplicacionPHP/data-access/CalendarDataAccess.php';
 
 
-// Ruta al archivo de base de datos SQLite (ajusta según tu estructura)
+// Ruta al archivo de base de datos SQLite
 $dbFile = __DIR__ . '/../DesarrolloAplicacionPHP/data-access/calendar.db';
 
 
-// Crear instancia de acceso a datos
+// Crear instancia de acceso a datos    
 $dataAccess = new CalendarDataAccess($dbFile);
 
 
