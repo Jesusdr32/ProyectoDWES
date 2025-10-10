@@ -1,3 +1,90 @@
+<?php
+session_start();
+
+//Inlcuir la clase User.php
+require_once __DIR__ . '/../DesarrolloAplicacionPHP/entities/User.php';
+
+//Ruta de archivo de la base de datos SQLite
+$dbFile = __DIR__ . '/../DesarrolloAplicacionPHP/data-access/calendar.db';
+
+//Crear un objeto para acceso a la BD (abrir la base de datos)
+$dataAccess = new CalendarDataAccess($dbFile);
+
+//Si hay una sesión iniciada, redirigir a events.php
+if (isset($_SESSION['userId'])) {
+    header("Location: events.php");
+    exit;
+}
+
+//
+$errors = [];
+$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '';
+$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '';
+$last_name = filter_input(INPUT_POST, 'last-name', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '';
+$birth_day = filter_input(INPUT_POST, 'birth-day', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '';
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '';
+$password_repeat = filter_input(INPUT_POST, 'password-repeat', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //Validar el email
+    if (empty($email)) {
+        array_push($errors, "No se ha introducido el email del usuario");
+    } else {
+        $validatedEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+        if ($validatedEmail === false) {
+            array_push($errors, "El email introducido {$email} no es válido");
+        }
+    }
+
+    //Validar el nombre
+    if (empty($name)) {
+        array_push($errors, "No se ha introducido el nombre del usuario");
+    }
+
+    //Validar los apellidos
+    if (empty($last_name)) {
+        array_push($errors, "No se han introducido los apellidos del usuario");
+    }
+
+    //Validar la fecha de nacimiento
+    if (empty($birth_day)) {
+        array_push($errors, "No se ha introducido la fecha de nacimiento del usuario");
+    } else {
+        $patron = '/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/';
+        $validatedBirthDay = filter_var($birth_day, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => $patron]]);
+        if ($validatedBirthDay === false) {
+            array_push($errors, "La fecha de nacimiento introducida {$birth_day} no es válida");
+        }
+    }
+
+    //Validar la contraseña
+    if (empty($password)) {
+        array_push($errors, "No se ha introducido la contraseña del usuario");
+    } else {
+        $patron = '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/';
+        $validatedPassword = filter_var($password, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => $patron]]);
+        if ($validatedPassword === false) {
+            array_push($errors, "La contraseña introducida {$password} no es válida");
+        }
+    }
+
+    //Validar la repetición de contraseña
+    if (empty($password_repeat)) {
+        array_push($errors, "no se ha introducido la repetición de contraseña del usuario");
+    } elseif ($password_repeat !== $password) {
+        array_push($errors, "La repetición de contraseña no coincide con la contraseña");
+    } else {
+        $patron = '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/';
+        $validatedPasswordRepeat = filter_var($password_repeat, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => $patron]]);
+        if ($validatedPasswordRepeat === false) {
+            array_push($errors, "La repetición de contraseña introducida {$password_repeat} no es válida");
+        }
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,23 +104,30 @@
                 <input type="email" name="email" id="email" class="form-control" placeholder="usuario@ejemplo.com" required>
             </div>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre: </label>
-                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre usuario" required>
+                <label for="name" class="form-label">Nombre: </label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Nombre" required>
             </div>
             <div class="mb-3">
-                <label for="apellidos" class="form-label">Apellidos: </label>
-                <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Apellidos usuario" required>
+                <label for="last-name" class="form-label">Apellidos: </label>
+                <input type="text" name="last-name" id="last-name" class="form-control" placeholder="Apellidos" required>
             </div>
             <div class="mb-3">
-                <label for="fecha-nacimiento" class="form-label">Fecha de nacimiento: </label>
-                <input type="date" name="fecha-nacimiento" id="fecha-nacimiento" class="form-control" required>
+                <label for="birth-day" class="form-label">Fecha de nacimiento: </label>
+                <input type="date" name="birth-day" id="birth-day" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="contraseña" class="form-label">Contraseña: </label>
-                <input type="password" name="contraseña" id="contraseña" class="form-control" minlength="8" required>
+                <label for="password" class="form-label">Contraseña: </label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="········" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra y un número" required>
             </div>
             <div class="mb-3">
-                <button type="submit" name="action" value="logout" class="btn btn-primary">Sí, desconectar</button>
+                <label for="password-repeat" class="form-label">Repetir contraseña: </label>
+                <input type="password" name="password-repeat" id="password-repeat" class="form-control" placeholder="········" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra y un número" required>
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Registrarme</button>
+            </div>
+            <div class="mb-3">
+                <p>¿Tienes una cuenta ya? <a href="index.php">Iniciar sesión</a></p>
             </div>
         </form>
     </div>
