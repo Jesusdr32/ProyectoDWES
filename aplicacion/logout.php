@@ -3,7 +3,7 @@ session_start();
 
 
 //Si no hay una sesión iniciada, la página se redirige de forma automática a index.php
-if (!isset($_SESSION['userId'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit;
 }

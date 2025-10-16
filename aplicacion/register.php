@@ -56,8 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($birth_day)) {
         array_push($errors, "No se ha introducido la fecha de nacimiento del usuario");
     } else {
-        $patron = '/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/';
-        $validatedBirthDay = filter_var($birth_day, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => $patron]]);
+        $validatedBirthDay = DateTime::createFromFormat('Y-m-d', $birth_day);
         if ($validatedBirthDay === false) {
             array_push($errors, "La fecha de nacimiento introducida {$birth_day} no es válida");
         }
@@ -96,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //Creación del nuevo usuario solo si no hay errores
     if (empty($errors)) {
-        $newUser = new User($email, password_hash($password, PASSWORD_DEFAULT), $name, $lastName, $birth_day, null);
+        $newUser = new User($email, password_hash($password, PASSWORD_DEFAULT), $name, $last_name, $birth_day, null);
         if (!$dataAccess->createUser($newUser)) {
             array_push($errors, "Error al crear el usuario");
         }
@@ -118,6 +117,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container mt-5" style="max-width: 400px;">
         <h2 class="mb-4 text-center">Formulario de registro</h2>
+        <!--<?php
+            echo "<h2>Todos los usuarios</h2><ul>";
+            $usuarios = $dataAccess->getAllUsers();
+            foreach ($usuarios as $u) {
+                echo "<li>ID: {$u->getId()}, Nombre: {$u->getFirstName()} {$u->getLastName()}, Email: {$u->getEmail()}</li>";
+            }
+            echo "</ul>";
+            ?>-->
         <!--El usuario ya ha sido creado, ahora se manda al usuario a la página de index.php para que inicie sesión-->
         <?php if (($_SERVER['REQUEST_METHOD'] == 'POST') && empty($errors)) : ?>
             <div class="alert alert-success">
