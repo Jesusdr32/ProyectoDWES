@@ -19,6 +19,14 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+//Si el usuario tiene o no eventos creados
+if (empty($dataAccess->getEventsByUserId($_SESSION['user_id']))) {
+    $hayEventos = false;
+} else {
+    $hayEventos = true;
+    $eventos = $dataAccess->getEventsByUserId($_SESSION['user_id']);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -37,16 +45,35 @@ if (!isset($_SESSION['user_id'])) {
         <div>
             <h2 class="mb-4 text-center">Eventos</h2>
             <div class="container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Titulo</th>
-                            <th>Descripcion</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                </table>
+                <a href="../aplicacion/new-event.php">Nuevo evento</a>
+                <?php if ($hayEventos): ?>
+                    <?php foreach ($eventos as $evento): ?>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Titulo</th>
+                                    <th>Descripcion</th>
+                                    <th>Fecha y hora de inicio</th>
+                                    <th>Fecha y hora de fin</th>
+                                    <th>Modificaciones</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td><?= $evento->getId() ?></td>
+                                <td><?= $evento->getTitle() ?></td>
+                                <td><?= $evento->getDescription() ?></td>
+                                <td><?= $evento->getStartDate() ?></td>
+                                <td><?= $evento->getEndDate() ?></td>
+                                <td><a href="../aplicacion/edit-event.php">Editar evento</a> / <a href="../aplicacion/delete-event.php">Eliminar evento</a></td>
+                            </tr>
+
+                        </table>
+                    <?php endforeach ?>
+                <?php else : ?>
+                    <p>No hay eventos</p>
+                <?php endif ?>
+                <a href="../aplicacion/new-event.php">Nuevo evento</a>
             </div>
         </div>
     </div>
