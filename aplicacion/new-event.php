@@ -1,9 +1,9 @@
 <?php
 session_start();
+
 require_once __DIR__ . '/../DesarrolloAplicacionPHP/data-access/CalendarDataAccess.php';
 
-
-require_once '/../aplicacion/events.php';
+include __DIR__ . '/../aplicacion/cabecera.php';
 
 // Rutas de la base de datos
 
@@ -20,30 +20,30 @@ if (!$userId) {
 $errors = [];
 $title = '';
 $description = '';
-$startDate = '';
-$endDate = '';
+$start_date = '';
+$end_date = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title'] ?? '');
     $description = trim($_POST['description'] ?? '');
-    $startDate = $_POST['start_date'] ?? '';
-    $endDate = $_POST['end_date'] ?? '';
+    $start_date = $_POST['start_date'] ?? '';
+    $end_date = $_POST['end_date'] ?? '';
 
     // Validar campos obligatorios
     if ($title === '') {
         $errors[] = 'El título es obligatorio.';
     }
-    if ($startDate === '') {
+    if ($start_date === '') {
         $errors[] = 'La fecha y hora de inicio son obligatorias.';
     }
-    if ($endDate === '') {
+    if ($end_date === '') {
         $errors[] = 'La fecha y hora de fin son obligatorias.';
     }
 
     // Validar formato y lógica de fechas
-    if ($startDate && $endDate) {
-        $startTimestamp = strtotime($startDate);
-        $endTimestamp = strtotime($endDate);
+    if ($start_date && $end_date) {
+        $startTimestamp = strtotime($start_date);
+        $endTimestamp = strtotime($end_date);
 
         if ($startTimestamp === false || $endTimestamp === false) {
             $errors[] = 'Formato de fecha y hora inválido.';
@@ -54,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         // Crear evento
-        $event = new Event($userId, $title, $description, $startDate, $endDate);
+        $event = new Event($userId, $title, $description, $start_date, $end_date);
         if ($dataAccess->createEvent($event)) {
             // Redirigir a lista de eventos
-            header('Location: events_list.php');
+            header('Location: events.php');
             exit;
         } else {
             $errors[] = 'Error al guardar el evento. Intenta nuevamente.';
@@ -78,22 +78,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div>
-        <form action="#!" method="post">
-
-            <label for="titulo">Título</label>
-            <input type="text" name="titutlo" id="titulo" value="<?= $title ?>" required>
-
-            <label for="descripcion">Descripción</label>
-            <textarea name="descripcion" id="descripcion" value="<?= $description ?>"></textarea>
-
-            <label for="fecha_hora_inicio">Fecha y hora de inicio</label>
-            <input type="datetime-local" name="fecha_hora_inicio" id="fecha_hora_inicio" value="<?= $start_date ?>" required>
-
-            <label for="fecha_hora_fin">Fecha y hora de fin</label>
-            <input type="datetime-local" name="fecha_hora_fin" id="fecha_hora_fin" value="<?= $end_date ?>">
-
-            <button type="submit">Crear un nuevo evento</button>
+    <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
+        <form method="post">
+            <div class="mb-3 text-center">
+                <label for="title" class="form-label">Título</label>
+                <input type="text" class="form-control" name="title" id="title" value="<?= $title ?>" required>
+            </div>
+            <div class="mb-3 text-center">
+                <label for="fecha_hora_inicio" class="form-label">Fecha y hora de inicio</label>
+                <input type="datetime-local" name="start_date" id="start_date" class="form-control" value="<?= $start_date ?>" required>
+            </div>
+            <div class="mb-3 text-center">
+                <label for="fecha_hora_fin" class="form-label">Fecha y hora de fin</label>
+                <input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?= $end_date ?>">
+            </div>
+            <div class="mb-3 text-center ">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea name="description" class="form-control" id="description" value="<?= $description ?>"></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" name="action" value="new-event" class="btn btn-primary w-100">Crear un nuevo evento</button>
+            </div>
         </form>
     </div>
 </body>
