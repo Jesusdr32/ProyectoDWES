@@ -41,39 +41,40 @@ if (empty($dataAccess->getEventsByUserId($_SESSION['user_id']))) {
 </head>
 
 <body>
-    <div class="container d-flex mt-5 justify-content-center align-items-center vh-100 p-5" style="font-size: 1.2rem;">
+    <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.2rem;">
         <div>
             <h2 class="mb-4 text-center">Eventos</h2>
             <div class="container">
-                <a href="../aplicacion/new-event.php">Nuevo evento</a>
+                <a href="../aplicacion/new-event.php"><i class="fa-regular fa-calendar-plus"></i><span class="visually-hidden">Nuevo evento</span></a>
                 <?php if ($hayEventos): ?>
-                    <?php foreach ($eventos as $evento): ?>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Titulo</th>
-                                    <th>Descripcion</th>
-                                    <th>Fecha y hora de inicio</th>
-                                    <th>Fecha y hora de fin</th>
-                                    <th>Modificaciones</th>
-                                </tr>
-                            </thead>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table-primary">
+                                <th scope="col">ID</th>
+                                <th scope="col">Titulo</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Fecha y hora de inicio</th>
+                                <th scope="col">Fecha y hora de fin</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <?php foreach ($eventos as $evento): ?>
                             <tr>
                                 <td><?= $evento->getId() ?></td>
                                 <td><?= $evento->getTitle() ?></td>
                                 <td><?= $evento->getDescription() ?></td>
                                 <td><?= $evento->getStartDate() ?></td>
                                 <td><?= $evento->getEndDate() ?></td>
-                                <td><a href="../aplicacion/edit-event.php">Editar evento</a> / <a href="../aplicacion/delete-event.php">Eliminar evento</a></td>
+                                <td><a href="../aplicacion/edit-event.php?id=<?= $evento->getId() ?>"><i class="fa-regular fa-pen-to-square"></i><span class="visually-hidden">Editar evento</span></a> / <a href="../aplicacion/delete-event.php?id=<?= $evento->getId() ?>"><i class="fa-regular fa-trash-can"></i><span class="visually-hidden">Eliminar evento</span></a></td>
                             </tr>
-
-                        </table>
-                    <?php endforeach ?>
+                        <?php endforeach ?>
+                    </table>
+                    <a href="../aplicacion/new-event.php"><i class="fa-regular fa-calendar-plus"></i><span class="visually-hidden">Nuevo evento</span></a>
                 <?php else : ?>
-                    <p>No hay eventos</p>
+                    <div class="alert alert-warning">
+                        <p>No hay eventos</p>
+                    </div>
                 <?php endif ?>
-                <a href="../aplicacion/new-event.php">Nuevo evento</a>
             </div>
         </div>
     </div>

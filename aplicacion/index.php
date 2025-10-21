@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div class="container d-flex mt-5 justify-content-center align-items-center vh-100 p-5" style="font-size: 1.2rem;">
+    <div class="container d-flex justify-content-center align-items-center vh-100 p-5" style="font-size: 1.2rem;">
         <div>
             <h2 class="mb-4 text-center">Iniciar sesión</h2>
 

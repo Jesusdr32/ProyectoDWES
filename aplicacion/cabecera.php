@@ -47,12 +47,10 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Mi aplicación</a>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <?php if ($name): ?>
-                    <li class="nav-item">
-                        <span class="navbar-text"><i class="fa-solid fa-user"></i><?= $name . ' ' . $last_name ?></span>
-                    </li>
+            <span class="navbar-brand"><i class="fa-solid fa-calendar-days"></i>Schedulr</span>
+            <?php if ($name): ?>
+                <span class="navbar-text"><i class="fa-solid fa-user"></i><?= $name . ' ' . $last_name ?></span>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $user_profile ?>">Perfil de usuario</a>
                     </li>
@@ -67,7 +65,7 @@ if (isset($_SESSION['user_id'])) {
                         <span class="navbar-brand">Usuario no identificado</span>
                     </li>
                 <?php endif; ?>
-            </ul>
+                </ul>
         </div>
     </nav>
 </body>
