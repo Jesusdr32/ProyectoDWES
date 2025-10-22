@@ -64,7 +64,6 @@ if (empty($dataAccess->getEventsByUserId($_SESSION['user_id']))) {
                                 <td><?= $evento->getTitle() ?></td>
                                 <td><?= $evento->getDescription() ?></td>
                                 <td><?= $evento->getStartDate() ?></td>
-                                <!--<td><?= date('Y-m-d H:i', strtotime($evento->start_date)) ?></td>-->
                                 <td><?= $evento->getEndDate() ?></td>
                                 <td><a href="../aplicacion/edit-event.php?id=<?= $evento->getId() ?>"><i class="fa-regular fa-pen-to-square"></i><span class="visually-hidden">Editar evento</span></a> / <a href="../aplicacion/delete-event.php?id=<?= $evento->getId() ?>"><i class="fa-regular fa-trash-can"></i><span class="visually-hidden">Eliminar evento</span></a></td>
                             </tr>

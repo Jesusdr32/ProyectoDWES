@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+//$idEvento = $_GET['id'];
+
 //Incluir la clase cabecera.php
 include __DIR__ . '/../aplicacion/cabecera.php';
 
@@ -20,5 +22,3 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 //Si el usuario tiene o no eventos creados
-$idEvento = $_GET['id'];
-var_dump($idEvento);
