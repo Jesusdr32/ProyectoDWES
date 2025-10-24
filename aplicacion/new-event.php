@@ -40,15 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'La fecha y hora de fin son obligatorias.';
     }
 
-    // Validar formato y lógica de fechas
+    // Validar formato y lógica de fechas y formateo de la fecha para que en events.php no aparezca la T
     if ($start_date && $end_date) {
-        $startTimestamp = strtotime($start_date);
-        $endTimestamp = strtotime($end_date);
+        try {
+            $startDateTime = new DateTime($start_date);
+            $endDateTime = new DateTime($end_date);
 
-        if ($startTimestamp === false || $endTimestamp === false) {
+            if ($endDateTime <= $startDateTime) {
+                $errors[] = 'La fecha y hora de fin debe ser posterior a la fecha y hora de inicio.';
+            } else {
+                $start_date = $startDateTime->format('Y-m-d H:i');
+                $end_date = $endDateTime->format('Y-m-d H:i');
+            }
+        } catch (Exception $e) {
             $errors[] = 'Formato de fecha y hora inválido.';
-        } elseif ($endTimestamp <= $startTimestamp) {
-            $errors[] = 'La fecha y hora de fin debe ser posterior a la fecha y hora de inicio.';
         }
     }
 
@@ -90,11 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="mb-3 text-center">
                 <label for="fecha_hora_fin" class="form-label">Fecha y hora de fin</label>
-                <input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?= $end_date ?>">
+                <input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?= $end_date ?>" required>
             </div>
             <div class="mb-3 text-center ">
                 <label for="descripcion" class="form-label">Descripción</label>
-                <textarea name="description" class="form-control" id="description" value="<?= $description ?>"></textarea>
+                <textarea name="description" class="form-control" id="description"><?= $description ?></textarea>
             </div>
             <div class="mb-3">
                 <button type="submit" name="action" value="new-event" class="btn btn-primary w-100">Crear un nuevo evento</button>
