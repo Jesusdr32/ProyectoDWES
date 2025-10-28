@@ -12,7 +12,7 @@ $logout = '../aplicacion/logout.php';
 $change_password = '#!';
 
 //Ruta a la página user-profile.php
-$user_profile = '#!';
+$user_profile = '/../aplicacion/profile.php';
 
 //Crear instancia de acceso a datos
 $dataAccess = new CalendarDataAccess($dbFile);

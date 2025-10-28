@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: events.php');
             exit;
         } else {
-            $errors[] = 'Error al guardar el evento. Intenta nuevamente.';
+            array_push($errors, "Error al guardar el evento. Intenta nuevamente.");
         }
     }
 }
