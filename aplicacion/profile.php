@@ -51,7 +51,7 @@ if (!isset($_SESSION['user_id'])) {
             <dt>Acerca de mí:</dt>
             <dd><?= nl2br($user->getAbout()) ?></dd>
         </dl>
-        <a href="events.php">Modificar Perfil</a>
+        <a href="#!">Modificar Perfil</a>
     </div>
 </body>
 
