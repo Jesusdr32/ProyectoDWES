@@ -117,14 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container mt-5" style="max-width: 400px;">
         <h2 class="mb-4 text-center">Formulario de registro</h2>
-        <!--<?php
-            echo "<h2>Todos los usuarios</h2><ul>";
-            $usuarios = $dataAccess->getAllUsers();
-            foreach ($usuarios as $u) {
-                echo "<li>ID: {$u->getId()}, Nombre: {$u->getFirstName()} {$u->getLastName()}, Email: {$u->getEmail()}</li>";
-            }
-            echo "</ul>";
-            ?>-->
         <!--El usuario ya ha sido creado, ahora se manda al usuario a la página de index.php para que inicie sesión-->
         <?php if (($_SERVER['REQUEST_METHOD'] == 'POST') && empty($errors)) : ?>
             <div class="alert alert-success">
