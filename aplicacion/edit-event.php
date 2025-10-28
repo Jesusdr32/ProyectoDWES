@@ -83,24 +83,27 @@ if (!isset($_SESSION['user_id'])) {
                     array_push($errors, 'Formato de fecha y hora inválido.');
                 }
             }
-            if (empty($errors)) {
-                // Modificar el evento
-                $event = new Event($userId, $title, $description, $start_date, $end_date);
-                if ($dataAccess->updateEvent($event)) {
-                    // Redirigir a lista de eventos
-                    header('Location: events.php');
-                    exit;
-                } else {
-                    array_push($errors, 'Error al guardar el evento. Intenta nuevamente.');
-                }
-            }
         }
 
     ?>
         <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
             <!--Formulario de edición del evento con los campos rellenados con los datos antiguos-->
+            <!--El evento ha sido modificado correctramente, ahora se manda al usuario a la página de events.php para mostrar los eventos modificados-->
+            <?php if (($_SERVER['REQUEST_METHOD'] == 'POST') && empty($errors)): ?>
+                <?php if (empty($errors)) {
+                    // Modificar el evento
+                    $event = new Event($userId, $title, $description, $start_date, $end_date);
+                    if ($dataAccess->updateEvent($event)) {
+                        // Redirigir a lista de eventos
+                        header('Location: events.php');
+                        exit;
+                    } else {
+                        array_push($errors, 'Error al guardar el evento. Intenta nuevamente.');
+                    }
+                } ?>
+            <?php endif; ?>
+            <!--Enseña todos los errores del formulario-->
             <?php if ($_SERVER['REQUEST_METHOD'] == 'GET' || !empty($errors)): ?>
-                <!--Enseña todos los errores del formulario-->
                 <?php if (!empty($errors)): ?>
                     <div class="alert alert-danger">
                         <ul>
