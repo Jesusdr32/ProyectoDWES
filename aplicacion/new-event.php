@@ -10,6 +10,13 @@ include __DIR__ . '/../aplicacion/cabecera.php';
 $dbFile = __DIR__ . '/../DesarrolloAplicacionPHP/data-access/calendar.db';
 $dataAccess = new CalendarDataAccess($dbFile);
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
+$userId = $_SESSION['user_id'];
+
 $errors = [];
 $title = '';
 $description = '';
@@ -25,13 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validar campos obligatorios
     if ($title === '') {
-        $errors[] = 'El título es obligatorio.';
+        array_push($errors, "El título es obligatorio.");
     }
     if ($start_date === '') {
-        $errors[] = 'La fecha y hora de inicio son obligatorias.';
+        array_push($errors, "La fecha y hora de inicio son obligatorias.");
     }
     if ($end_date === '') {
-        $errors[] = 'La fecha y hora de fin son obligatorias.';
+        array_push($errors, "La fecha y hora de fin son obligatorias.");
     }
 
     // Validar formato y lógica de fechas y formateo de la fecha para que en events.php no aparezca la T
@@ -41,13 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $endDateTime = new DateTime($end_date);
 
             if ($endDateTime <= $startDateTime) {
-                $errors[] = 'La fecha y hora de fin debe ser posterior a la fecha y hora de inicio.';
+                array_push($errors, "La fecha y hora de fin debe ser posterior a la fecha y hora de inicio.");
             } else {
                 $start_date = $startDateTime->format('Y-m-d H:i');
                 $end_date = $endDateTime->format('Y-m-d H:i');
             }
         } catch (Exception $e) {
-            $errors[] = 'Formato de fecha y hora inválido.';
+            array_push($errors, "Formato de fecha y hora inválido.");
         }
     }
 
@@ -77,28 +84,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
-        <form method="post">
-            <div class="mb-3 text-center">
-                <label for="title" class="form-label">Título</label>
-                <input type="text" class="form-control" name="title" id="title" value="<?= $title ?>" required>
+    <div>
+        <?php if ($_SERVER['REQUEST_METHOD'] == 'GET' || !empty($errors)): ?>
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <?php foreach ($errors as $error): ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+            <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
+                <form method="post">
+                    <div class="mb-3 text-center">
+                        <label for="title" class="form-label">Título</label>
+                        <input type="text" class="form-control" name="title" id="title" value="<?= $title ?>" required>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <label for="fecha_hora_inicio" class="form-label">Fecha y hora de inicio</label>
+                        <input type="datetime-local" name="start_date" id="start_date" class="form-control" value="<?= $start_date ?>" required>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <label for="fecha_hora_fin" class="form-label">Fecha y hora de fin</label>
+                        <input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?= $end_date ?>" required>
+                    </div>
+                    <div class="mb-3 text-center ">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea name="description" class="form-control" id="description"><?= $description ?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" name="action" value="new-event" class="btn btn-primary w-100">Crear un nuevo evento</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3 text-center">
-                <label for="fecha_hora_inicio" class="form-label">Fecha y hora de inicio</label>
-                <input type="datetime-local" name="start_date" id="start_date" class="form-control" value="<?= $start_date ?>" required>
-            </div>
-            <div class="mb-3 text-center">
-                <label for="fecha_hora_fin" class="form-label">Fecha y hora de fin</label>
-                <input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?= $end_date ?>" required>
-            </div>
-            <div class="mb-3 text-center ">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea name="description" class="form-control" id="description"><?= $description ?></textarea>
-            </div>
-            <div class="mb-3">
-                <button type="submit" name="action" value="new-event" class="btn btn-primary w-100">Crear un nuevo evento</button>
-            </div>
-        </form>
+        <?php endif; ?>
     </div>
 </body>
 
