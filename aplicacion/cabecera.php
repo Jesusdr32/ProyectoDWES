@@ -47,7 +47,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <span class="navbar-brand"><i class="fa-solid fa-calendar-days"></i>Schedulr</span>
+            <span class="navbar-brand"><a class="nav-link" href="/../aplicacion/events.php"><i class="fa-solid fa-calendar-days"></i>Schedulr</a></span>
             <?php if ($name): ?>
                 <span class="navbar-text"><i class="fa-solid fa-user"></i><?= $name . ' ' . $last_name ?></span>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
