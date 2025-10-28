@@ -10,18 +10,20 @@ include __DIR__ . '/../aplicacion/cabecera.php';
 $dbFile = __DIR__ . '/../DesarrolloAplicacionPHP/data-access/calendar.db';
 $dataAccess = new CalendarDataAccess($dbFile);
 
+// Verifica que el usuario haya iniciado sesión y obtiene su ID desde la sesión
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
-
 $userId = $_SESSION['user_id'];
+
 
 $errors = [];
 $title = '';
 $description = '';
 $start_date = '';
 $end_date = '';
+
 
 //Envio del formulario por el método POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
