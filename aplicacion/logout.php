@@ -13,8 +13,9 @@ if (!isset($_SESSION['user_id'])) {
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     if (isset($_POST['action']) && $_POST['action'] === 'logout') {
         //Cerrar sesión correctamente 
-        session_unset();
-        session_destroy();
+        session_unset(); //Borra las variables de sesión
+        session_regenerate_id(true); //Regenera el ID de sesión
+        session_destroy(); //Destruye la sesión
         setcookie(session_name(), '', time() - 3600, '/'); //Borrar las cookies
         header("Location: index.php");
         exit;

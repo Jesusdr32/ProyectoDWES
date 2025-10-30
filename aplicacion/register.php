@@ -14,9 +14,9 @@ $dbFile = __DIR__ . '/../DesarrolloAplicacionPHP/data-access/calendar.db';
 $dataAccess = new CalendarDataAccess($dbFile);
 
 //Si hay una sesión iniciada, redirigir a events.php
-if (isset($_SESSION['userId'])) {
-    header("Location: events.php");
-    exit;
+if (isset($_SESSION['user_id'])) {
+    header('Location: events.php');
+    exit();
 }
 
 //Crear los atributos utilizados en la página
