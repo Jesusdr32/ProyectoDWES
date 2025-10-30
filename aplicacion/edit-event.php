@@ -44,10 +44,10 @@ if (!isset($_SESSION['user_id'])) {
     } else {
         //Obtenemos los datos del evento en cuestión
         $errors = [];
-        $tituloEvento = $evento->getTitle() ?? '';
-        $inicioEvento = $evento->getStartDate() ?? '';
-        $finEvento = $evento->getEndDate() ?? '';
-        $descripcionEvento = $evento->getDescription() ?? '';
+        $title = $evento->getTitle() ?? '';
+        $start_date = $evento->getStartDate() ?? '';
+        $end_date = $evento->getEndDate() ?? '';
+        $description = $evento->getDescription() ?? '';
 
         //Envio del formulario por el método POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -86,13 +86,13 @@ if (!isset($_SESSION['user_id'])) {
         }
 
     ?>
+        <!--Formulario de edición del evento con los campos rellenados con los datos antiguos-->
         <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
-            <!--Formulario de edición del evento con los campos rellenados con los datos antiguos-->
             <!--El evento ha sido modificado correctramente, ahora se manda al usuario a la página de events.php para mostrar los eventos modificados-->
             <?php if (($_SERVER['REQUEST_METHOD'] == 'POST') && empty($errors)): ?>
-                <?php if (empty($errors)) {
+                <?php if (empty($errors) && $_POST['action'] === 'edit-event') {
                     // Modificar el evento
-                    $event = new Event($userId, $title, $description, $start_date, $end_date);
+                    $event = new Event($_SESSION['user_id'], $title, $description, $start_date, $end_date, $idEvento);
                     if ($dataAccess->updateEvent($event)) {
                         // Redirigir a lista de eventos
                         header('Location: events.php');
@@ -100,6 +100,9 @@ if (!isset($_SESSION['user_id'])) {
                     } else {
                         array_push($errors, 'Error al guardar el evento. Intenta nuevamente.');
                     }
+                } elseif ($_POST['action'] === 'cancel') {
+                    header('Location: events.php');
+                    exit;
                 } ?>
             <?php endif; ?>
             <!--Enseña todos los errores del formulario-->
@@ -117,19 +120,19 @@ if (!isset($_SESSION['user_id'])) {
                     <form method="post">
                         <div class="mb-3 text-center">
                             <label for="title" class="form-label">Título</label>
-                            <input type="text" class="form-control" name="title" id="title" value="<?= $tituloEvento ?>" required>
+                            <input type="text" class="form-control" name="title" id="title" value="<?= $title ?>" required>
                         </div>
                         <div class="mb-3 text-center">
                             <label for="fecha_hora_inicio" class="form-label">Fecha y hora de inicio</label>
-                            <input type="datetime-local" name="start_date" id="start_date" class="form-control" value="<?= $inicioEvento ?>" required>
+                            <input type="datetime-local" name="start_date" id="start_date" class="form-control" value="<?= $start_date ?>" required>
                         </div>
                         <div class="mb-3 text-center">
                             <label for="fecha_hora_fin" class="form-label">Fecha y hora de fin</label>
-                            <input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?= $finEvento ?>" required>
+                            <input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?= $end_date ?>" required>
                         </div>
                         <div class="mb-3 text-center ">
                             <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea name="description" class="form-control" id="description"><?= $descripcionEvento ?></textarea>
+                            <textarea name="description" class="form-control" id="description"><?= $description ?></textarea>
                         </div>
                         <div class="mb-3">
                             <button type="submit" name="action" value="edit-event" class="btn btn-primary">Confirmar editar evento</button>
