@@ -47,7 +47,7 @@ if (empty($dataAccess->getEventsByUserId($_SESSION['user_id']))) {
             <div class="container">
                 <a href="../aplicacion/new-event.php"><i class="fa-regular fa-calendar-plus"></i><span class="visually-hidden">Nuevo evento</span></a>
                 <?php if ($hayEventos): ?>
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr class="table-primary">
                                 <th scope="col">ID</th>
@@ -72,7 +72,7 @@ if (empty($dataAccess->getEventsByUserId($_SESSION['user_id']))) {
                     <a href="../aplicacion/new-event.php"><i class="fa-regular fa-calendar-plus"></i><span class="visually-hidden">Nuevo evento</span></a>
                 <?php else : ?>
                     <div class="alert alert-warning">
-                        <p>No hay eventos</p>
+                        <p class="text-center">No hay eventos</p>
                     </div>
                 <?php endif ?>
             </div>

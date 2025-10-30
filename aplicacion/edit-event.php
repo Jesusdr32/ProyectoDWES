@@ -87,35 +87,36 @@ if (!isset($_SESSION['user_id'])) {
 
     ?>
         <!--Formulario de edición del evento con los campos rellenados con los datos antiguos-->
-        <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
-            <!--El evento ha sido modificado correctramente, ahora se manda al usuario a la página de events.php para mostrar los eventos modificados-->
-            <?php if (($_SERVER['REQUEST_METHOD'] == 'POST') && empty($errors)): ?>
-                <?php if (empty($errors) && $_POST['action'] === 'edit-event') {
-                    // Modificar el evento
-                    $event = new Event($_SESSION['user_id'], $title, $description, $start_date, $end_date, $idEvento);
-                    if ($dataAccess->updateEvent($event)) {
-                        // Redirigir a lista de eventos
-                        header('Location: events.php');
-                        exit;
-                    } else {
-                        array_push($errors, 'Error al guardar el evento. Intenta nuevamente.');
-                    }
-                } elseif ($_POST['action'] === 'cancel') {
+        <!--El evento ha sido modificado correctramente, ahora se manda al usuario a la página de events.php para mostrar los eventos modificados-->
+        <?php if (($_SERVER['REQUEST_METHOD'] == 'POST')): ?>
+            <?php if ($_POST['action'] === 'cancel') {
+                header('Location: events.php');
+                exit;
+            }
+            if (empty($errors) && $_POST['action'] === 'edit-event') {
+                // Modificar el evento
+                $event = new Event($_SESSION['user_id'], $title, $description, $start_date, $end_date, $idEvento);
+                if ($dataAccess->updateEvent($event)) {
+                    // Redirigir a lista de eventos
                     header('Location: events.php');
                     exit;
-                } ?>
+                } else {
+                    array_push($errors, 'Error al guardar el evento. Intenta nuevamente.');
+                }
+            } ?>
+        <?php endif; ?>
+        <!--Enseña todos los errores del formulario-->
+        <?php if ($_SERVER['REQUEST_METHOD'] == 'GET' || !empty($errors)): ?>
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger">
+                    <ul class="list-unstyled text-center">
+                        <?php foreach ($errors as $error): ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
             <?php endif; ?>
-            <!--Enseña todos los errores del formulario-->
-            <?php if ($_SERVER['REQUEST_METHOD'] == 'GET' || !empty($errors)): ?>
-                <?php if (!empty($errors)): ?>
-                    <div class="alert alert-danger">
-                        <ul>
-                            <?php foreach ($errors as $error): ?>
-                                <li><?= $error ?></li>
-                            <?php endforeach ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
+            <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
                 <div>
                     <form method="post">
                         <div class="mb-3 text-center">
@@ -135,16 +136,16 @@ if (!isset($_SESSION['user_id'])) {
                             <textarea name="description" class="form-control" id="description"><?= $description ?></textarea>
                         </div>
                         <div class="mb-3">
-                            <button type="submit" name="action" value="edit-event" class="btn btn-primary">Confirmar editar evento</button>
-                            <button type="submit" name="action" value="cancel" class="btn btn-danger">Cancelar editar evento</button>
+                            <button type="submit" name="action" value="edit-event" class="btn btn-outline-primary">Confirmar editar evento</button>
+                            <button type="submit" name="action" value="cancel" class="btn btn-outline-danger">Cancelar editar evento</button>
                         </div>
                     </form>
                 </div>
             <?php endif; ?>
-        </div>
-    <?php
+            </div>
+        <?php
     }
-    ?>
+        ?>
 </body>
 
 </html>

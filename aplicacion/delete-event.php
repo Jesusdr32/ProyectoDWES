@@ -60,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         <h2 class="mb-3 text-center">¿Seguro que desea eliminar el evento "<?php echo $event->getTitle(); ?>"?</h2>
         <form method="post">
             <div class="d-flex justify-content-around">
-                <button type="submit" name="action" value="yes" class="btn btn-danger">Sí, eliminar el evento</button>
-                <button type="submit" name="action" value="no" class="btn btn-secondary">No, volver al listado de eventos</button>
+                <button type="submit" name="action" value="yes" class="btn btn-outline-danger">Sí, eliminar el evento</button>
+                <button type="submit" name="action" value="no" class="btn btn-outline-secondary">No, volver al listado de eventos</button>
             </div>
         </form>
     </div>

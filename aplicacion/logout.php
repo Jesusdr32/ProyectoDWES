@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+include __DIR__ . '/../aplicacion/cabecera.php';
 
 //Si no hay una sesión iniciada, la página se redirige de forma automática a index.php
 if (!isset($_SESSION['user_id'])) {
@@ -41,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         <h3 class="mb-3 text-center">¿Seguro que desa desconectar?</h3>
         <form method="post">
             <div class="d-flex justify-content-around">
-                <button type="submit" name="action" value="logout" class="btn btn-danger">Sí, desconectar</button>
-                <button type="submit" name="action" value="cancel" class="btn btn-secondary">No, volver al listado de eventos</button>
+                <button type="submit" name="action" value="logout" class="btn btn-outline-danger">Sí, desconectar</button>
+                <button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">No, volver al listado de eventos</button>
             </div>
         </form>
     </div>

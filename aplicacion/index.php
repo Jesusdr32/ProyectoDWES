@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label class="form-check-label" for="remember">Recuérdame</label>
                 </div>
 
-                <button type="submit" name="action" value="login" class="btn btn-primary w-100">Entrar</button>
+                <button type="submit" name="action" value="login" class="btn btn-outline-primary w-100">Entrar</button>
             </form>
 
             <p class="mt-3">¿No tienes cuenta? <a href="register.php">Regístrate</a></p>

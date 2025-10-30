@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="password" name="password-repeat" id="password-repeat" class="form-control" placeholder="········" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra y un número" value="<?= htmlspecialchars($password_repeat) ?>" required>
                 </div>
                 <div class="mb-3 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Registrarme</button>
+                    <button type="submit" class="btn btn-outline-primary">Registrarme</button>
                 </div>
             </form>
             <div class="mb-3">

@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if ($_SERVER['REQUEST_METHOD'] == 'GET' || !empty($errors)): ?>
             <?php if (!empty($errors)): ?>
                 <div class="alert alert-danger">
-                    <ul>
+                    <ul class="list-unstyled text-center">
                         <?php foreach ($errors as $error): ?>
                             <li><?= $error ?></li>
                         <?php endforeach; ?>
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <textarea name="description" class="form-control" id="description"><?= $description ?></textarea>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" name="action" value="new-event" class="btn btn-primary w-100">Crear un nuevo evento</button>
+                        <button type="submit" name="action" value="new-event" class="btn btn-outline-primary w-100">Crear un nuevo evento</button>
                     </div>
                 </form>
             </div>
