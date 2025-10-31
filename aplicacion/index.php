@@ -79,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8" />
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -90,14 +91,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert alert-danger"><?= ($error) ?></div>
             <?php endif; ?>
 
-            <form method="POST" action="">
+            <form method="post" class="bg-white rounded shadow" style="padding: 3rem; width: 350px;">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo electrónico</label>
+                    <label for="email" class="form-label"><i class="fa-solid fa-envelope"></i>Correo electrónico</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="usuario@ejemplo.com" required value="<?= ($email) ?>" />
                 </div>
 
                 <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
+                    <label for="password" class="form-label"><i class="fa-solid fa-lock"></i>Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="········" required />
                 </div>
 

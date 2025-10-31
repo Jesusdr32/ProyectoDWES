@@ -16,16 +16,18 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
-$eventId = (int)$_GET['id'];
+$eventId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? false;
 
 // Instanciamos la clase de acceso a datos
 $dataAccess = new CalendarDataAccess(__DIR__ . "/../DesarrolloAplicacionPHP/data-access/calendar.db");
 
 // Obtenemos el evento
-$event = $dataAccess->getEventById($eventId);
+if ($eventId !== false) {
+    $event = $dataAccess->getEventById($eventId);
+}
 
 // Verificamos que el evento existe y pertenece al usuario
-if (!$event || $event->getUserId() !== $userId) {
+if ($event == null || $event->getUserId() !== $userId) {
     echo '<div class="alert alert-danger text-center"><p>No se puede acceder al evento porque no existe o porque no tiene permisos para verlo.</p>
           <a href="events.php">Volver al listado de eventos</a></div>';
     exit;

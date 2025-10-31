@@ -112,15 +112,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <div class="container mt-5" style="max-width: 400px;">
-        <h2 class="mb-4 text-center">Formulario de registro</h2>
+        <h2 class="mb-4 text-center"><i class="fa fa-user-plus"></i> Formulario de registro</h2>
         <!--El usuario ya ha sido creado, ahora se manda al usuario a la página de index.php para que inicie sesión-->
         <?php if (($_SERVER['REQUEST_METHOD'] == 'POST') && empty($errors)) : ?>
             <div class="alert alert-success">
-                <p>Usuario creado con éxito</p><br>
+                <p><i class="fa fa-check-circle"></i> Usuario creado con éxito</p><br>
                 <a href="index.php">Inicia sesión</a>
             </div>
         <?php endif; ?>
@@ -135,9 +136,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </ul>
                 </div>
             <?php endif; ?>
-            <form method="post">
+            <form method="post" class="bg-white rounded shadow" style="padding: 3rem; width: 350px;">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo electrónico: </label>
+                    <label for="email" class="form-label"><i class="fa-solid fa-envelope"></i>Correo electrónico: </label>
                     <input type="email" name="email" id="email" class="form-control" placeholder="usuario@ejemplo.com" value="<?= htmlspecialchars($email) ?>" required>
                 </div>
                 <div class="mb-3">
@@ -149,15 +150,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="text" name="last-name" id="last-name" class="form-control" placeholder="Apellidos" value="<?= htmlspecialchars($last_name) ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="birth-day" class="form-label">Fecha de nacimiento: </label>
+                    <label for="birth-day" class="form-label"><i class="fa fa-calendar-alt"></i>Fecha de nacimiento: </label>
                     <input type="date" name="birth-day" id="birth-day" class="form-control" value="<?= htmlspecialchars($birth_day) ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña: </label>
+                    <label for="password" class="form-label"><i class="fa-solid fa-lock"></i>Contraseña: </label>
                     <input type="password" name="password" id="password" class="form-control" placeholder="········" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra y un número" value="<?= htmlspecialchars($password) ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password-repeat" class="form-label">Repetir contraseña: </label>
+                    <label for="password-repeat" class="form-label"><i class="fa-solid fa-lock"></i>Repetir contraseña: </label>
                     <input type="password" name="password-repeat" id="password-repeat" class="form-control" placeholder="········" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra y un número" value="<?= htmlspecialchars($password_repeat) ?>" required>
                 </div>
                 <div class="mb-3 d-flex justify-content-center">
