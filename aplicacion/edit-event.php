@@ -25,7 +25,10 @@ if (!isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar evento</title>
+    <title>Schedulr-Editar evento</title>
+    <link rel="icon" href="icono-aplicacion.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 
 <body>
@@ -135,9 +138,9 @@ if (!isset($_SESSION['user_id'])) {
                             <label for="descripcion" class="form-label">Descripción</label>
                             <textarea name="description" class="form-control" id="description"><?= $description ?></textarea>
                         </div>
-                        <div class="mb-3">
-                            <button type="submit" name="action" value="edit-event" class="btn btn-outline-primary">Confirmar editar evento</button>
-                            <button type="submit" name="action" value="cancel" class="btn btn-outline-danger">Cancelar editar evento</button>
+                        <div class="mb-3 text-center">
+                            <button type="submit" name="action" value="edit-event" class="btn btn-outline-primary btn-lg shadow-sm">Confirmar</button>
+                            <button type="submit" name="action" value="cancel" formnovalidate class="btn btn-outline-danger btn-lg shadow-sm">Cancelar</button>
                         </div>
                     </form>
                 </div>

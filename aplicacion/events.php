@@ -35,7 +35,8 @@ if (empty($dataAccess->getEventsByUserId($_SESSION['user_id']))) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda de eventos</title>
+    <title>Schedulr-Agenda de eventos</title>
+    <link rel="icon" href="icono-aplicacion.svg" type="image/svg+xml">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -50,9 +51,8 @@ if (empty($dataAccess->getEventsByUserId($_SESSION['user_id']))) {
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr class="table-primary">
-                                <th scope="col">ID</th>
-                                <th scope="col">Titulo</th>
-                                <th scope="col">Descripcion</th>
+                                <th scope="col">Título</th>
+                                <th scope="col">Descripción</th>
                                 <th scope="col">Fecha y hora de inicio</th>
                                 <th scope="col">Fecha y hora de fin</th>
                                 <th scope="col"></th>
@@ -60,9 +60,8 @@ if (empty($dataAccess->getEventsByUserId($_SESSION['user_id']))) {
                         </thead>
                         <?php foreach ($eventos as $evento): ?>
                             <tr>
-                                <td><?= $evento->getId() ?></td>
                                 <td><?= $evento->getTitle() ?></td>
-                                <td><?= $evento->getDescription() ?></td>
+                                <td class="text-truncate" style="max-width: 20em;"><?= $evento->getDescription() ?></td>
                                 <td><?= $evento->getStartDate() ?></td>
                                 <td><?= $evento->getEndDate() ?></td>
                                 <td><a href="../aplicacion/edit-event.php?id=<?= $evento->getId() ?>"><i class="fa-regular fa-pen-to-square"></i><span class="visually-hidden">Editar evento</span></a> / <a href="../aplicacion/delete-event.php?id=<?= $evento->getId() ?>"><i class="fa-regular fa-trash-can"></i><span class="visually-hidden">Eliminar evento</span></a></td>

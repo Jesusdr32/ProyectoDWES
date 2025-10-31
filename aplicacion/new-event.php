@@ -24,7 +24,11 @@ $description = '';
 $start_date = '';
 $end_date = '';
 
-
+//Si se pulsa cancelar
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'cancel') {
+    header('Location: events.php');
+    exit;
+}
 //Envio del formulario por el método POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title'] ?? '');
@@ -80,9 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="icono-aplicacion.svg" type="image/svg+xml">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Nuevo Evento</title>
+    <title>Schedulr-Nuevo Evento</title>
 </head>
 
 <body>
@@ -98,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
             <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
-                <form method="post">
+                <form method="post" class="bg-white rounded shadow" style="padding: 3rem; width: 350px;">
                     <div class="mb-3 text-center">
                         <label for="title" class="form-label">Título</label>
                         <input type="text" class="form-control" name="title" id="title" value="<?= $title ?>" required>
@@ -115,8 +120,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="descripcion" class="form-label">Descripción</label>
                         <textarea name="description" class="form-control" id="description"><?= $description ?></textarea>
                     </div>
-                    <div class="mb-3">
-                        <button type="submit" name="action" value="new-event" class="btn btn-outline-primary w-100">Crear un nuevo evento</button>
+                    <div class="mb-3 text-center">
+                        <button type="submit" name="action" value="new-event" class="btn btn-outline-primary btn-lg shadow-sm">Crear</button>
+                        <button type="submit" name="action" value="cancel" formnovalidate class="btn btn-outline-danger btn-lg shadow-sm">Cancelar</button>
                     </div>
                 </form>
             </div>
