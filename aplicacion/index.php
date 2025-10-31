@@ -23,7 +23,7 @@ if (isset($_SESSION['user_id'])) {
 
 // Aquí seguiría la lógica para procesar el formulario de login, mostrar errores, etc.
 
-$error = '';
+$errors = [];
 $email = '';
 $password = '';
 $remember = false;
@@ -43,18 +43,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validar email y contraseña obligatorios
     if (empty($email)) {
-        $error = 'El correo electrónico es obligatorio.';
+        array_push($errors, "El correo electrónico es obligatorio.");
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Formato de correo electrónico no válido.';
+        array_push($errors, "Formato de correo electrónico no válido.");
     } elseif (empty($password)) {
-        $error = 'La contraseña es obligatoria.';
+        array_push($errors, "La contraseña es obligatoria.");
     } else {
         // Buscar usuario por email
         $user = $dataAccess->getUserByEmail($email);
         if (!$user || !password_verify($password, $user->getPassword())) {
-            $error = 'Correo electrónico o contraseña incorrectos.';
+            array_push($errors, "Correo electrónico o contraseña incorrectos.");
         } else {
             // Login exitoso
+            session_regenerate_id(true);
             $_SESSION['user_id'] = $user->getId();
 
             // Guardar cookie si recuerda usuario
@@ -83,12 +84,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div class="container d-flex justify-content-center align-items-center vh-100 p-5" style="font-size: 1.2rem;">
+    <div class="container d-flex justify-content-center align-items-center vh-100 p-5" style="font-size: 1.4rem;">
         <div>
             <h2 class="mb-4 text-center">Iniciar sesión</h2>
 
-            <?php if (!empty($error)): ?>
-                <div class="alert alert-danger"><?= ($error) ?></div>
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger">
+                    <ul class="list-unstyled text-center">
+                        <?php foreach ($errors as $error): ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             <?php endif; ?>
 
             <form method="post" class="bg-white rounded shadow" style="padding: 3rem; width: 350px;">
