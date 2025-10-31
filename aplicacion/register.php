@@ -47,9 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         array_push($errors, "No se ha introducido el nombre del usuario");
     }
 
+    if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u", $name)) {
+        array_push($errors, "Solo se permiten caracteres y espacios");
+    }
+
     //Validar los apellidos
     if (empty($last_name)) {
         array_push($errors, "No se han introducido los apellidos del usuario");
+    }
+
+    if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u", $last_name)) {
+        array_push($errors, "Solo se permiten caracteres y espacios");
     }
 
     //Validar la fecha de nacimiento

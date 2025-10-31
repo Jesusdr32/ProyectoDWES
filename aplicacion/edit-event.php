@@ -118,7 +118,7 @@ if (!isset($_SESSION['user_id'])) {
             <?php endif; ?>
             <div class="container d-flex justify-content-center align-items-center p-5" style="font-size: 1.4rem;">
                 <div>
-                    <form method="post">
+                    <form method="post" class="bg-white rounded shadow" style="padding: 3rem; width: 350px;">
                         <div class="mb-3 text-center">
                             <label for="title" class="form-label">Título</label>
                             <input type="text" class="form-control" name="title" id="title" value="<?= $title ?>" required>

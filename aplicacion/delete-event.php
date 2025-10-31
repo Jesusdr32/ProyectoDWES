@@ -58,14 +58,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h2 class="mb-3 text-center">¿Seguro que desea eliminar el evento "<?php echo $event->getTitle(); ?>"?</h2>
-        <form method="post">
-            <div class="d-flex justify-content-around">
-                <button type="submit" name="action" value="yes" class="btn btn-outline-danger">Sí, eliminar el evento</button>
-                <button type="submit" name="action" value="no" class="btn btn-outline-secondary">No, volver al listado de eventos</button>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="card p-4 text-center shadow-lg" style="max-width: 400px; border-radius: 15px;">
+            <div class="card-body">
+                <h3 class="card-title mb-3">¿Seguro que desea eliminar el evento "<?php echo $event->getTitle(); ?>"?</h3>
+                <form method="post">
+                    <div class="d-flex justify-content-around">
+                        <button type="submit" name="action" value="yes" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i><br>Sí, eliminar el evento</button>
+                        <button type="submit" name="action" value="no" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i><br>No, volver al listado de eventos</button>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </body>
 

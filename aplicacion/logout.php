@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
                 <p class="text-muted mb-4">Tu sesión se cerrará y tendrás que iniciar sesión nuevamente para acceder.</p>
                 <form method="post">
                     <div class="d-flex justify-content-around">
-                        <button type="submit" name="action" value="logout" class="btn btn-outline-danger btn-lg shadow-sm"><i class="fas fa-sign-out-alt me-2"></i><br>Sí, desconectar</button>
+                        <button type="submit" name="action" value="logout" class="btn btn-outline-danger btn-lg shadow-sm"><i class="fa-solid fa-power-off"></i><br>Sí, desconectar</button>
                         <button type="submit" name="action" value="cancel" class="btn btn-outline-secondary btn-lg shadow-sm"><i class="fas fa-arrow-left me-2"></i><br>No, volver</button>
                     </div>
                 </form>

@@ -49,7 +49,7 @@ if (!isset($_SESSION['user_id'])) {
             <dd><?= $user->getBirthDate() ?></dd>
 
             <dt>Acerca de mí:</dt>
-            <dd><?= nl2br($user->getAbout()) ?></dd>
+            <dd><?= $user->getAbout() ? nl2br(htmlspecialchars($user->getAbout())) : "Este elemento está vacío" ?></dd>
         </dl>
         <a href="#!">Modificar Perfil</a>
     </div>
