@@ -8,11 +8,11 @@
         <version>4.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>dwes</groupId>
-    <artifactId>a06-actividadSpringFundamental</artifactId>
+    <groupId>es.iesclaradelrey.da2d1e.shop-eah-jdr</groupId>
+    <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>a06-actividadSpringFundamental</name>
-    <description>a06-actividadSpringFundamental</description>
+    <name>shop-eah-jdr-web</name>
+    <description>shop-eah-jdr-web</description>
     <url/>
     <licenses>
         <license/>
@@ -59,6 +59,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>es.iesclaradelrey.da2d1e.shop-eah-jdr</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
