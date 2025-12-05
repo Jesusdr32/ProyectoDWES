@@ -7,4 +7,5 @@ public class Product {
     private String image;
     private Double price;
     private String producer;
+
 }
