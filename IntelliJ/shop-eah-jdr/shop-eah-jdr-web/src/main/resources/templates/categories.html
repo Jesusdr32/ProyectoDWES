@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categorías de Videojuegos</title>
+</head>
+<body>
+<section class="categories">
+    <h2>Categorías de Videojuegos</h2>
+    <ul class="categories-list">
+        <li th:each="category : ${categories}" class="category-item">
+            <img th:src="${#strings.isEmpty(category.image) ? defaultImage : category.image}"
+                 th:alt="${category.name}" />
+            <div class="category-info">
+                <h3 th:text="${category.name}">Nombre de categoría</h3>
+                <p th:text="${category.description}">Descripción de categoría</p>
+            </div>
+        </li>
+    </ul>
+</section>
+</body>
+</html>
