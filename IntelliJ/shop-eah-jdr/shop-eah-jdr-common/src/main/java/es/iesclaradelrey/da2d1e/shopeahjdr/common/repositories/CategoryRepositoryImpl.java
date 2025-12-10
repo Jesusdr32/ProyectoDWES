@@ -9,7 +9,7 @@ import java.util.*;
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
 
-    SortedMap<Long, Category> categories = new TreeMap<>();
+    final SortedMap<Long, Category> categories = new TreeMap<>();
 
     @Override
     public List<Category> findAll() {

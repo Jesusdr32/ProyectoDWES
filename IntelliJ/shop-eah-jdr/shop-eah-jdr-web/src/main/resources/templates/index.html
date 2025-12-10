@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -62,21 +62,21 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li><a href="#">Categorías</a>
+								<li><a th:href="@{/categories}">Categorías</a>
 									<ul class="sub-menu">
-										<li><a href="about.html">Acción</a></li>
-                                        <li><a href="aventura.html">Aventura</a></li>
-										<li><a href="cart.html">Deportes</a></li>
-										<li><a href="checkout.html">Estrategia</a></li>
-										<li><a href="contact.html">RPG</a></li>
-										<li><a href="news.html">Carreras</a></li>
-										<li><a href="shop.html">Simulación</a></li>
-										<li><a href="battleroyale.html">Battle Royale</a></li>
+										<li><a href="#">Acción</a></li>
+                                        <li><a href="#">Aventura</a></li>
+										<li><a href="#">Deportes</a></li>
+										<li><a href="#">Estrategia</a></li>
+										<li><a href="#">RPG</a></li>
+										<li><a href="#">Carreras</a></li>
+										<li><a href="#">Simulación</a></li>
+										<li><a href="#">Battle Royale</a></li>
 									</ul>
 								</li>
-								<li><a href="news.html">Novedades</a>
+								<li><a href="categories.html">Novedades</a>
 									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
+										<li><a href="categories.html">News</a></li>
 										<li><a href="single-news.html">Single News</a></li>
 									</ul>
 								</li>
@@ -454,7 +454,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<a href="news.html" class="boxed-btn">More News</a>
+					<a href="categories.html" class="boxed-btn">More News</a>
 				</div>
 			</div>
 		</div>
@@ -517,7 +517,7 @@
 							<li><a href="index.html">Home</a></li>
 							<li><a href="about.html">About</a></li>
 							<li><a href="services.html">Shop</a></li>
-							<li><a href="news.html">News</a></li>
+							<li><a href="categories.html">News</a></li>
 							<li><a href="contact.html">Contact</a></li>
 						</ul>
 					</div>
