@@ -754,9 +754,10 @@ ul.navbar-nav {
 span.close-btn {
   position: absolute;
   right: 0%;
-  color: #fff;
+  color: #6D3BD9;
   top: 5%;
   cursor: pointer;
+  font-size: 25px;
 }
 
 .search-area {
@@ -795,7 +796,7 @@ a.mobile-show {
   font-size: 50px;
   font-weight: 700;
   margin-bottom: 40px;
-  color: #fff;
+  color: #6D3BD9;
 }
 
 .search-bar-tablecell button[type=submit] {
@@ -809,7 +810,7 @@ a.mobile-show {
 }
 
 .search-bar-tablecell input::-webkit-input-placeholder {
-  color: #fff;
+  color: #6D3BD9;
 }
 
 .search-bar-tablecell input:-ms-input-placeholder {
@@ -1343,10 +1344,11 @@ span.close-btn {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
+
 }
 
 span.close-btn:hover {
-  color: #fff;
+  color: #6D3BD9;
 }
 
 a.mobile-show.search-bar-icon {
