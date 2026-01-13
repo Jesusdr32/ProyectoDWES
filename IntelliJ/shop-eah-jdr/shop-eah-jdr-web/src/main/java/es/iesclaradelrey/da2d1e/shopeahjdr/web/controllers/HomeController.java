@@ -15,11 +15,13 @@ public class HomeController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ModelAndView index(){
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("categories", categoryService.findAll());
         return mv;
     }
+
+
 
 }

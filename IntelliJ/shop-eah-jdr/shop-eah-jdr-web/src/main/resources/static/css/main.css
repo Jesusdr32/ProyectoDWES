@@ -1557,7 +1557,7 @@ div.owl-controls, .owl-controls div {
 
 ----------------------------------------------------------------------------- */
 .list-section {
-  background-color: #f5f5f5;
+  background-color: #6D3BD9;
 }
 
 .list-box {
@@ -1575,6 +1575,7 @@ div.owl-controls, .owl-controls div {
 .list-box .content p {
   margin-bottom: 0px;
   opacity: 0.75;
+  color: #6D3BD9;
 }
 
 .list-box .list-icon i {
