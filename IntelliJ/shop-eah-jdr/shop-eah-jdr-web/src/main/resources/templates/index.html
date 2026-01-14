@@ -62,6 +62,7 @@
                     <!-- menu start -->
                     <nav class="main-menu">
                         <ul>
+                            <li><a th:href="@{/}">Inicio</a></li>
                             <li><a th:href="@{/categories}">Categorías</a>
                                 <ul class="sub-menu">
                                     <li th:each="category : ${categories}">
@@ -69,14 +70,14 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a th:href="@{/categories}">Novedades</a>
+                            <!--<li><a th:href="@{/categories}">Novedades</a>
                                 <ul class="sub-menu">
                                     <li><a href="categories.html">News</a></li>
                                     <li><a href="single-news.html">Single News</a></li>
                                 </ul>
-                            </li>
-                            <li><a th:href="@{/about.html}">Sobre nosotros</a></li>
-                            <li><a th:href="@{/terms}">Condiciones de uso</a></li>
+                            </li>-->
+                            <li><a th:href="@{/about.html}">Sobre Nosotros</a></li>
+                            <li><a th:href="@{/terms}">Condiciones de Uso</a></li>
                             <li>
                                 <div class="header-icons">
                                     <a class="shopping-cart" th:href="@{cart.html}"><i

@@ -56,7 +56,6 @@
 							<li class="current-list-item">
 								<a th:href="@{/}">Inicio</a>
 							</li>
-							<li><a th:href="@{/about.html}">Sobre nosotros</a></li>
 							<li><a th:href="@{/categories}">Categorías</a>
 								<ul class="sub-menu">
 									<li th:each="category : ${categories}">
@@ -64,7 +63,8 @@
 									</li>
 								</ul>
 							</li>
-							<li><a th:href="@{/terms}">Condiciones de uso</a></li>
+							<li><a th:href="@{/about.html}">Sobre Nosotros</a></li>
+							<li><a th:href="@{/terms}">Condiciones de Uso</a></li>
 							<li>
 								<div class="header-icons">
 									<a class="shopping-cart" th:href="@{/cart}">

@@ -2823,6 +2823,7 @@ nav.main-menu ul ul.sub-menu {
 nav.main-menu ul ul.sub-menu li a {
   color: #FAF9F6 !important;
 }
+
 /* Hover del Submenú (Morado Intenso) */
 nav.main-menu ul ul.sub-menu li a:hover {
   color: #6D3BD9 !important;
