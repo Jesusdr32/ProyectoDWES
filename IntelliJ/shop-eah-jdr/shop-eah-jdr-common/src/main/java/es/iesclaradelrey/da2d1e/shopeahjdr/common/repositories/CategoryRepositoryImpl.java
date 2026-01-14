@@ -34,6 +34,11 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         return categories.put(category.getId(), category);
     }
 
+    @Override
+    public Optional<Category> findById(Long id) {
+        return Optional.ofNullable(categories.get(id));
+    }
+
     private Long getNewId() {
         return categories.isEmpty() ? 1 : categories.lastKey() + 1;
     }
