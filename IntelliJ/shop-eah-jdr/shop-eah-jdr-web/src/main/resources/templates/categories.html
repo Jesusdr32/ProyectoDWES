@@ -57,7 +57,13 @@
 								<a th:href="@{/}">Inicio</a>
 							</li>
 							<li><a th:href="@{/about.html}">Sobre nosotros</a></li>
-							<li><a th:href="@{/categories}">Categorías</a></li>
+							<li><a th:href="@{/categories}">Categorías</a>
+								<ul class="sub-menu">
+									<li th:each="category : ${categories}">
+										<a th:href="@{categories/{id}(id=${category.id})}" th:text="${category.name}">Nombre de la categoría</a>
+									</li>
+								</ul>
+							</li>
 							<li><a th:href="@{/terms}">Condiciones de uso</a></li>
 							<li>
 								<div class="header-icons">
