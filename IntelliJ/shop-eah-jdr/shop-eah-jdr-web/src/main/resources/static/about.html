@@ -60,13 +60,7 @@
 					<nav class="main-menu">
 						<ul>
 							<li><a href="./">Inicio</a></li>
-							<li><a href="./categories">Categorías</a>
-								<ul class="sub-menu">
-									<li th:each="category : ${categories}">
-										<a href="./categories" th:text="${category.name}">Nombre de la categoría</a>
-									</li>
-								</ul>
-							</li>
+							<li><a href="./categories">Categorías</a></li>
 							<li><a href="./terms">Condiciones de uso</a></li>
 							<li><a href="./about.html">Sobre GEX</a></li>
 							<li>
