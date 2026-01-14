@@ -65,7 +65,7 @@
                             <li><a th:href="@{/categories}">Categorías</a>
                                 <ul class="sub-menu">
                                     <li th:each="category : ${categories}">
-                                        <a href="#" th:text="${category.name}">Nombre de la categoría</a>
+                                        <a th:href="@{categories/{id}(id=${category.id})}" th:text="${category.name}">Nombre de la categoría</a>
                                     </li>
                                 </ul>
                             </li>
