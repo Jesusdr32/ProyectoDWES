@@ -1,11 +1,9 @@
-package es.iesclaradelrey.da2d1e.shopeahjdr.web.commandLineRunner;
+package es.iesclaradelrey.da2d1e.shopeahjdr.web.commandlinerunner;
 
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.CategoryService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.Random;
 
 @Component
 public class CategoryRepositoryInitializer implements CommandLineRunner {
