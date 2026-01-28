@@ -22,7 +22,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category save(Category category) { return categoryRepository.save(category); }
+    public Category save(Category category) {
+        return categoryRepository.save(category);
+    }
 
     @Override
     public Optional<Category> findById(Long id) {
