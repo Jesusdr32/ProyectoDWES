@@ -1,5 +1,6 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers;
 
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +23,26 @@ public class ProductController {
         return mv;
     }
 
-    @GetMapping("/{id}")
-    public ModelAndView products(@PathVariable("id") Long id) {
-        ModelAndView mv = new ModelAndView("product-detail");
-        mv.addObject("product", productService.findById(id).orElseThrow());
-        return mv;
-    }
+//    @GetMapping("/{id}")
+//    public ModelAndView products(@PathVariable("id") Long id) {
+//        ModelAndView mv = new ModelAndView("product-detail");
+//        mv.addObject("product", productService.findById(id).orElseThrow());
+//        return mv;
+//    }
+    @GetMapping("/{id}/{*}")
+    public ModelAndView productDetail(@PathVariable("id") Long id) {
+            ModelAndView mv = new ModelAndView("product-detail");
+            Product product = productService.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado: " + id));
+            mv.addObject("product", product);
+            mv.addObject("defaultImage", "/images/products/imagenGenerica.png");
+            return mv;
+        }
+//    @GetMapping("/category/{categoryId}")
+//    public ModelAndView productsByCategory(@PathVariable("categoryId") Long categoryId) {
+//        ModelAndView mv = new ModelAndView("products");
+//        mv.addObject("products", productService.findByCategoryId(categoryId));
+//        mv.addObject("defaultImage", "/images/products/imagenGenerica.png");
+//        return mv;
+//    }
 }

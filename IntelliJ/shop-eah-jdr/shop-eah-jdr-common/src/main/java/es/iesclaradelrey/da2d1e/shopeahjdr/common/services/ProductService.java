@@ -10,5 +10,6 @@ public interface ProductService {
     List<Product> findAll();
     Product save(Product product);
     Optional<Product> findById(Long id);
+//    List<Product> findByCategoryId(Long categoryId); same
     //void deleteById(Long id);
 }
