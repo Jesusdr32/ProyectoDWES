@@ -20,7 +20,7 @@
                 <div class="single-latest-news">
 
                     <div class="latest-news-bg"
-                         th:style="|background-image: url(@{/images/brands{img}(img=${#strings.isEmpty(brand.image) ? 'desarrolladoraGenerica.png' : brand.image.replace('images/brands/', '')})})|">
+                         th:style="|background-image: url(@{/images/brands/{img}(img=${#strings.isEmpty(brand.image) ? 'desarrolladoraGenerica.png' : brand.image.replace('images/brands/', '')})})|">
                     </div>
 
                     <div class="news-text-box">
