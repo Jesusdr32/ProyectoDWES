@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${title})}"></head>
+<body>
+
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div th:replace="~{fragments/header :: busqueda}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<!-- featured section -->
+<div class="feature-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7">
+				<div class="featured-text">
+					<h2 class="pb-3">Por qué elegir <span class="orange-text">GEX</span></h2>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 mb-4 mb-md-5">
+							<div class="list-box d-flex">
+								<div class="list-icon">
+									<i class="fas fa-shipping-fast"></i>
+								</div>
+								<div class="content">
+									<h3>Lanzamientos recientes</h3>
+									<p>Encuentra los videojuegos más nuevos y populares para todas las plataformas.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+							<div class="list-box d-flex">
+								<div class="list-icon">
+									<i class="fas fa-money-bill-alt"></i>
+								</div>
+								<div class="content">
+									<h3>Precios competitivos</h3>
+									<p>Obtén los mejores precios en tus juegos favoritos sin comprometer calidad.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+							<div class="list-box d-flex">
+								<div class="list-icon">
+									<i class="fas fa-briefcase"></i>
+								</div>
+								<div class="content">
+									<h3>Paquetes personalizados</h3>
+									<p>Crea combos de juegos y accesorios según tus preferencias.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="list-box d-flex">
+								<div class="list-icon">
+									<i class="fas fa-sync-alt"></i>
+								</div>
+								<div class="content">
+									<h3>Devoluciones rápidas</h3>
+									<p>Gestión sencilla y rápida de devoluciones y reembolsos.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end featured section -->
+
+<!-- shop banner -->
+<section class="shop-banner">
+	<div class="container">
+		<h3>¡Gran oferta de invierno! <br> con increíbles <span class="orange-text">descuentos...</span></h3>
+		<div class="sale-percent">Oferta! <br> Hasta 50%</div>
+		<a th:href="@{/shop}" class="cart-btn btn-lg">Comprar ahora</a>
+	</div>
+</section>
+<!-- end shop banner -->
+<!-- team section -->
+<div class="mt-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="section-title">
+					<h3>Nuestro <span class="orange-text">Equipo</span></h3>
+					<p>Conoce a los desarrolladores detrás de GEX, apasionados por la tecnología y dedicados a crear la mejor experiencia para amantes de los videojuegos.</p>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-lg-4 col-md-6">
+				<div class="single-team-item">
+					<div class="team-bg team-bg-1"><img th:src="@{/img/team/Edu.jpeg}" alt="edus"
+														style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
+					<h4>Edudev <span>Developer</span></h4>
+					<ul class="social-link-team">
+						<li><a href="#" target="_blank"><i class="fab fa-github"></i></a></li>
+						<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+						<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="single-team-item">
+					<div class="team-bg team-bg-3"><img th:src="@{/img/team/chechu.jpeg}" alt="chechus"
+														style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
+					<h4>Chuchev <span>Developer</span></h4>
+					<ul class="social-link-team">
+						<li><a href="#" target="_blank"><i class="fab fa-github"></i></a></li>
+						<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+						<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end team section -->
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>

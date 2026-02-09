@@ -3,17 +3,17 @@ package es.iesclaradelrey.da2d1e.shopeahjdr.common.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "category")
+@Table(name = "brand")
 @Getter
 @Setter
 @ToString
-public class Category {
+public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +27,6 @@ public class Category {
     @Column(length = 500)
     private String image;
 
-    @ManyToMany(mappedBy = "categories")
-    private Set<Product> products = new HashSet<>();
+    @OneToMany(mappedBy = "brand")
+    private List<Product> products = new ArrayList<>();
 }

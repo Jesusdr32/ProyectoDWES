@@ -1,86 +1,15 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Condiciones de uso de GEX, tienda online de videojuegos">
-
-    <title>Condiciones de Uso - GEX</title>
-
-    <!-- favicon -->
-    <link rel="shortcut icon" type="image/png" th:href="@{/images/iconoGEX.png}">
-
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-
-    <!-- css -->
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" th:href="@{/css/responsive.css}">
-</head>
-
+<head th:replace="~{fragments/head :: head(${title})}"></head>
 <body>
 
-<!-- header -->
-<div class="top-header-area" id="sticker">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-sm-12 text-center">
-                <div class="main-menu-wrap">
+<div th:replace="~{fragments/header :: preloader}"></div>
 
-                    <!-- logo -->
-                    <div class="site-logo">
-                        <a th:href="@{/}">
-                            <img th:src="@{/images/iconoGEX.png}" alt="GEX Logo">
-                        </a>
-                    </div>
+<div th:replace="~{fragments/header :: header}"></div>
 
-                    <!-- menu -->
-                    <nav class="main-menu">
-                        <ul>
-                            <li><a th:href="@{/}">Inicio</a></li>
-                            <li><a th:href="@{/categories}">Categorías</a></li>
-                            <li><a th:href="@{/about.html}">Sobre Nosotros</a></li>
-                            <li><a th:href="@{/terms}">Condiciones de Uso</a></li>
-                            <li>
-                                <div class="header-icons">
-                                    <a class="shopping-cart" th:href="@{/cart}">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </nav>
+<div th:replace="~{fragments/header :: busqueda}"></div>
 
-                    <div class="mobile-menu"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end header -->
-
-<!-- breadcrumb -->
-<div class="breadcrumb-section breadcrumb-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2 text-center">
-                <div class="breadcrumb-text">
-                    <p>Información legal</p>
-                    <h1>Condiciones de Uso</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end breadcrumb -->
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
 
 <!-- content -->
 <div class="container mt-5 mb-5">
@@ -144,61 +73,12 @@
 <!-- end content -->
 
 <!-- footer -->
-<div class="footer-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box about-widget">
-                    <h2 class="widget-title">Sobre GEX</h2>
-                    <p>GEX es tu tienda de videojuegos en línea, con los mejores títulos, accesorios y ofertas exclusivas para gamers.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box get-in-touch">
-                    <h2 class="widget-title">Contáctanos</h2>
-                    <ul>
-                        <li>Av. Gamer 123, Ciudad Gaming</li>
-                        <li>soporte@gex.com</li>
-                        <li>+34 123 456 789</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box pages">
-                    <h2 class="widget-title">Páginas</h2>
-                    <ul>
-                        <li><a th:href="@{/}">Inicio</a></li>
-                        <li><a th:href="@{/categories}">Categorías</a></li>
-                        <li><a th:href="@{/about.html}">Sobre Nosotros</a></li>
-                        <li><a th:href="@{/terms}">Condiciones de Uso</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box subscribe">
-                    <h2 class="widget-title">Suscríbete</h2>
-                    <p>Recibe las últimas novedades y promociones de GEX directamente en tu correo.</p>
-                    <form action="#" method="post">
-                        <input type="email" placeholder="Email">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="~{fragments/footer :: carousel}"></div>
 
-<!-- js -->
-<script th:src="@{/js/jquery-1.11.3.min.js}"></script>
-<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.countdown.js}"></script>
-<script th:src="@{/js/jquery.isotope-3.0.6.min.js}"></script>
-<script th:src="@{/js/waypoints.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/jquery.meanmenu.min.js}"></script>
-<script th:src="@{/js/sticker.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>ñ
 </body>
 </html>

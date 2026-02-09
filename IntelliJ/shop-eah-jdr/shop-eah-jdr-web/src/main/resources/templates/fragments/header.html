@@ -1,0 +1,104 @@
+
+<!-- PreLoader -->
+<div th:fragment="preloader" class="loader">
+    <div class="loader-inner">
+        <div class="circle"></div>
+    </div>
+</div>
+<!-- PreLoader Ends -->
+
+<!-- header -->
+<div th:fragment="header" class="top-header-area" id="sticker">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 text-center">
+                <div class="main-menu-wrap">
+
+                    <!-- logo -->
+                    <div class="site-logo">
+                        <a th:href="@{/}">
+                            <img th:src="@{/images/iconoGEX.png}" alt="GEX">
+                        </a>
+                    </div>
+
+                    <!-- menu -->
+                    <nav class="main-menu">
+                        <ul>
+                            <li class="current-list-item">
+                                <a th:href="@{/}">Inicio</a>
+                            </li>
+                            <li><a th:href="@{/categories}">Categorías</a>
+                                <ul class="sub-menu">
+                                    <li th:each="category : ${categories}">
+                                        <a th:href="@{/categories/{id}(id=${category.id})}" th:text="${category.name}">Nombre de la categoría</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a th:href="@{/products}">Videojuegos</a></li>
+                            <li><a th:href="@{/brands}">Desarrolladoras</a>
+                                <ul class="sub-menu">
+                                    <li th:each="brand : ${brands}">
+                                        <a th:href="@{/brands/{id}(id=${brand.id})}" th:text="${brand.name}">Nombre de la desarrolladora</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a th:href="@{/about}">Sobre Nosotros</a></li>
+                            <li><a th:href="@{/terms}">Condiciones de Uso</a></li>
+                            <li>
+                                <div class="header-icons">
+                                    <a class="shopping-cart" th:href="@{/cart}">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                    <a class="mobile-hide search-bar-icon" href="#">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <a class="mobile-show search-bar-icon" href="#">
+                        <i class="fas fa-search"></i>
+                    </a>
+
+                    <div class="mobile-menu"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end header -->
+
+<!-- breadcrumb -->
+<div th:fragment="breadcumb(subtitulo, titulo)" class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p th:text="${subtitulo}">Subtitulo de info de la página</p>
+                    <h1 th:text="${titulo}">Titulo de info de la página</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb -->
+
+<!-- search area -->
+<div th:fragment="busqueda" class="search-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                <div class="search-bar">
+                    <div class="search-bar-tablecell">
+                        <h3>Search For:</h3>
+                        <input type="text" placeholder="Keywords">
+                        <button type="submit">Search <i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end search area -->

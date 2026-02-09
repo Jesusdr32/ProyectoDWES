@@ -1,0 +1,101 @@
+
+<!-- logo carousel -->
+<div th:fragment="carousel" class="logo-carousel-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="logo-carousel-inner">
+          <div class="single-logo-item">
+            <img th:src="@{/img/company-logos/1.png}" alt="">
+          </div>
+          <div class="single-logo-item">
+            <img th:src="@{/img/company-logos/2.png}" alt="">
+          </div>
+          <div class="single-logo-item">
+            <img th:src="@{/img/company-logos/3.png}" alt="">
+          </div>
+          <div class="single-logo-item">
+            <img th:src="@{/img/company-logos/4.png}" alt="">
+          </div>
+          <div class="single-logo-item">
+            <img th:src="@{/img/company-logos/5.png}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end logo carousel -->
+
+<!-- footer -->
+<div th:fragment="footer" class="footer-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-box about-widget">
+          <h2 class="widget-title">Sobre Nosotros</h2>
+          <p>GEX es tu tienda de videojuegos en línea, con los mejores títulos, accesorios y ofertas exclusivas para gamers.</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-box get-in-touch">
+          <h2 class="widget-title">Contáctanos</h2>
+          <ul>
+            <li>Av. Gamer 123, Ciudad Gaming</li>
+            <li>soporte@gex.com</li>
+            <li>+34 123 456 789</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-box pages">
+          <h2 class="widget-title">Páginas</h2>
+          <ul>
+            <li><a th:href="@{/}">Inicio</a></li>
+            <li><a th:href="@{/categories}">Categorías</a></li>
+            <li><a th:href="@{/templates/about.html}">Sobre Nosotros</a></li>
+            <li><a th:href="@{/terms}">Condiciones de Uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-box subscribe">
+          <h2 class="widget-title">Suscríbete</h2>
+          <p>Recibe las últimas novedades y promociones de GEX directamente en tu correo.</p>
+          <form action="#" method="post">
+            <input type="email" placeholder="Email">
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end footer -->
+
+<!-- copyright -->
+<div th:fragment="copyright" class="copyright">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>, All Rights
+          Reserved.</p>
+      </div>
+      <div class="col-lg-6 text-right col-md-12">
+        <div class="social-icons">
+          <ul>
+            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- end copyright -->

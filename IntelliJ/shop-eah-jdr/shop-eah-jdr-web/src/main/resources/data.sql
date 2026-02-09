@@ -1,34 +1,94 @@
 --CATEGORIAS
-INSERT INTO category (name, description, image) VALUES ('Acción', 'Videojuegos centrados en el combate, los reflejos y el dinamismo.', '/images/categoriaAccion.png');
-INSERT INTO category (name, description, image) VALUES ('Aventura', 'Videojuegos centrados en la exploración, la historia y la resolución de puzzles, con mundos inmersivos y narrativas épicas.', '/images/categoriaAventura.png');
-INSERT INTO category (name, description, image) VALUES ('Deportes', 'Juegos basados en disciplinas deportivas como fútbol, baloncesto, ...', '/images/categoriaDeportes.png');
-INSERT INTO category (name, description, image) VALUES ('Estrategia', 'Títulos que requieren planificación táctica y toma de decisiones.', '/images/categoriaEstrategia.png');
-INSERT INTO category (name, description, image) VALUES ('RPG', 'Role Playing Games donde el jugador progresa y desarrolla habilidades.', '/images/categoriaRPG.png');
-INSERT INTO category (name, description, image) VALUES ('Carreras', 'Videojuegos centrados en competencias de velocidad con vehículos.', '/images/categoriaCarreras.png');
-INSERT INTO category (name, description, image) VALUES ('Simulación', 'Juegos que recrean experiencias de la vida real o actividades especializadas.', '/images/categoriaSimulacion.png');
-INSERT INTO category (name, description, image) VALUES ('Battle Royale', 'Multijugador de supervivencia donde muchos jugadores compiten hasta quedar uno.', '/images/categoriaBattleRoyale.png');
-INSERT INTO category (name, description, image) VALUES ('Lucha', 'Ofrecen combates intensos entre personajes con habilidades únicas, ideal para quienes disfrutan de la acción rápida y estratégica.', NULL);
+INSERT INTO category (name, description, image) VALUES
+                        ('Acción', 'Videojuegos centrados en el combate, los reflejos y el dinamismo.', '/images/categoriaAccion.png'),
+                        ('Aventura', 'Videojuegos centrados en la exploración, la historia y la resolución de puzzles, con mundos inmersivos y narrativas épicas.', '/images/categoriaAventura.png'),
+                        ('Deportes', 'Juegos basados en disciplinas deportivas como fútbol, baloncesto, ...', '/images/categoriaDeportes.png'),
+                        ('Estrategia', 'Títulos que requieren planificación táctica y toma de decisiones.', '/images/categoriaEstrategia.png'),
+                        ('RPG', 'Role Playing Games donde el jugador progresa y desarrolla habilidades.', '/images/categoriaRPG.png'),
+                        ('Carreras', 'Videojuegos centrados en competencias de velocidad con vehículos.', '/images/categoriaCarreras.png'),
+                        ('Simulación', 'Juegos que recrean experiencias de la vida real o actividades especializadas.', '/images/categoriaSimulacion.png'),
+                        ('Battle Royale', 'Multijugador de supervivencia donde muchos jugadores compiten hasta quedar uno.', '/images/categoriaBattleRoyale.png'),
+                        ('Lucha', 'Ofrecen combates intensos entre personajes con habilidades únicas.', NULL);
+
+--MARCAS
+INSERT INTO brand (name, description, image) VALUES
+                    ('Nintendo','Desarrolladora y editora japonesa creadora de sagas icónicas como Mario, Zelda y Pokémon.','/images/brands/nintendo.png'),
+                    ('Rockstar Games','Estudio estadounidense conocido por desarrollar juegos de mundo abierto como GTA y Red Dead Redemption.','/images/brands/rockstar.png'),
+                    ('CD Projekt Red','Desarrolladora polaca reconocida por The Witcher y Cyberpunk 2077.','/images/brands/cdprojektred.png'),
+                    ('Ubisoft','Compañía francesa desarrolladora de franquicias como Assassin’s Creed.','/images/brands/ubisoft.png'),
+                    ('FromSoftware','Estudio japonés famoso por la saga Dark Souls y Elden Ring.','/images/brands/fromsoftware.png'),
+                    ('Naughty Dog','Estudio de Sony responsable de The Last of Us y Uncharted.','/images/brands/naughtydog.png'),
+                    ('Santa Monica Studio','Creador de la saga God of War.','/images/brands/santamonicastudio.png'),
+                    ('Bethesda Game Studios','Desarrolladora de RPGs como Skyrim y Fallout.','/images/brands/bethesda.png'),
+                    ('Valve','Desarrolladora estadounidense creadora de sagas como Half-Life, Portal y Left 4 Dead.',NULL);;
+
 
 --PRODUCTOS
-INSERT INTO product (name, description, brand, image, ean, price, discount) VALUES
-                    ('Shadow Strike', 'Shadow Strike es un juego de acción trepidante donde cada decisión puede cambiar el destino del mundo. Con niveles complejos y enemigos desafiantes, requiere habilidad y estrategia.', 'DarkGames', '/images/products/shadowStrike.png', '4006381333931', 59.99, 10),
-                    ('Adventure Quest', 'Embárcate en una aventura épica llena de misterios y acertijos que pondrán a prueba tu ingenio en cada paso.', 'EpicStudios', NULL, '4006381333948', 49.99, 0),
-                    ('Ultimate Soccer 2026', 'Disfruta del fútbol más realista jamás creado, con estadísticas de jugadores actualizadas, modos multijugador online y simulación avanzada de partidos.', NULL, '/images/products/ultimateSoccer2026.png', '4006381333955', 69.99, 15),
-                    ('Castle Strategist', 'Conviértete en el maestro de la estrategia medieval. Planea ataques, gestiona recursos y domina los castillos enemigos con tus tácticas.', 'MedievalGames', '/images/products/castleStrategist.png', '4006381333962', 39.99, 5),
-                    ('Fantasy RPG Legends', 'Sumérgete en un mundo de fantasía donde la magia y la aventura se entrelazan en una historia profunda y emocionante que abarca cientos de horas de juego.', 'FantasyWorks', NULL, '4006381333979', 59.99, 20),
-                    ('Speed Racers', 'Compite a toda velocidad en circuitos urbanos y rurales, personaliza tus coches y domina los modos de carrera más desafiantes.', NULL, '/images/products/speedRacers.png', '4006381333986', 44.99, 0),
-                    ('SimLife Tycoon', 'Gestiona tu propia ciudad virtual, controla la economía, servicios y la felicidad de los ciudadanos en un simulador que desafía tu creatividad.', 'SimSoft', NULL, '4006381333993', 49.99, 10),
-                    ('Battle Royale Extreme', 'Entra en la arena definitiva donde solo puede quedar uno. Recoge armas, estrategia y supervivencia se combinan para la experiencia más intensa.', NULL, '/images/products/battleRoyaleExtreme.png', '4006381334006', 54.99, 0),
-                    ('Ultimate Fighters', 'Domina combates épicos en arenas de lucha, cada personaje con habilidades únicas y combos devastadores que solo los mejores podrán ejecutar.', 'FightClub', '/images/products/ultimateFighters.png', '4006381334013', 59.99, 5),
-                    ('Action Hero 2', 'La secuela más esperada trae explosiones, persecuciones y misiones de alto riesgo en un mundo abierto lleno de desafíos y secretos por descubrir.', NULL, NULL, '4006381334020', 49.99, 0),
-                    ('Mystery Island', 'Explora una isla remota llena de misterios, enemigos y puzzles que pondrán a prueba tu ingenio mientras descubres la historia oculta de sus habitantes.', 'IslandGames', '/images/products/mysteryIsland.png', '4006381334037', 54.99, 5),
-                    ('Pro Basketball 2026', 'Lleva tu equipo a la gloria en competiciones profesionales con inteligencia artificial avanzada y modos multijugador online para desafiar a tus amigos.', 'SportsWorld', NULL, '4006381334044', 64.99, 10),
-                    ('War Tactics', 'Planea guerras épicas en mapas estratégicos detallados, gestionando tropas, recursos y alianzas en tiempo real para dominar a tus oponentes.', NULL, '/images/products/warTactics.png', '4006381334051', 39.99, 0),
-                    ('Dragon Realms', 'Una aventura RPG de fantasía profunda con dragones, hechicería y mundos extensos que garantizan cientos de horas de exploración y combate.', 'DragonStudios', '/images/products/dragonRealms.png', '4006381334068', 59.99, 15),
-                    ('Formula Extreme', 'Siente la adrenalina de las carreras de fórmula en circuitos internacionales con físicas realistas y opciones de personalización únicas.', 'FastGames', NULL, '4006381334075', 49.99, 0),
-                    ('City Builder Deluxe', 'Diseña y administra tu propia metrópoli con gran detalle, equilibrando economía, infraestructura y servicios para mantener a tus ciudadanos felices.', NULL, '/images/products/cityBuilderDeluxe.png', '4006381334082', 44.99, 5),
-                    ('Survival Arena', 'Prepárate para sobrevivir en la arena de batalla más implacable, donde cada decisión estratégica puede significar la diferencia entre la vida y la muerte.', 'SurvivorGames', NULL, '4006381334099', 54.99, 10),
-                    ('Fight Masters', 'Conviértete en el mejor luchador del mundo enfrentándote a rivales con estilos únicos y combos espectaculares que solo los expertos dominarán.', NULL, '/images/products/fightMasters.png', '4006381334105', 59.99, 0),
-                    ('Action Legends', 'Una colección de misiones de acción épicas donde el jugador experimenta diferentes estilos de combate, explosiones y persecuciones sin fin.', 'LegendaryGames', '/images/products/actionLegends.png', '4006381334112', 49.99, 5),
-                    ('Adventure World', 'Explora mundos vibrantes y llenos de secretos, interactuando con personajes únicos y completando misiones que desafían tu ingenio y habilidades.', NULL, NULL, '4006381334129', 44.99, 0);
+INSERT INTO product (name, description, brand_id, image, ean, price, discount) VALUES
+                        ('Shadow Strike', 'Juego de acción trepidante.', 1, '/images/products/shadowStrike.png', '4006381333931', 59.99, 10),
+                        ('Adventure Quest', 'Aventura épica llena de misterios.', 3, NULL, '4006381333948', 49.99, 0),
+                        ('Ultimate Soccer 2026', 'Simulación de fútbol realista.', 5, '/images/products/ultimateSoccer2026.png', '4006381333955', 69.99, 15),
+                        ('Castle Strategist', 'Estrategia medieval avanzada.', 2, '/images/products/castleStrategist.png', '4006381333962', 39.99, 5),
+                        ('Fantasy RPG Legends', 'RPG de fantasía profunda.', 4, NULL, '4006381333979', 59.99, 20),
+                        ('Speed Racers', 'Carreras de alta velocidad.', 6, '/images/products/speedRacers.png', '4006381333986', 44.99, 0),
+                        ('SimLife Tycoon', 'Simulador de gestión de ciudades.', 2, NULL, '4006381333993', 49.99, 10),
+                        ('Battle Royale Extreme', 'Supervivencia multijugador.', 5, '/images/products/battleRoyaleExtreme.png', '4006381334006', 54.99, 0),
+                        ('Ultimate Fighters', 'Combates intensos.', 1, '/images/products/ultimateFighters.png', '4006381334013', 59.99, 5),
+                        ('Action Hero 2', 'Acción explosiva en mundo abierto.', 3, NULL, '4006381334020', 49.99, 0),
+                        ('Mystery Island', 'Aventura y puzzles en una isla.', 4, '/images/products/mysteryIsland.png', '4006381334037', 54.99, 5),
+                        ('Pro Basketball 2026', 'Baloncesto profesional.', 6, NULL, '4006381334044', 64.99, 10),
+                        ('War Tactics', 'Estrategia bélica en tiempo real.', 2, '/images/products/warTactics.png', '4006381334051', 39.99, 0),
+                        ('Dragon Realms', 'RPG con dragones y magia.', 1, '/images/products/dragonRealms.png', '4006381334068', 59.99, 15),
+                        ('Formula Extreme', 'Carreras de fórmula.', 3, NULL, '4006381334075', 49.99, 0),
+                        ('City Builder Deluxe', 'Construcción y gestión urbana.', 6, '/images/products/cityBuilderDeluxe.png', '4006381334082', 44.99, 5),
+                        ('Survival Arena', 'Batalla por la supervivencia.', 5, NULL, '4006381334099', 54.99, 10),
+                        ('Fight Masters', 'Lucha competitiva.', 4, '/images/products/fightMasters.png', '4006381334105', 59.99, 0),
+                        ('Action Legends', 'Misiones de acción épicas.', 1, '/images/products/actionLegends.png', '4006381334112', 49.99, 5),
+                        ('Adventure World', 'Exploración de mundos vibrantes.', 2, NULL, '4006381334129', 44.99, 0);
 
+-- RELACIÓN PRODUCTOS - CATEGORÍAS
+INSERT INTO product_category (product_id, category_id) VALUES
+-- Shadow Strike → Acción
+(1, 1),
+-- Adventure Quest → Aventura, RPG
+(2, 2),
+(2, 5),
+-- Ultimate Soccer 2026 → Deportes
+(3, 3),
+-- Castle Strategist → Estrategia
+(4, 4),
+-- Fantasy RPG Legends → RPG, Aventura
+(5, 5),
+(5, 2),
+-- Speed Racers → Carreras
+(6, 6),
+-- SimLife Tycoon → Simulación, Estrategia
+(7, 7),
+(7, 4),
+-- Battle Royale Extreme → Battle Royale, Acción
+(8, 8),
+(8, 1),
+-- Ultimate Fighters → Lucha, Acción
+(9, 9),
+(9, 1),
+-- Mystery Island → Aventura
+(11, 2),
+-- Pro Basketball 2026 → Deportes
+(12, 3),
+-- War Tactics → Estrategia
+(13, 4),
+-- Dragon Realms → RPG, Acción
+(14, 5),
+(14, 1),
+-- Formula Extreme → Carreras, Deportes
+(15, 6),
+(15, 3),
+-- City Builder Deluxe → Simulación
+(16, 7),
+-- Survival Arena → Battle Royale
+(17, 8),
+-- Fight Masters → Lucha
+(18, 9),
+-- Action Legends → Acción, Aventura
+(19, 1),
+(19, 2);

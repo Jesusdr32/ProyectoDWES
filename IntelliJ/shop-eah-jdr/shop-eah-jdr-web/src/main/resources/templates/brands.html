@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${title})}"></head>
+
+<body>
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div th:replace="~{fragments/header :: busqueda}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<!-- brands -->
+<div class="latest-news mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6" th:each="brand : ${brands}">
+                <div class="single-latest-news">
+
+                    <div class="latest-news-bg"
+                         th:style="|background-image: url(@{/images/brands{img}(img=${#strings.isEmpty(brand.image) ? 'desarrolladoraGenerica.png' : brand.image.replace('images/brands/', '')})})|">
+                    </div>
+
+                    <div class="news-text-box">
+                        <h3>
+                            <a th:href="@{/brands/{id}(id=${brand.id})}"
+                               th:text="${brand.name}">
+                                Nombre marca
+                            </a>
+                        </h3>
+
+                        <p class="excerpt" th:text="${brand.description}">
+                            Descripción marca
+                        </p>
+
+                        <a th:href="@{/brands/{id}(id=${brand.id})}" class="read-more-btn">
+                            Ver más <i class="fas fa-angle-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end brands -->
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>

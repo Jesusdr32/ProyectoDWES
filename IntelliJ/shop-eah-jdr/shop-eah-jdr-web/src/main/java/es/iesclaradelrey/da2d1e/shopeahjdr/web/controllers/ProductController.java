@@ -1,6 +1,8 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers;
 
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.BrandService;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.CategoryService;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +14,23 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
+    private final CategoryService categoryService;
+    private final BrandService brandService;
 
-    public ProductController(ProductService productService) { this.productService = productService; }
+    public ProductController(ProductService productService, CategoryService categoryService, BrandService brandService) { this.productService = productService;
+        this.categoryService = categoryService;
+        this.brandService = brandService;
+    }
 
     @GetMapping({"", "/"})
     public ModelAndView products() {
         ModelAndView mv = new ModelAndView("products");
+        mv.addObject("categories", categoryService.findAll());
         mv.addObject("products", productService.findAll());
-        mv.addObject("defaultImage", "/images/products/imagenGenerica.png");
+        mv.addObject("brands", brandService.findAll());
+        mv.addObject("title", "GEX - Productos");
+        mv.addObject("titulo", "Videojuegos");
+        mv.addObject("subtitulo", "Descubre diferentes Juegos");
         return mv;
     }
 
@@ -35,14 +46,15 @@ public class ProductController {
             Product product = productService.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado: " + id));
             mv.addObject("product", product);
-            mv.addObject("defaultImage", "/images/products/imagenGenerica.png");
+            mv.addObject("categories", categoryService.findAll());
+            mv.addObject("brands", brandService.findAll());
+            mv.addObject("title", "GEX - " + product.getName());
             return mv;
         }
 //    @GetMapping("/category/{categoryId}")
 //    public ModelAndView productsByCategory(@PathVariable("categoryId") Long categoryId) {
 //        ModelAndView mv = new ModelAndView("products");
 //        mv.addObject("products", productService.findByCategoryId(categoryId));
-//        mv.addObject("defaultImage", "/images/products/imagenGenerica.png");
 //        return mv;
 //    }
 }

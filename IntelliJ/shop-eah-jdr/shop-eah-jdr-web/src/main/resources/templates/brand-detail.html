@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${title})}"></head>
+
+<body>
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div th:replace="~{fragments/header :: busqueda}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<!-- brand detail -->
+<div class="latest-news mt-150 mb-150">
+    <div class="container">
+
+        <!-- Brand card (misma estética) -->
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <div class="single-latest-news">
+
+                    <div class="latest-news-bg"
+                         th:style="|background-image: url(@{/images/brands/{img}(img=${#strings.isEmpty(brand.image)? 'desarrolladoraGenerica.png': brand.image.replace('/images/brands/', '')})})|">
+                    </div>
+
+                    <div class="news-text-box">
+                        <h3 th:text="${brand.name}">Nombre marca</h3>
+
+                        <p class="excerpt" th:text="${brand.description}">
+                            Descripción marca
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Products of this brand -->
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6" th:each="product : ${brand.products}">
+                <div class="single-latest-news">
+
+                    <div class="latest-news-bg"
+                         th:style="|background-image: url(@{/images/products/{img}(img=${#strings.isEmpty(product.image)? 'imagenGenerica.png': product.image.replace('images/products/', '')}
+                         )})|">
+                    </div>
+
+                    <div class="news-text-box">
+                        <h3>
+                            <a th:href="@{/products/{id}(id=${product.id})}" th:text="${product.name}">
+                                Nombre producto
+                            </a>
+                        </h3>
+
+                        <p class="excerpt" th:text="${product.description}">
+                            Descripción producto
+                        </p>
+
+                        <p th:if="${product.categories != null and #lists.size(product.categories) == 1}">
+                            Categoría:
+                            <a th:href="@{/categories/{id}(id=${product.categories[0].id})}"
+                               th:text="${product.categories[0].name}">
+                                Categoría
+                            </a>
+                        </p>
+
+                        <ul th:if="${product.categories != null and #lists.size(product.categories) > 1}">
+                            <li th:each="category : ${product.categories}">
+                                <a th:href="@{/categories/{id}(id=${category.id})}"
+                                   th:text="${category.name}">
+                                    Categoría
+                                </a>
+                            </li>
+                        </ul>
+
+                        <a th:href="@{/products/{id}(id=${product.id})}" class="read-more-btn">
+                            Ver más <i class="fas fa-angle-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Brand without products -->
+        <div class="row" th:if="${#lists.isEmpty(brand.products)}">
+            <div class="col-lg-12 text-center">
+                <p>No hay productos asociados a esta marca.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end brand detail -->
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>
