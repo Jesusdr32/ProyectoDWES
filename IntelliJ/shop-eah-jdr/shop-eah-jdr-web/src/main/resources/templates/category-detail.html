@@ -56,6 +56,21 @@
                         <p class="excerpt" th:text="${product.description}">
                             Descripción producto
                         </p>
+                        <p th:if="${product.categories != null and #lists.size(product.categories) == 1}">
+                            <a th:href="@{/categories/{id}(id=${product.categories[0].id})}"
+                               th:text="${product.categories[0].name}">
+                                Categoría
+                            </a>
+                        </p>
+
+                        <ul th:if="${product.categories != null and #lists.size(product.categories) > 1}">
+                            <li th:each="category : ${product.categories}">
+                                <a th:href="@{/categories/{id}(id=${category.id})}"
+                                   th:text="${category.name}">
+                                    Categoría
+                                </a>
+                            </li>
+                        </ul>
 
                         <a th:href="@{/products/{id}(id=${product.id})}" class="read-more-btn">
                             Ver más <i class="fas fa-angle-right"></i>

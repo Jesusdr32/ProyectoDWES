@@ -59,7 +59,6 @@
                         </p>
 
                         <p th:if="${product.categories != null and #lists.size(product.categories) == 1}">
-                            Categoría:
                             <a th:href="@{/categories/{id}(id=${product.categories[0].id})}"
                                th:text="${product.categories[0].name}">
                                 Categoría
