@@ -26,8 +26,8 @@
       <div class="col-md-7">
         <div class="single-product-content">
           <h3 th:text="${product.name}">Nombre Producto</h3>
-          <p><strong>Marca:</strong> <span th:text="${product.brand.name ?: 'Sin marca'}">Marca</span></p>
-          <p><strong>Categoria:</strong> <span th:each="category : ${product.categories}" th:text="${category.name} + ' '"></span></p>
+          <p><strong>Desarrolladora:</strong> <span th:text="${product.brand.name ?: 'Sin desarrolladora'}">Desarrolladora</span></p>
+          <p><strong>Categoria:</strong> <span th:each="category : ${product.categories}"><a th:href="@{/categories/{id}(id=${category.id})}" th:text="${category.name} + ' '">Nombre de la categoria</a></span></p>
           <p><strong>Precio:</strong> €<span th:text="${product.price}">0.0</span></p>
           <p><strong>Descuento:</strong> <span th:text="${product.discount}">0</span>%</p>
           <p><strong>Código EAN-13:</strong> <span th:text="${product.ean}">0000000000000</span></p>
