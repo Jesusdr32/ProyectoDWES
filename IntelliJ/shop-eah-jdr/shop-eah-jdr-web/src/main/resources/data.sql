@@ -1,13 +1,13 @@
 --CATEGORIAS
 INSERT INTO category (name, description, image) VALUES
                         ('Acción', 'Videojuegos centrados en el combate, los reflejos y el dinamismo.', '/images/categoriaAccion.png'),
-                        ('Aventura', 'Videojuegos centrados en la exploración, la historia y la resolución de puzzles, con mundos inmersivos y narrativas épicas.', '/images/categoriaAventura.png'),
+                        ('Aventura', 'Centrados en la exploración y la historia, con mundos inmersivos y narrativas épicas.', '/images/categoriaAventura.png'),
                         ('Deportes', 'Juegos basados en disciplinas deportivas como fútbol, baloncesto, ...', '/images/categoriaDeportes.png'),
                         ('Estrategia', 'Títulos que requieren planificación táctica y toma de decisiones.', '/images/categoriaEstrategia.png'),
                         ('RPG', 'Role Playing Games donde el jugador progresa y desarrolla habilidades.', '/images/categoriaRPG.png'),
                         ('Carreras', 'Videojuegos centrados en competencias de velocidad con vehículos.', '/images/categoriaCarreras.png'),
                         ('Simulación', 'Juegos que recrean experiencias de la vida real o actividades especializadas.', '/images/categoriaSimulacion.png'),
-                        ('Battle Royale', 'Multijugador de supervivencia donde muchos jugadores compiten hasta quedar uno.', '/images/categoriaBattleRoyale.png'),
+                        ('Battle Royale', 'Juegos de supervivencia donde muchos jugadores compiten hasta quedar uno.', '/images/categoriaBattleRoyale.png'),
                         ('Lucha', 'Ofrecen combates intensos entre personajes con habilidades únicas.', NULL);
 
 --MARCAS
@@ -18,7 +18,7 @@ INSERT INTO brand (name, description, image) VALUES
                     ('Ubisoft','Compañía francesa desarrolladora de franquicias como Assassin’s Creed.','/images/brands/ubisoft.png'),
                     ('FromSoftware','Estudio japonés famoso por la saga Dark Souls y Elden Ring.','/images/brands/fromsoftware.png'),
                     ('Naughty Dog','Estudio de Sony responsable de The Last of Us y Uncharted.','/images/brands/naughtydog.png'),
-                    ('Santa Monica Studio','Creador de la saga God of War.','/images/brands/santamonicastudio.png'),
+                    ('Santa Monica Studio','Estudio responsable de la aclamada saga God of War y referentes en acción narrativa.','/images/brands/santamonicastudio.png'),
                     ('Bethesda Game Studios','Desarrolladora de RPGs como Skyrim y Fallout.','/images/brands/bethesda.png'),
                     ('Valve','Desarrolladora estadounidense creadora de sagas como Half-Life, Portal y Left 4 Dead.',NULL);;
 
