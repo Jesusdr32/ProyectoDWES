@@ -49,6 +49,8 @@ public class ProductController {
             mv.addObject("categories", categoryService.findAll());
             mv.addObject("brands", brandService.findAll());
             mv.addObject("title", "GEX - " + product.getName());
+            mv.addObject("titulo", "GEX - " + product.getName());
+            mv.addObject("subtitulo", "El juego mas jugado");
             return mv;
         }
 //    @GetMapping("/category/{categoryId}")
