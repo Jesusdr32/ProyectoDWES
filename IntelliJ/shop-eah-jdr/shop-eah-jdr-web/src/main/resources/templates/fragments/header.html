@@ -24,7 +24,7 @@
                     <!-- menu -->
                     <nav class="main-menu">
                         <ul>
-                            <li class="current-list-item">
+                            <li>
                                 <a th:href="@{/}">Inicio</a>
                             </li>
                             <li><a th:href="@{/categories}">Categorías</a>
@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-lg-8 offset-lg-2 text-center">
                 <div class="breadcrumb-text">
-                    <p th:text="${subtitulo}">Subtitulo de info de la página</p>
+                    <p th:text="${subtitulo}" style="color: white">Subtitulo de info de la página</p>
                     <h1 th:text="${titulo}">Titulo de info de la página</h1>
                 </div>
             </div>

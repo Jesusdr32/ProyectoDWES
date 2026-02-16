@@ -38,6 +38,8 @@ public class CategoryController {
         mv.addObject("brands", brandService.findAll());
         mv.addObject("category", categoryService.findById(id).orElseThrow());
         mv.addObject("title", "GEX - " + category.getName());
+        mv.addObject("titulo", "GEX - " + category.getName());
+        mv.addObject("subtitulo", "Categoria mas jugada :P");
         return mv;
     }
 }

@@ -17,13 +17,21 @@
             <div class="col-lg-9 offset-lg-2 text-center">
                 <div class="hero-text">
                     <div class="hero-text-tablecell">
-                        <p class="subtitle">Los mejores videojuegos al mejor precio, listos para jugar desde el primer
+                        <p class="subtitle" style="color: white">Los mejores videojuegos al mejor precio, listos para jugar desde el primer
                             clic</p>
                         <h1>Tu próxima aventura empieza aquí</h1>
                         <div class="hero-btns">
-                            <a th:href="@{categories}" class="bordered-btn">Empieza a explorar</a>
+                            <a th:href="@{categories}"
+                               class="bordered-btn"
+                               style="color:white;"
+                               onmouseover="this.style.setProperty('color','white','important'); this.style.setProperty('background-color','#1F1A40','important'); this.style.setProperty('border-color','#1F1A40','important');"
+                               onmouseout="this.style.setProperty('color','white','important'); this.style.setProperty('background-color','transparent','important'); this.style.setProperty('border-color','#1F1A40','important');">
+                                Empieza a explorar
+                            </a>
                         </div>
-                    </div>
+
+
+                        </div>
                 </div>
             </div>
         </div>

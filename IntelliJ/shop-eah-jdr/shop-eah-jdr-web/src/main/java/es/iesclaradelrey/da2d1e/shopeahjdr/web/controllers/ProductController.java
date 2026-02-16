@@ -30,7 +30,7 @@ public class ProductController {
         mv.addObject("brands", brandService.findAll());
         mv.addObject("title", "GEX - Productos");
         mv.addObject("titulo", "Videojuegos");
-        mv.addObject("subtitulo", "Descubre diferentes Juegos");
+        mv.addObject("subtitulo", "Descubre diferentes Juegos :P");
         return mv;
     }
 
@@ -50,7 +50,7 @@ public class ProductController {
             mv.addObject("brands", brandService.findAll());
             mv.addObject("title", "GEX - " + product.getName());
             mv.addObject("titulo", "GEX - " + product.getName());
-            mv.addObject("subtitulo", "El juego mas jugado");
+            mv.addObject("subtitulo", "El juego más jugado :P");
             return mv;
         }
 //    @GetMapping("/category/{categoryId}")

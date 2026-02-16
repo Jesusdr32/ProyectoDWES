@@ -38,6 +38,8 @@ public class BrandController {
         mv.addObject("brand", brandService.findById(id).orElseThrow());
         mv.addObject("title", "GEX - " + brand.getName());
         mv.addObject("categories", categoryService.findAll());
+        mv.addObject("titulo", "GEX - " + brand.getName());
+        mv.addObject("subtitulo", "Desarrolladora más popular :P");
         return mv;
     }
 }

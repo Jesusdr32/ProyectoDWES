@@ -33,7 +33,7 @@ public class HomeController {
         mv.addObject("categories", categoryService.findAll());
         mv.addObject("brands", brandService.findAll());
         mv.addObject("title", "GEX - Condiciones de Uso");
-        mv.addObject("subtitulo", "Nuestras condicines");
+        mv.addObject("subtitulo", "Nuestras condiciones :P");
         mv.addObject("titulo", "Condiciones de Uso");
         return mv;
     }
@@ -43,7 +43,7 @@ public class HomeController {
         mv.addObject("categories", categoryService.findAll());
         mv.addObject("brands", brandService.findAll());
         mv.addObject("title", "GEX - Sobre Nosotros");
-        mv.addObject("subtitulo", "Un poco mas :P");
+        mv.addObject("subtitulo", "Un poco más :P");
         mv.addObject("titulo", "Sobre Nosotros");
         return mv;
     }
