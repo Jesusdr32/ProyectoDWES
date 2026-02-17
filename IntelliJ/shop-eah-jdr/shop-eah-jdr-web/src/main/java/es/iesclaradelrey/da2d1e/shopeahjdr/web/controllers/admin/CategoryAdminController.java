@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class CategoryAdminController {
 
@@ -21,12 +23,15 @@ public class CategoryAdminController {
 
     @GetMapping( "/admin/categories")
     public ModelAndView adminBrand(){
-        ModelAndView mv = new ModelAndView("admin/categories");
+        ModelAndView mv = new ModelAndView("/admin/categories");
         mv.addObject("categories", categoryService.findAll());
         mv.addObject("brands", brandService.findAll());
         mv.addObject("title", "GEX - Admin Categorias");
         mv.addObject("subtitulo", "Administración de Categorias :P");
         mv.addObject("titulo", "Nuestra admin de Categorias");
+        mv.addObject("fields", List.of("id", "name", "description"));
+        mv.addObject("headers", List.of("ID", "Nombre", "Descripción"));
+        mv.addObject("baseURL", "/admin/categories");
         return mv;
     }
 

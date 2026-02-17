@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class BrandAdminController {
 
@@ -25,6 +27,9 @@ public class BrandAdminController {
         mv.addObject("title", "GEX - Admin Desarrolladoras");
         mv.addObject("subtitulo", "Administración de Desarrolladoras :P");
         mv.addObject("titulo", "Nuestra admin de desarrolladoras");
+        mv.addObject("fields", List.of("id", "name", "description"));
+        mv.addObject("headers", List.of("ID", "Nombre", "Descripción"));
+        mv.addObject("baseURL", "/admin/brands");
         return mv;
     }
     @GetMapping("/admin/brands/")
