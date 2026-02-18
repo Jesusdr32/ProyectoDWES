@@ -4,11 +4,11 @@
 <body>
 <div th:replace="~{fragments/header :: preloader}"></div>
 
-<div th:replace="~{admin/fragmentsadmin/header-admin :: headeradmin}"></div>
+<div th:replace="~{fragments/header-admin :: headeradmin}"></div>
 
 <div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
 
-<div th:replace="~{admin/fragmentsadmin/list :: entityList(${title}, ${brands}, ${columns}, ${baseURL})}"></div>
+<div th:replace="~{fragments/entity :: entityList(${title}, brand, ${brands}, ${headers}, ${fields})}"></div>
 
 <div th:replace="~{fragments/footer :: carousel}"></div>
 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${title})}"></head>
+<body>
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header-admin :: headeradmin}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Crear Nueva Categoría</h2>
+
+    <form method="post" th:object="${category}">
+        <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!</div>
+
+        <div class="mb-3">
+            <label for="ean" class="form-label">EAN: </label>
+            <input type="text" class="form-control" id="ean" th:field="*{productEan}">
+        </div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre: </label>
+            <input type="text" class="form-control" id="name" th:field="*{productName}">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripción: </label>
+            <input type="text" class="form-control" id="description" th:field="*{productDescription}">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen URL: </label>
+            <input type="text" class="form-control" id="image" th:field="*{productImage}">
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Precio: </label>
+            <input type="number" class="form-control" id="price" min="0" step="0.01" placeholder="0.0" th:field="*{productPrice}">
+        </div>
+
+        <div class="mb-3">
+            <label for="discount" class="form-label">Descuento: </label>
+            <input type="number" class="form-control" id="discount" min="0" step="0.1" placeholder="0.0" th:field="*{productDiscount}">
+        </div>
+
+        <div class="mb-3">
+            <label for="brand-id" class="form-label">Desarrolladora: </label>
+        </div>
+
+        <select id="brand-id" class="form-select" th:field="*{brandId}">
+            <option value="">Seleccione desarrolladora ...</option>
+            <th:block th:remove="all-but-first">
+                <option th:each="brand : ${brands}"
+                        th:value="${brand.id}"
+                        th:text="${brand.name}"
+                        value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </th:block>
+        </select>
+
+        <div class="mb-3">
+            <fieldset>
+                <legend>Categorías del producto: </legend>
+                <div class="form-check" th:each="category : ${categories}">
+                    <input type="checkbox"
+                           class="form-check-input"
+                           id="category-check"
+                           th:field="*{categories}"
+                           th:value="${category.id}"
+                           th:id="| category-check-${category.id} |">
+                    <label class="form-check-label"
+                           th:for="| category-check-${category.id} |"
+                           th:text="${category.name}">Nombre de la categoría</label>
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+
+    </form>
+</div>
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>

@@ -1,10 +1,15 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers.admin;
 
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewProductsModel;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.BrandService;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.CategoryService;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.ProductService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,5 +44,27 @@ public class ProductAdminController {
     @GetMapping("/admin/products/")
     public String adminProductRedirect() {
         return "redirect:/admin/products";
+    }
+
+
+    @GetMapping("/admin/new-product")
+    public String newProductGet(Model model){
+        model.addAttribute("products", new NewProductsModel());
+        model.addAttribute("category", categoryService.findAll());
+        return "admin/new-product";
+    }
+
+    @PostMapping("/admin/new-product")
+    public String newProductPost(@ModelAttribute("product") NewProductsModel newProductsModel, Model model){
+        System.out.printf("Producto recibido: \n%s\n", newProductsModel);
+        try {
+            Product newProduct = productService.createNew(newProductsModel);
+            return String.format("redirect:/admin/products/%s", newProduct.getId());
+        } catch (Exception e){
+            System.out.println("Se ha producido un error");
+            e.printStackTrace();
+            model.addAttribute("category", categoryService.findAll());
+            return "admin/new-product";
+        }
     }
 }

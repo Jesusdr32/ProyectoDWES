@@ -1,0 +1,102 @@
+<!-- Listado de entidades -->
+<div th:fragment="entityList(title, name, items, headers, fields)">
+
+    <div class="container mt-4">
+
+        <!-- Titulo + botón -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0" th:text="${title}">Listado</h2>
+            <a th:href="@{'/admin/new-' + ${name}}" class="btn btn-primary btn-sm">Nuevo</a>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                <tr>
+                    <th th:each="header : ${headers}" th:text="${header}"></th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="item : ${items}">
+                    <!-- Campos dinámicos -->
+                    <td th:each="field : ${fields}" th:text="${item[field]}"></td>
+
+                    <!-- Acciones -->
+                    <td class="text-center">
+                        <a th:href="@{'/admin/edit-' + ${name} + '/' + ${item.id}}" class="btn btn-sm btn-outline-warning">Editar</a>
+
+                        <a th:href="@{'/admin/delete-' + ${name} + '/' + ${item.id}}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Seguro que deseas eliminar?')">Eliminar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- Fin listado de entidades -->
+
+<!-- Crear nueva entidad -->
+<div th:fragment="entityFormNew(title, entity, fields, baseURL)">
+    <div class="container mt-4">
+        <h2 class="mb-4"
+            th:text="${title}">Formulario</h2>
+
+        <form th:action="@{${baseURl}/save}"
+              th:object="${entity}"
+              method="post">
+            <!-- Campo ID oculto -->
+            <input type="hidden" />
+
+            <div th:each="field : ${fields}"
+                 class="mb-3">
+
+                <label class="form-label"
+                       th:text="${field.label}"></label>
+
+                <!-- TEXT -->
+                <input th:if="${field.type == 'text'}"
+                       type="text"
+                       class="form-control"
+                       th:field="*{__${field.name}__}" />
+
+                <!-- NUMBER -->
+                <input th:if="${field.type == 'number'}"
+                       type="number"
+                       class="form-control"
+                       step="any"
+                       th:field="*{__${field.name}__}" />
+
+                <!-- SELECT (ManyToOne) -->
+                <select th:if="${field.type == 'select'}"
+                        class="form-select"
+                        th:field="*{__${field.name}__}">
+                    <option value="">-- Selecciona --</option>
+                    <option th:each="opt : ${field.options}"
+                            th:value="${opt.id}"
+                            th:text="${opt.name}"></option>
+                </select>
+
+                <!-- MULTISELECT (ManyToMany) -->
+                <select th:if="${field.type == 'multiselect'}"
+                        class="form-select"
+                        multiple
+                        th:field="*{__${field.options}__}">
+                    <option th:each="opt : ${field.options}"
+                            th:value="${opt.id}"
+                            th:text="${opt.name}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Guardar</button>
+
+            <a th:href="@{${baseURL}}" class="btn btn-secondary">Canclar</a>
+
+        </form>
+
+    </div>
+
+</div>

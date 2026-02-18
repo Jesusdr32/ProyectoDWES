@@ -1,9 +1,12 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers.admin;
 
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewBrandModel;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.BrandServiceImpl;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.CategoryServiceImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -35,5 +38,25 @@ public class BrandAdminController {
     @GetMapping("/admin/brands/")
     public String adminBrandRedirect() {
         return "redirect:/admin/brands";
+    }
+
+    @GetMapping("/admin/new-brand")
+    public String getCreateBrand(Model model) {
+        model.addAttribute("brand", new NewBrandModel());
+        return "admin/new-brand";
+    }
+
+    @PostMapping("/admin/new-brand")
+    public String newBrandPost(@ModelAttribute("brand")NewBrandModel newBrandModel, Model model) {
+        System.out.println("Desarrolladora recibida:  " + newBrandModel);
+     try {
+         Brand newBrand = brandService.createNew(newBrandModel);
+         return String.format("redirect:/admin/brands/%d", newBrand.getId());
+     } catch (Exception e) {
+         System.out.println("Se ha producido un error");
+         e.printStackTrace();
+         model.addAttribute("brand", brandService.findAll());
+         return "admin/new-brand";
+     }
     }
 }

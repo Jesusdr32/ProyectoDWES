@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${title})}"></head>
+<body>
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header-admin :: headeradmin}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Crear Nueva Desarrolladora</h2>
+
+    <form method="post" th:object="${brand}">
+        <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!</div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre: </label>
+            <input type="text" class="form-control" id="name" th:field="*{brandName}">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripción: </label>
+            <input type="text" class="form-control" id="description" th:field="*{brandDescription}">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen URL: </label>
+            <input type="text" class="form-control" id="image" th:field="*{brandImage}">
+        </div>
+
+        <div class="mb-3">
+            <fieldset>
+                <legend>Productos de la desarrolladora: </legend>
+                <div class="form-check" th:each="product : ${products}">
+                    <input type="checkbox"
+                           class="form-check-input"
+                           id="product-check"
+                           th:field="*{products}"
+                           th:value="${product.id}"
+                           th:id="| product-check-${product.id} |">
+                    <label class="form-check-label"
+                           th:for="| product-check-${product.id} |"
+                           th:text="${product.name}">Nombre del producto</label>
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+
+    </form>
+</div>
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>
