@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${titulo})}"></head>
+<body>
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header-admin :: headeradmin}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<div th:replace="~{fragments/entity :: entityList(${title}, brands, ${brands}, ${headers}, ${fields})}"></div>
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>

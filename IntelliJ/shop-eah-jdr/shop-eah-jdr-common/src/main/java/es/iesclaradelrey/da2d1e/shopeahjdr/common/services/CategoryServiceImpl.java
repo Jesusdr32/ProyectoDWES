@@ -1,13 +1,17 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryModel;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewProductsDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.CategoryMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -39,21 +43,24 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category createNew(NewCategoryModel newCategoryModel) {
-        Set<Product> products = Set.copyOf(productRepository.findAllById(newCategoryModel.getProducts()));
+    public Category createNew(NewCategoryDto newCategoryDto) {
 
-        if (products.size() != newCategoryModel.getProducts().size()) {
-            throw new EntityNotFoundException("Alguno de los módulos no se han encontrado");
-        }
-
-        Category category = Category.builder()
-                .id(newCategoryModel.getCategoryId())
-                .name(newCategoryModel.getCategoryName())
-                .description(newCategoryModel.getCategoryDescription())
-                .image(newCategoryModel.getCategoryImage())
-                .products(products)
-                .build();
+        Category category = CategoryMapper.map(newCategoryDto);
 
         return categoryRepository.save(category);
     }
+
+
+    @Override
+    public Category update(Long categoryId, NewCategoryDto newCategoryDto) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No se encuentra la categoria con id %d", categoryId)));
+        category.setName(newCategoryDto.getCategoryName());
+        category.setDescription(newCategoryDto.getCategoryDescription());
+        category.setImage(newCategoryDto.getCategoryImage());
+
+        return categoryRepository.save(category);
+    }
+
+
 }

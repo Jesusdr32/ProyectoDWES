@@ -1,26 +1,22 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewBrandModel;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewBrandDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.BrandMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.BrandRepository;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class BrandServiceImpl implements BrandService {
 
     private final BrandRepository brandRepository;
-    private final ProductRepository productRepository;
 
-    public BrandServiceImpl(BrandRepository brandRepository, ProductRepository productRepository) {
+    public BrandServiceImpl(BrandRepository brandRepository) {
         this.brandRepository = brandRepository;
-        this.productRepository = productRepository;
     }
 
     @Override
@@ -39,21 +35,20 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand createNew(NewBrandModel newBrandModel) {
-        Set<Product> products = Set.copyOf(productRepository.findAllById(newBrandModel.getProducts()));
-
-        if (products.size() != newBrandModel.getProducts().size()) {
-            throw new EntityNotFoundException("Alguno de los productos no se han encontrado");
-        }
-
-        Brand brand = Brand.builder()
-                .id(newBrandModel.getBrandId())
-                .name(newBrandModel.getBrandName())
-                .description(newBrandModel.getBrandDescription())
-                .image(newBrandModel.getBrandImage())
-                .products(products)
-                .build();
+    public Brand createNew(NewBrandDto newBrandDto) {
+        Brand brand = BrandMapper.map(newBrandDto);
 
         return brandRepository.save(brand);
+    }
+
+    @Override
+    public Brand update(Long brandId, NewBrandDto newBrandDto) {
+        Brand brand = brandRepository.findById(brandId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No se encuentra la desarrolladora con id %d", brandId)));
+        brand.setName(newBrandDto.getBrandName());
+        brand.setDescription(newBrandDto.getBrandDescription());
+        brand.setImage(newBrandDto.getBrandImage());
+
+        return  brandRepository.save(brand);
     }
 }

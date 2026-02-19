@@ -8,7 +8,7 @@
 
 <div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
 
-<div th:replace="~{fragments/entity :: entityList(${title}, category, ${categories}, ${headers}, ${fields})}"></div>
+<div th:replace="~{fragments/entity :: entityDelete(${name}, ${url}, ${error})}"></div>
 
 <div th:replace="~{fragments/footer :: carousel}"></div>
 
@@ -17,6 +17,5 @@
 <div th:replace="~{fragments/footer :: copyright}"></div>
 
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
-
 </body>
 </html>

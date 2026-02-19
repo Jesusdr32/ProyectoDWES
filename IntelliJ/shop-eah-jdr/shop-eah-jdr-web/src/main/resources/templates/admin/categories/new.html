@@ -29,24 +29,9 @@
             <input type="text" class="form-control" id="image" th:field="*{categoryImage}">
         </div>
 
-        <div class="mb-3">
-            <fieldset>
-                <legend>Productos de la categoría: </legend>
-                <div class="form-check" th:each="product : ${products}">
-                    <input type="checkbox"
-                           class="form-check-input"
-                           id="product-check"
-                           th:field="*{products}"
-                           th:value="${product.id}"
-                           th:id="| product-check-${product.id} |">
-                    <label class="form-check-label"
-                           th:for="| product-check-${product.id} |"
-                           th:text="${product.name}">Nombre del producto</label>
-                </div>
-            </fieldset>
-        </div>
-
         <button type="submit" class="btn btn-primary">Enviar</button>
+
+        <a th:href="@{/admin/categories/categories}" class="btn btn-secondary">Cancelar</a>
 
     </form>
 </div>

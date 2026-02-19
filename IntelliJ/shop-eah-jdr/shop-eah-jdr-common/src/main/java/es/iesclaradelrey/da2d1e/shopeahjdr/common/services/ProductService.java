@@ -1,7 +1,8 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewProductsModel;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewProductsDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
 
 import java.util.List;
@@ -11,7 +12,8 @@ public interface ProductService {
     List<Product> findAll();
     Product save(Product product);
     Optional<Product> findById(Long id);
-    Product createNew(NewProductsModel newProductsModel);
+    Product createNew(NewProductsDto newProductsDto);
+    Product update(Long productId, NewProductsDto newProductsDto);
 //    List<Product> findByCategoryId(Long categoryId); same
     //void deleteById(Long id);
 }

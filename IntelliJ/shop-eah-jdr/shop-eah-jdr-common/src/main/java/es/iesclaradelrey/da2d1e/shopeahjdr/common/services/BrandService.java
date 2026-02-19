@@ -1,8 +1,9 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewBrandModel;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewBrandDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
-import org.springframework.stereotype.Service;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,5 +12,7 @@ public interface BrandService {
     List<Brand> findAll();
     Brand save(Brand brand);
     Optional<Brand> findById(Long id);
-    Brand createNew(NewBrandModel newBrandModel);
+    Brand createNew(NewBrandDto newBrandDto);
+    Brand update(Long brandId, NewBrandDto newBrandDto);
+
 }

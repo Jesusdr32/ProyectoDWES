@@ -6,7 +6,7 @@
         <!-- Titulo + botón -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0" th:text="${title}">Listado</h2>
-            <a th:href="@{'/admin/new-' + ${name}}" class="btn btn-primary btn-sm">Nuevo</a>
+            <a th:href="@{'/admin/' + ${name} + '/new'}" class="btn btn-primary btn-sm">Nuevo</a>
         </div>
 
         <!-- Tabla -->
@@ -26,9 +26,9 @@
 
                     <!-- Acciones -->
                     <td class="text-center">
-                        <a th:href="@{'/admin/edit-' + ${name} + '/' + ${item.id}}" class="btn btn-sm btn-outline-warning">Editar</a>
+                        <a th:href="@{'/admin/' + ${name} + '/edit/' + ${item.id}}" class="btn btn-sm btn-outline-warning">Editar</a>
 
-                        <a th:href="@{'/admin/delete-' + ${name} + '/' + ${item.id}}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Seguro que deseas eliminar?')">Eliminar</a>
+                        <a th:href="@{'/admin/' + ${name} + '/delete/' + ${item.id}}" class="btn btn-sm btn-outline-danger">Eliminar</a>
                     </td>
                 </tr>
                 </tbody>
@@ -39,64 +39,19 @@
 </div>
 <!-- Fin listado de entidades -->
 
-<!-- Crear nueva entidad -->
-<div th:fragment="entityFormNew(title, entity, fields, baseURL)">
-    <div class="container mt-4">
-        <h2 class="mb-4"
-            th:text="${title}">Formulario</h2>
-
-        <form th:action="@{${baseURl}/save}"
-              th:object="${entity}"
-              method="post">
-            <!-- Campo ID oculto -->
-            <input type="hidden" />
-
-            <div th:each="field : ${fields}"
-                 class="mb-3">
-
-                <label class="form-label"
-                       th:text="${field.label}"></label>
-
-                <!-- TEXT -->
-                <input th:if="${field.type == 'text'}"
-                       type="text"
-                       class="form-control"
-                       th:field="*{__${field.name}__}" />
-
-                <!-- NUMBER -->
-                <input th:if="${field.type == 'number'}"
-                       type="number"
-                       class="form-control"
-                       step="any"
-                       th:field="*{__${field.name}__}" />
-
-                <!-- SELECT (ManyToOne) -->
-                <select th:if="${field.type == 'select'}"
-                        class="form-select"
-                        th:field="*{__${field.name}__}">
-                    <option value="">-- Selecciona --</option>
-                    <option th:each="opt : ${field.options}"
-                            th:value="${opt.id}"
-                            th:text="${opt.name}"></option>
-                </select>
-
-                <!-- MULTISELECT (ManyToMany) -->
-                <select th:if="${field.type == 'multiselect'}"
-                        class="form-select"
-                        multiple
-                        th:field="*{__${field.options}__}">
-                    <option th:each="opt : ${field.options}"
-                            th:value="${opt.id}"
-                            th:text="${opt.name}"></option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-success">Guardar</button>
-
-            <a th:href="@{${baseURL}}" class="btn btn-secondary">Canclar</a>
-
-        </form>
-
+<!-- Eliminar una entidad -->
+<div th:fragment="entityDelete(name, url, error)" class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 text-center shadow-lg" style="max-width: 400px; border-radius: 15px">
+        <div class="card-body">
+            <h3 class="card-title mb-3" th:text="| '¿Seguro que desea eliminar la desarrolladora' ${name} '?' |"></h3>
+            <form method="post">
+                <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!</div>
+                <div class="d-flex justify-content-around">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a th:href="@{${url}}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
-
 </div>
+<!-- Fin eliminado de una entidad -->
