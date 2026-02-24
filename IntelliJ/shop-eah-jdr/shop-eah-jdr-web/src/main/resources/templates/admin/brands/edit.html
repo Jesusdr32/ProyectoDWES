@@ -1,10 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="~{fragments/head :: head(${title})}"></head>
 <body>
+<div th:replace="~{fragments/header :: preloader}"></div>
 
+<div th:replace="~{fragments/header-admin :: headeradmin}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Editar Desarrolladora</h2>
+
+    <form method="post"
+          th:object="${brand}">
+
+        <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">ID:</label>
+            <input type="text" class="form-control" th:value="*{brandId}" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre: </label>
+            <input type="text" class="form-control" id="name" th:field="*{brandName}">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripción: </label>
+            <input type="text" class="form-control" id="description" th:field="*{brandDescription}">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen URL: </label>
+            <input type="text" class="form-control" id="image" th:field="*{brandImage}">
+        </div>
+
+        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Guardar cambios</button>
+
+        <a th:href="@{/admin/brands/brands}" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left"></i> Cancelar</a>
+
+    </form>
+</div>
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 </body>
 </html>

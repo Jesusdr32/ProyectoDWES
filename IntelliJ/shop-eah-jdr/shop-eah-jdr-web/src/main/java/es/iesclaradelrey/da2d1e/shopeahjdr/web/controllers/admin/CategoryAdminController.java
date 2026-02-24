@@ -80,7 +80,7 @@ public class CategoryAdminController {
     }
 
     // Editar una categoria
-    @GetMapping("/admin/category/edit/{id}")
+    @GetMapping("/admin/categories/edit/{id}")
     public String getEditCategory(@PathVariable Long id,
                                   Model model) {
         Category category = categoryService
@@ -90,7 +90,7 @@ public class CategoryAdminController {
                 ));
         NewCategoryDto newCategoryDto = CategoryMapper.map(category);
 
-        model.addAttribute("category",  newCategoryDto);
+        model.addAttribute("category", newCategoryDto);
         model.addAttribute("title", "GEX - Editar Categoria");
         model.addAttribute("titulo", "Editar Categoria");
         model.addAttribute("subtitulo", "Formulario de edición de categorias");
@@ -98,17 +98,21 @@ public class CategoryAdminController {
     }
 
 
-    @PostMapping("/admin/category/edit/{id}")
+    @PostMapping("/admin/categories/edit/{id}")
     public String postEditCategory(@PathVariable Long id,
                                   @ModelAttribute("category") NewCategoryDto newCategoryDto,
                                   Model model) {
         try {
             categoryService.update(id, newCategoryDto);
+            return "redirect:/admin/categories/categories";
         } catch (Exception e){
             model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
+            model.addAttribute("category", newCategoryDto);
+            model.addAttribute("title", "GEX - Editar Categoria");
+            model.addAttribute("titulo", "Editar Categoria");
+            model.addAttribute("subtitulo", "Formulario de edición de categorias");
             return "admin/categories/edit";
         }
-        return "redirect:/admin/categories/categories";
     }
 
     // Eliminar una desarrolladora
@@ -128,7 +132,7 @@ public class CategoryAdminController {
     public String deleteCategoryPost(@PathVariable Long id, Model model) {
         try {
             categoryRepository.deleteById(id);
-            return "redirect:/admin/categories/categories";
+            return "admin/categories/categories";
         } catch(Exception e) {
             model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
             model.addAttribute("title", "GEX - Delete Category");

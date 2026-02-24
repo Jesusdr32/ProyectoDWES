@@ -12,7 +12,6 @@
     <h2 class="mb-4">Editar Categoría</h2>
 
     <form method="post"
-          th:action="@{/admin/categories/{id}/edit(id=${id})}"
           th:object="${category}">
 
         <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!
@@ -20,27 +19,27 @@
 
         <div class="mb-3">
             <label class="form-label">ID:</label>
-            <input type="text" class="form-control" th:value="*{category.id}" readonly>
+            <input type="text" class="form-control" th:value="*{categoryId}" readonly>
         </div>
 
         <div class="mb-3">
             <label for="name" class="form-label">Nombre: </label>
-            <input type="text" class="form-control" id="name" th:field="*{category.categoryName}">
+            <input type="text" class="form-control" id="name" th:field="*{categoryName}">
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Descripción: </label>
-            <input type="text" class="form-control" id="description" th:field="*{category.categoryDescription}">
+            <input type="text" class="form-control" id="description" th:field="*{categoryDescription}">
         </div>
 
         <div class="mb-3">
             <label for="image" class="form-label">Imagen URL: </label>
-            <input type="text" class="form-control" id="image" th:field="*{category.categoryImage}">
+            <input type="text" class="form-control" id="image" th:field="*{categoryImage}">
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Guardar cambios</button>
 
-        <a th:href="@{/admin/categories}" class="btn btn-secondary">Cancelar</a>
+        <a th:href="@{/admin/categories/categories}" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left"></i> Cancelar</a>
 
     </form>
 </div>

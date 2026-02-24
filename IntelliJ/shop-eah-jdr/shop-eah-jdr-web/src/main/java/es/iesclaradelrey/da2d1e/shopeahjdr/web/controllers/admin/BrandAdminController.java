@@ -89,7 +89,7 @@ public class BrandAdminController {
                 ));
         NewBrandDto newBrandDto = BrandMapper.map(brand);
 
-        model.addAttribute("category",  newBrandDto);
+        model.addAttribute("brand",  newBrandDto);
         model.addAttribute("title", "GEX - Editar Categoria");
         model.addAttribute("titulo", "Editar Categoria");
         model.addAttribute("subtitulo", "Formulario de edición de categorias");
@@ -102,11 +102,15 @@ public class BrandAdminController {
                                    Model model) {
         try {
             brandService.update(id, newBrandDto);
+            return "redirect:/admin/brands/brands";
         } catch (Exception e){
             model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
+            model.addAttribute("brand",  newBrandDto);
+            model.addAttribute("title", "GEX - Editar Categoria");
+            model.addAttribute("titulo", "Editar Categoria");
+            model.addAttribute("subtitulo", "Formulario de edición de categorias");
             return "admin/brands/edit";
         }
-        return "redirect:/admin/brands/brands";
     }
 
     // Eliminar una desarrolladora
@@ -126,7 +130,7 @@ public class BrandAdminController {
     public String deleteBrandPost(@PathVariable Long id, Model model) {
         try {
             brandRepository.deleteById(id);
-            return "redirect:/admin/brands/brands";
+            return "admin/brands/brands";
         } catch(Exception e) {
             model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
             var brand = brandService.findById(id).orElseThrow();

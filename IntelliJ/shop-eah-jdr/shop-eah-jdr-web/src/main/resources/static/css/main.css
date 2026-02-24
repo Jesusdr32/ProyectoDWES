@@ -2872,3 +2872,8 @@ nav.main-menu ul ul.sub-menu li a:hover {
 .copyright {
   border-top: 1px solid #565AA6 !important;
 }
+
+/* Tabla de listado de entidades */
+.container-wide {
+  max-width: 1450px !important;
+}

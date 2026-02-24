@@ -12,7 +12,6 @@
     <h2 class="mb-4">Editar Producto</h2>
 
     <form method="post"
-          th:action="@{/admin/products/{id}/edit(id=${id})}"
           th:object="${product}">
 
         <div class="alert alert-danger" role="alert"
@@ -22,7 +21,7 @@
 
         <div class="mb-3">
             <label class="form-label">ID:</label>
-            <input type="text" class="form-control" th:value="${id}" readonly>
+            <input type="text" class="form-control" th:value="*{productId}" readonly>
         </div>
 
         <div class="mb-3">
@@ -78,9 +77,9 @@
                 <div class="form-check" th:each="category : ${categories}">
                     <input type="checkbox"
                            class="form-check-input"
+                           th:id="|category-check-${category.id}|"
                            th:field="*{categories}"
-                           th:value="${category.id}"
-                           th:id="|category-check-${category.id}|">
+                           th:value="${category.id}">
                     <label class="form-check-label"
                            th:for="|category-check-${category.id}|"
                            th:text="${category.name}">
@@ -90,9 +89,9 @@
             </fieldset>
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Guardar cambios</button>
 
-        <a th:href="@{/admin/products/products}" class="btn btn-secondary">Cancelar</a>
+        <a th:href="@{/admin/products/products}" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left"></i> Cancelar</a>
 
     </form>
 </div>

@@ -1,6 +1,7 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.dto;
 
 
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import lombok.*;
 
 import java.util.HashSet;

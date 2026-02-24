@@ -1,7 +1,10 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers;
 
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewProductsDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
+
+import java.util.stream.Collectors;
 
 public class ProductMapper
 {
@@ -17,6 +20,8 @@ public class ProductMapper
                 .productImage(product.getImage())
                 .productPrice(product.getPrice())
                 .productDiscount(product.getDiscount())
+                .brandId(product.getBrand().getId())
+                .categories(product.getCategories().stream().map(Category::getId).collect(Collectors.toSet()))
                 .build();
     }
 

@@ -105,11 +105,17 @@ public class ProductAdminController {
                                  Model model){
         try {
             productService.update(id, newProductsDto);
+            return "redirect:/admin/products/products";
         } catch (Exception e) {
             model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
+            model.addAttribute("product", newProductsDto);
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("brands", brandService.findAll());
+            model.addAttribute("title", "GEX - Editar Producto");
+            model.addAttribute("titulo", "Editar Producto");
+            model.addAttribute("subtitulo", "Formulario de edición de productos");
             return "admin/products/edit";
         }
-        return "admin/products/products";
     }
 
     // Eliminar una desarrolladora
