@@ -132,7 +132,7 @@ public class CategoryAdminController {
     public String deleteCategoryPost(@PathVariable Long id, Model model) {
         try {
             categoryRepository.deleteById(id);
-            return "admin/categories/categories";
+            return "redirect:/admin/categories/categories";
         } catch(Exception e) {
             model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
             model.addAttribute("title", "GEX - Delete Category");

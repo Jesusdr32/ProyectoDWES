@@ -130,7 +130,7 @@ public class BrandAdminController {
     public String deleteBrandPost(@PathVariable Long id, Model model) {
         try {
             brandRepository.deleteById(id);
-            return "admin/brands/brands";
+            return "redirect:/admin/brands/brands";
         } catch(Exception e) {
             model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
             var brand = brandService.findById(id).orElseThrow();
