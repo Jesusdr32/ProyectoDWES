@@ -11,17 +11,17 @@
 <div class="container mt-4">
     <h2 class="mb-4">Crear Nueva Categoría</h2>
 
-    <form method="post" th:object="${product}">
+    <form method="post" th:object="${product}" th:novalidate="${!clientValidationEnabled}">
         <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!</div>
 
         <div class="mb-3">
             <label for="ean" class="form-label">EAN: </label>
-            <input type="text" class="form-control" id="ean" th:field="*{productEan}">
+            <input type="text" class="form-control" id="ean" th:field="*{productEan}" required>
         </div>
 
         <div class="mb-3">
             <label for="name" class="form-label">Nombre: </label>
-            <input type="text" class="form-control" id="name" th:field="*{productName}">
+            <input type="text" class="form-control" id="name" th:field="*{productName}" required>
         </div>
 
         <div class="mb-3">
@@ -36,7 +36,7 @@
 
         <div class="mb-3">
             <label for="price" class="form-label">Precio: </label>
-            <input type="number" class="form-control" id="price" min="0" step="0.01" placeholder="0.0" th:field="*{productPrice}">
+            <input type="number" class="form-control" id="price" min="0" step="0.01" placeholder="0.0" th:field="*{productPrice}" required>
         </div>
 
         <div class="mb-3">
@@ -48,7 +48,7 @@
             <label for="brand-id" class="form-label">Desarrolladora: </label>
         </div>
 
-        <select id="brand-id" class="form-select" th:field="*{brandId}">
+        <select id="brand-id" class="form-select" th:field="*{brandId}" required>
             <option value="">Seleccione desarrolladora ...</option>
             <th:block th:remove="all-but-first">
                 <option th:each="brand : ${brands}"

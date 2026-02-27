@@ -8,6 +8,7 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.BrandService;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.CategoryService;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.ProductService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +27,19 @@ public class ProductAdminController {
     private final ProductService productService;
     private final ProductRepository productRepository;
 
+    @Value("${shop.validation.client-validation-enabled}")
+    private boolean clientValidationEnabled;
+
     public ProductAdminController(CategoryService categoryService, BrandService brandService, ProductService productService, ProductRepository productRepository) {
         this.categoryService = categoryService;
         this.brandService = brandService;
         this.productService = productService;
         this.productRepository = productRepository;
+    }
+
+    @ModelAttribute(name = "clientValidationEnabled")
+    public boolean getClientValidationEnabled() {
+        return this.clientValidationEnabled;
     }
 
     @GetMapping( "/admin/products/products")

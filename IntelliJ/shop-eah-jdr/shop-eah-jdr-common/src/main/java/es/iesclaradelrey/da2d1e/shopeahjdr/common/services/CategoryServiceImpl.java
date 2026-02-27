@@ -47,12 +47,20 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = CategoryMapper.map(newCategoryDto);
 
+        if (newCategoryDto.getCategoryImage().isEmpty()) {
+            newCategoryDto.setCategoryImage(null);
+        }
+
         return categoryRepository.save(category);
     }
 
 
     @Override
     public Category update(Long categoryId, NewCategoryDto newCategoryDto) {
+        if (newCategoryDto.getCategoryImage().isEmpty()) {
+            newCategoryDto.setCategoryImage(null);
+        }
+
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("No se encuentra la categoria con id %d", categoryId)));
         category.setName(newCategoryDto.getCategoryName());

@@ -38,11 +38,19 @@ public class BrandServiceImpl implements BrandService {
     public Brand createNew(NewBrandDto newBrandDto) {
         Brand brand = BrandMapper.map(newBrandDto);
 
+        if (newBrandDto.getBrandImage().isEmpty()) {
+            newBrandDto.setBrandImage(null);
+        }
+
         return brandRepository.save(brand);
     }
 
     @Override
     public Brand update(Long brandId, NewBrandDto newBrandDto) {
+        if (newBrandDto.getBrandImage().isEmpty()) {
+            newBrandDto.setBrandImage(null);
+        }
+
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("No se encuentra la desarrolladora con id %d", brandId)));
         brand.setName(newBrandDto.getBrandName());

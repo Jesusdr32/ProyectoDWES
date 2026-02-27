@@ -57,6 +57,10 @@ public class ProductServiceImpl implements ProductService{
             throw new EntityNotFoundException("Alguno de los módulos no se han encontrado");
         }
 
+        if (newProductsDto.getProductImage().isEmpty()) {
+            newProductsDto.setProductImage(null);
+        }
+
         Product product = ProductMapper.map(newProductsDto);
         product.setBrand(brand);
         product.setCategories(categories);
@@ -66,6 +70,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product update(Long productId, NewProductsDto newProductsDto) {
+        if (newProductsDto.getProductImage().isEmpty()) {
+            newProductsDto.setProductImage(null);
+        }
+
         Product product = productRepository
                 .findById(productId)
                 .orElseThrow(() -> new EntityNotFoundException(
