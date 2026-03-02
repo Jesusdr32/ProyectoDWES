@@ -25,7 +25,7 @@
 
             <div class="news-text-box">
               <h3>
-                <a th:href="@{/products/{id}(id=${product.id})}"
+                <a th:href="@{/products/{id}/{slug}(id=${product.id}, slug=${product.slug})}"
                    th:text="${product.name}">
                   Nombre categoría
                 </a>
@@ -35,7 +35,7 @@
                 Descripción categoría
               </p>
 
-              <a th:href="@{/products/{id}(id=${product.id})}" class="read-more-btn">
+              <a th:href="@{/products/{id}/{slug}(id=${product.id}, slug=${product.slug})}" class="read-more-btn">
                 Ver más <i class="fas fa-angle-right"></i>
               </a>
             </div>

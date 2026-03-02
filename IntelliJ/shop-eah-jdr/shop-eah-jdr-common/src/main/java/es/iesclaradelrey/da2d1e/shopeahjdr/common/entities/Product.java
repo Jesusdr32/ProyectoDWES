@@ -50,4 +50,21 @@ public class Product{
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories = new HashSet<>();
+
+
+    public String getSlug() {
+        if (name == null || name.isBlank()) {
+            return "sin-nombre";
+        }
+
+        return name.toLowerCase()
+                .replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ñ", "n")
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("^-|-$", "");
+    }
 }

@@ -30,7 +30,7 @@ public class BrandController {
         return mv;
     }
 
-    @GetMapping("/{id}/{*}")
+    @GetMapping("/{id}")
     public ModelAndView brands(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("brand-detail");
         var brand = brandService.findById(id).orElseThrow();
