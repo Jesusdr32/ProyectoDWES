@@ -31,7 +31,10 @@
                 </a>
               </h3>
 
-              <p class="excerpt" th:text="${product.description}">
+              <p class="excerpt"
+                 th:text="${#strings.length(product.description) > 120
+                ? #strings.substring(product.description, 0, 117) + '...'
+                : product.description}">
                 Descripción categoría
               </p>
 
