@@ -17,8 +17,8 @@
       <!-- Imagen grande -->
       <div class="col-md-5">
         <div class="single-product-img">
-          <img th:with="imgName=${#strings.isEmpty(product.image) ? 'imagenGenerica.png' : product.image.replace('images/products/', '')}"
-               th:src="@{/images/products/{img}(img=${imgName})}"
+          <img th:with="imgName=${#strings.isEmpty(product.image) ? '/imagenGenerica.png' : product.image.replace('images/products/', '')}"
+               th:src="@{/images/products{img}(img=${imgName})}"
                alt="Imagen de categoría">
         </div>
       </div>

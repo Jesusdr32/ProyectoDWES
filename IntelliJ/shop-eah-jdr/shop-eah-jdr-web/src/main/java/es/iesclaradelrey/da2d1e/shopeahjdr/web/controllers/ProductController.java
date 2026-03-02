@@ -40,16 +40,17 @@ public class ProductController {
 //        mv.addObject("product", productService.findById(id).orElseThrow());
 //        return mv;
 //    }
-// 👉 Cuando alguien entra a /products/1
-@GetMapping("/{id}")
-public String redirectToSlug(@PathVariable Long id) {
-    Product product = productService.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
 
-    return "redirect:/products/" + id + "/" + product.getSlug();
-}
+    // Cuando alguien entra a /products/1
+    @GetMapping("/{id}")
+    public String redirectToSlug(@PathVariable Long id) {
+        Product product = productService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
 
-    // 👉 Cuando alguien entra a /products/1/lo-que-sea
+        return "redirect:/products/" + id + "/" + product.getSlug();
+    }
+
+    // Cuando alguien entra a /products/1/lo-que-sea
     @GetMapping("/{id}/{slug}")
     public ModelAndView productDetail(@PathVariable Long id,
                                       @PathVariable String slug) {
@@ -59,7 +60,7 @@ public String redirectToSlug(@PathVariable Long id) {
 
         String correctSlug = product.getSlug();
 
-        // Si el slug no coincide, redirige al correcto
+        // Si la url no coincide, redirige al correcto
         if (!slug.equals(correctSlug)) {
             return new ModelAndView("redirect:/products/" + id + "/" + correctSlug);
         }
