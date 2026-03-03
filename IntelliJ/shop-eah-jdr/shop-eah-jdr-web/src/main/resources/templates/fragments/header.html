@@ -8,7 +8,7 @@
 <!-- PreLoader Ends -->
 
 <!-- header -->
-<div th:fragment="header" class="top-header-area" id="sticker">
+<div th:fragment="header" class="top-header-area" id="sticker" th:style="'background-image: url(' + @{/img/fondo-head.png} + ');'">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-sm-12 text-center">
@@ -70,13 +70,23 @@
 <!-- end header -->
 
 <!-- breadcrumb -->
-<div th:fragment="breadcumb(subtitulo, titulo)" class="breadcrumb-section breadcrumb-bg">
+<div th:fragment="breadcumb(subtitulo, titulo)" class="breadcrumb-section breadcrumb-bg" th:style="'background-image: url(' + @{/img/fondo-head.png} + ');'">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2 text-center">
                 <div class="breadcrumb-text">
                     <p th:text="${subtitulo}" style="color: white">Subtitulo de info de la página</p>
                     <h1 th:text="${titulo}">Titulo de info de la página</h1>
+
+                    <!-- breadcrumb integrado -->
+                    <div class="breadcrumb-inline">
+                        <span th:each="item, stat : ${breadcrumb}">
+                            <a th:if="${!stat.last}" th:href="@{${item.url}}" th:text="${item.nombre}"></a>
+                            <span th:if="${stat.last}" th:text="${item.nombre}"></span>
+                            <span th:if="${!stat.last}"> / </span>
+                        </span>
+                    </div>
+                    <!-- end breadcrumb -->
                 </div>
             </div>
         </div>
