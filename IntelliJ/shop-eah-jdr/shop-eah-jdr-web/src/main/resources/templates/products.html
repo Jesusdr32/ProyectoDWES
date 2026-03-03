@@ -20,22 +20,25 @@
         <div class="single-latest-news">
 
             <div class="latest-news-bg"
-                 th:style="|background-image: url(@{/images/products/{img}(img=${#strings.isEmpty(product.image) ? 'imagenGenerica.png' : product.image.replace('images/products/', '')})})|">
+                 th:style="|background-image: url(@{/images/products{img}(img=${#strings.isEmpty(product.image) ? '/imagenGenerica.png' : product.image.replace('images/products/', '')})})|">
             </div>
 
             <div class="news-text-box">
               <h3>
-                <a th:href="@{/products/{id}(id=${product.id})}"
+                <a th:href="@{/products/{id}/{slug}(id=${product.id}, slug=${product.slug})}"
                    th:text="${product.name}">
                   Nombre categoría
                 </a>
               </h3>
 
-              <p class="excerpt" th:text="${product.description}">
+              <p class="excerpt"
+                 th:text="${#strings.length(product.description) > 120
+                ? #strings.substring(product.description, 0, 117) + '...'
+                : product.description}">
                 Descripción categoría
               </p>
 
-              <a th:href="@{/products/{id}(id=${product.id})}" class="read-more-btn">
+              <a th:href="@{/products/{id}/{slug}(id=${product.id}, slug=${product.slug})}" class="read-more-btn">
                 Ver más <i class="fas fa-angle-right"></i>
               </a>
             </div>

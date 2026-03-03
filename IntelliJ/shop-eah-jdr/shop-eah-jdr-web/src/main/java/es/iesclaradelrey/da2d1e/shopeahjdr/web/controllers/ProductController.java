@@ -40,19 +40,41 @@ public class ProductController {
 //        mv.addObject("product", productService.findById(id).orElseThrow());
 //        return mv;
 //    }
-    @GetMapping("/{id}/{*}")
-    public ModelAndView productDetail(@PathVariable("id") Long id) {
-            ModelAndView mv = new ModelAndView("product-detail");
-            Product product = productService.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado: " + id));
-            mv.addObject("product", product);
-            mv.addObject("categories", categoryService.findAll());
-            mv.addObject("brands", brandService.findAll());
-            mv.addObject("title", "GEX - " + product.getName());
-            mv.addObject("titulo", "GEX - " + product.getName());
-            mv.addObject("subtitulo", "El juego más jugado :P");
-            return mv;
+
+    // Cuando alguien entra a /products/1
+    @GetMapping("/{id}")
+    public String redirectToSlug(@PathVariable Long id) {
+        Product product = productService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
+
+        return "redirect:/products/" + id + "/" + product.getSlug();
+    }
+
+    // Cuando alguien entra a /products/1/lo-que-sea
+    @GetMapping("/{id}/{slug}")
+    public ModelAndView productDetail(@PathVariable Long id,
+                                      @PathVariable String slug) {
+
+        Product product = productService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
+
+        String correctSlug = product.getSlug();
+
+        // Si la url no coincide, redirige al correcto
+        if (!slug.equals(correctSlug)) {
+            return new ModelAndView("redirect:/products/" + id + "/" + correctSlug);
         }
+
+        ModelAndView mv = new ModelAndView("product-detail");
+        mv.addObject("product", product);
+        mv.addObject("categories", categoryService.findAll());
+        mv.addObject("brands", brandService.findAll());
+        mv.addObject("title", "GEX - " + product.getName());
+        mv.addObject("titulo", "GEX - " + product.getName());
+        mv.addObject("subtitulo", "El juego más jugado :P");
+
+        return mv;
+    }
 //    @GetMapping("/category/{categoryId}")
 //    public ModelAndView productsByCategory(@PathVariable("categoryId") Long categoryId) {
 //        ModelAndView mv = new ModelAndView("products");

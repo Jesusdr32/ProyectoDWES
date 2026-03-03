@@ -17,8 +17,8 @@
       <!-- Imagen grande -->
       <div class="col-md-5">
         <div class="single-product-img">
-          <img th:with="imgName=${#strings.isEmpty(product.image) ? 'imagenGenerica.png' : product.image.replace('images/products/', '')}"
-               th:src="@{/images/products/{img}(img=${imgName})}"
+          <img th:with="imgName=${#strings.isEmpty(product.image) ? '/imagenGenerica.png' : product.image.replace('images/products/', '')}"
+               th:src="@{/images/products{img}(img=${imgName})}"
                alt="Imagen de categoría">
         </div>
       </div>
@@ -26,9 +26,9 @@
       <div class="col-md-7">
         <div class="single-product-content">
           <h3 th:text="${product.name}">Nombre Producto</h3>
-          <p><strong>Desarrolladora:</strong> <span th:text="${product.brand.name ?: 'Sin desarrolladora'}">Desarrolladora</span></p>
+          <p><strong>Desarrolladora:</strong> <span><a th:href="@{/brands/{id}(id=${product.brand.id})}" th:text="${product.brand.name ?: 'Sin desarrolladora'}">Desarrolladora></a></span></p>
           <p><strong>Categoria:</strong> <span th:each="category : ${product.categories}"><a th:href="@{/categories/{id}(id=${category.id})}" th:text="${category.name} + ' '">Nombre de la categoria</a></span></p>
-          <p><strong>Precio:</strong> €<span th:text="${product.price}">0.0</span></p>
+          <p><strong>Precio:</strong> <span th:text="${product.price}">0.0</span>€</p>
           <p><strong>Descuento:</strong> <span th:text="${product.discount}">0</span>%</p>
           <p><strong>Código EAN-13:</strong> <span th:text="${product.ean}">0000000000000</span></p>
           <p th:text="${product.description}">Descripción completa del producto...</p>

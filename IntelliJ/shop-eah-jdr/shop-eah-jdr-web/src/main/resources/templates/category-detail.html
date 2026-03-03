@@ -21,7 +21,7 @@
                 <div class="single-latest-news">
 
                     <div class="latest-news-bg"
-                         th:style="|height:550px; background-image: url(@{/images/{img}(img=${#strings.isEmpty(category.image)? 'categoriaGenerica.png' : category.image.replace('images/', '')})})|">
+                         th:style="|height:550px; background-image: url(@{/images{img}(img=${#strings.isEmpty(category.image)? '/categoriaGenerica.png' : category.image.replace('images/', '')})})|">
                     </div>
 
                     <div class="news-text-box">
@@ -43,7 +43,7 @@
                 <div class="single-latest-news">
 
                     <div class="latest-news-bg"
-                         th:style="|background-image: url(@{/images/products/{img}(img=${#strings.isEmpty(product.image)? 'imagenGenerica.png' : product.image.replace('images/products/', '')})})|">
+                         th:style="|background-image: url(@{/images/products{img}(img=${#strings.isEmpty(product.image)? '/imagenGenerica.png' : product.image.replace('images/products/', '')})})|">
                     </div>
 
                     <div class="news-text-box">

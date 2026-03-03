@@ -9,7 +9,7 @@
 <div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
 
 <div class="container mt-4">
-    <h2 class="mb-4">Crear Nueva Categoría</h2>
+    <h2 class="mb-4">Crear Nuevo Producto</h2>
 
     <form method="post" th:object="${product}" th:novalidate="${!clientValidationEnabled}">
         <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!</div>

@@ -44,7 +44,7 @@ INSERT INTO product (name, description, brand_id, image, ean, price, discount) V
                         ('Survival Arena', 'Batalla por la supervivencia.', 5, NULL, '4006381334099', 54.99, 10),
                         ('Fight Masters', 'Lucha competitiva.', 4, '/images/products/fightMasters.png', '4006381334105', 59.99, 0),
                         ('Action Legends', 'Misiones de acción épicas.', 1, '/images/products/actionLegends.png', '4006381334112', 49.99, 5),
-                        ('Adventure World', 'Exploración de mundos vibrantes.', 2, NULL, '4006381334129', 44.99, 0);
+                        ('Adventure World', 'Embárcate en Adventure World, un juego de exploración y aventura donde recorrerás paisajes coloridos llenos de secretos, desafíos y personajes únicos. Viaja por bosques encantados, montañas nevadas y antiguas ruinas mientras resuelves acertijos, completas misiones secundarias y recolectas objetos especiales que te ayudarán a avanzar. A medida que progresas, podrás mejorar habilidades, desbloquear nuevas áreas y descubrir historias ocultas del mundo que te rodea, ofreciendo una experiencia relajante y entretenida para todo tipo de jugadores.', 2, NULL, '4006381334129', 44.99, 0);
 
 -- RELACIÓN PRODUCTOS - CATEGORÍAS
 INSERT INTO product_category (product_id, category_id) VALUES
