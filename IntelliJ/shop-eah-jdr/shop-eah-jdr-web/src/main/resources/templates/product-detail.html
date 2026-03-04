@@ -27,9 +27,18 @@
         <div class="single-product-content">
           <h3 th:text="${product.name}">Nombre Producto</h3>
           <p><strong>Desarrolladora:</strong> <span><a th:href="@{/brands/{id}(id=${product.brand.id})}" th:text="${product.brand.name ?: 'Sin desarrolladora'}">Desarrolladora></a></span></p>
-          <p><strong>Categoria:</strong> <span th:each="category : ${product.categories}"><a th:href="@{/categories/{id}(id=${category.id})}" th:text="${category.name} + ' '">Nombre de la categoria</a></span></p>
-          <p><strong>Precio:</strong> <span th:text="${product.price}">0.0</span>€</p>
-          <p><strong>Descuento:</strong> <span th:text="${product.discount}">0</span>%</p>
+          <p th:if="${!product.categories.empty}"><strong>Categoria:</strong> <span th:each="category : ${product.categories}"><a th:href="@{/categories/{id}(id=${category.id})}" th:text="${category.name} + ' '">Nombre de la categoria</a></span></p>
+          <p>
+            <strong>Precio:</strong>
+            <span th:if="${product.discount != null and product.discount > 0}">
+        <!-- Precio original tachado y más apagado -->
+        <s th:text="${#numbers.formatDecimal(product.price, 2, 2)} + ' €'" style="color: #999;"></s>
+              <!-- Precio con descuento resaltado -->
+        <span th:text="${#numbers.formatDecimal(product.price * (1 - (product.discount / 100.0)), 2, 2)} + ' €'" style="font-weight: bold; font-size: 1.2em;"></span>
+    </span>
+            <span th:if="${product.discount == null or product.discount == 0}"
+                  th:text="${#numbers.formatDecimal(product.price, 2, 2)}"></span>
+          </p>
           <p><strong>Código EAN-13:</strong> <span th:text="${product.ean}">0000000000000</span></p>
           <p th:text="${product.description}">Descripción completa del producto...</p>
 

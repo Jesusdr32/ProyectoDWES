@@ -24,7 +24,7 @@ public class Product{
     @Column(name = "ean", nullable = false, unique = true, length = 13)
     private String ean;
 
-    @Column(name = "name",nullable = false, length = 200, unique = true)
+    @Column(name = "name",nullable = false, length = 200)
     private String name;
 
     @Column(name = "description", nullable = false, length = 4000)

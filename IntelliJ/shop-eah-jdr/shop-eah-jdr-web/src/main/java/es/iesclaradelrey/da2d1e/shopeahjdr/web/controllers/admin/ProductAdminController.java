@@ -83,7 +83,9 @@ public class ProductAdminController {
             return "redirect:/admin/products/products";
         } catch (Exception e){
             model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
-            model.addAttribute("category", categoryService.findAll());
+            model.addAttribute("product", newProductsDto);
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("brands", brandService.findAll());
             return "admin/products/new";
         }
     }
