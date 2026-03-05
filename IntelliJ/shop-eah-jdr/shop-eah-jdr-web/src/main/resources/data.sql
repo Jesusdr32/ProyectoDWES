@@ -92,3 +92,12 @@ INSERT INTO product_category (product_id, category_id) VALUES
 -- Action Legends → Acción, Aventura
 (19, 1),
 (19, 2);
+
+
+-- INSERT del punto 3.5 para crear un usuario inicial
+INSERT INTO userapp (username, email, password)
+    VALUES (
+        'admin',
+        'admin@tienda.com',
+        '$2a$12$SCr8t0pZYisI7OcNUaHlM.rR4tgjCQujP5XHznhP2p5s3HInW0yom'
+    )

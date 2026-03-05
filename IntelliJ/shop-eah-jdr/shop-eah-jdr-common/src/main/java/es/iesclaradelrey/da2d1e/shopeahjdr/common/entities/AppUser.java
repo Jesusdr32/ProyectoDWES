@@ -1,8 +1,7 @@
-package es.iesclaradelrey.da2d1e.shopeahjdr.security.entities;
+package es.iesclaradelrey.da2d1e.shopeahjdr.common.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "userapp")
 @Entity
 public class AppUser {
 
@@ -28,6 +28,7 @@ public class AppUser {
     @Column(unique = true, nullable = false, length = 100)
     private String email;
 
+    @Column(unique = true)
     private Integer phone;
 
     private LocalDate birthDate;

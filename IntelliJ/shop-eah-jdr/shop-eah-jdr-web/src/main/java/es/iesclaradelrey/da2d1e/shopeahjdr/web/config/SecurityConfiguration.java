@@ -1,10 +1,11 @@
-package es.iesclaradelrey.da2d1e.shopeahjdr.common.configuration;
+package es.iesclaradelrey.da2d1e.shopeahjdr.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -13,11 +14,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain getSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                // H2 console libre
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console", "/h2-console/*", "/h2-console/**").permitAll())
-
-                // Recursos estáticos libres (bootstrap, css, images, img, js, webfonts)
+                // recursos públicos
                 .authorizeHttpRequests(auth -> auth.requestMatchers(
+                        "/",
                         "/bootstrap/**",
                         "/css/**",
                         "/images/**",
@@ -26,15 +25,24 @@ public class SecurityConfiguration {
                         "/webfonts/**"
                 ).permitAll())
 
-                // TODO lo demás libre (para poder entrar a todas las páginas)
+                // H2 console requiere login
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console/**").authenticated())
+
+                // administración requiere login
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/admin/**").authenticated())
+
+                // el resto permitido
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
 
-                // Para que H2 console funcione bien
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/*", "/h2-console/**"))
-                .headers(AbstractHttpConfigurer::disable)
+                // login por formulario
+                .formLogin(Customizer.withDefaults())
 
-                // Lo puedes dejar puesto aunque ahora esté todo permitido
-                .formLogin(Customizer.withDefaults());
+                // desactivar HTTP Basic
+                .httpBasic(AbstractHttpConfigurer::disable)
+
+                // H2 necesita esto
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         return http.build();
     }
