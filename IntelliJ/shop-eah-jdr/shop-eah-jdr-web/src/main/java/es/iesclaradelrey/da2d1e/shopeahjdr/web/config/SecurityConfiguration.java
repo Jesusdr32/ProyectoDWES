@@ -22,7 +22,8 @@ public class SecurityConfiguration {
                         "/images/**",
                         "/img/**",
                         "/js/**",
-                        "/webfonts/**"
+                        "/webfonts/**",
+                        "/register/**"
                 ).permitAll())
 
                 // H2 console requiere login

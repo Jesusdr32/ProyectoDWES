@@ -11,8 +11,10 @@
 <div class="container mt-4">
     <h2 class="mb-4">Editar Categoría</h2>
 
-    <form method="post"
-          th:object="${category}">
+    <form method="post" th:object="${category}">
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
 
         <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!
         </div>

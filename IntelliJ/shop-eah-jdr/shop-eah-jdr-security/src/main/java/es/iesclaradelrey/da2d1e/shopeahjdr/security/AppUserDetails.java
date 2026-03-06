@@ -20,6 +20,8 @@ public class AppUserDetails implements UserDetails {
     }
 
     public AppUserDetails(AppUser appUser) {
+        this.username = appUser.getEmail();
+        this.password = appUser.getPassword();
     }
 
     @Override

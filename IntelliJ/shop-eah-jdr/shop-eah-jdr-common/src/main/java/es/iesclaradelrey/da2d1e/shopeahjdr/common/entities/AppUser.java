@@ -19,6 +19,9 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @Column(unique = true, nullable = false, length = 50)
+    private String username;
+
     @Column(nullable = false)
     private String firstName;
 

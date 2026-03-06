@@ -12,6 +12,9 @@
     <h2 class="mb-4">Crear Nueva Desarrolladora</h2>
 
     <form method="post" th:object="${brand}">
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
         <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!</div>
 
         <div class="mb-3">

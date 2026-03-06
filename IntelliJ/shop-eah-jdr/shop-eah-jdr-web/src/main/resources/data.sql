@@ -95,9 +95,12 @@ INSERT INTO product_category (product_id, category_id) VALUES
 
 
 -- INSERT del punto 3.5 para crear un usuario inicial
-INSERT INTO userapp (username, email, password)
-    VALUES (
-        'admin',
-        'admin@tienda.com',
-        '$2a$12$SCr8t0pZYisI7OcNUaHlM.rR4tgjCQujP5XHznhP2p5s3HInW0yom'
-    )
+INSERT INTO userapp
+(username, first_name, last_name, email, password, registration_date)
+VALUES
+    ('admin',
+     'Admin',
+     'Admin',
+     'admin@tienda.com',
+     '$2a$12$SCr8t0pZYisI7OcNUaHlM.rR4tgjCQujP5XHznhP2p5s3HInW0yom',
+     CURRENT_TIMESTAMP);

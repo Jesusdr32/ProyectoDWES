@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head(${title})}"></head>
+
+<body>
+
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<div class="container mt-5 mb-5" style="max-width: 700px">
+
+    <h2 class="mb-4 text-center">Crear cuenta</h2>
+
+    <form method="post" th:object="${newUserDto}">
+
+        <!-- CSRF -->
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
+
+        <!-- Error -->
+        <div class="alert alert-danger"
+             th:if="${error != null}"
+             th:text="${error}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nombre de usuario</label>
+            <input type="text"
+                   class="form-control"
+                   th:field="*{username}"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text"
+                   class="form-control"
+                   th:field="*{firstName}"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Apellidos</label>
+            <input type="text"
+                   class="form-control"
+                   th:field="*{lastName}"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email"
+                   class="form-control"
+                   th:field="*{email}"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="number"
+                   class="form-control"
+                   th:field="*{phone}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha de nacimiento</label>
+            <input type="date"
+                   class="form-control"
+                   th:field="*{birthDate}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <input type="password"
+                   class="form-control"
+                   th:field="*{password}"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Repetir contraseña</label>
+            <input type="password"
+                   class="form-control"
+                   th:field="*{confirmPassword}"
+                   required>
+        </div>
+
+        <div class="form-check mb-4">
+            <input class="form-check-input"
+                   type="checkbox"
+                   th:field="*{acceptConditions}"
+                   id="acceptConditions">
+
+            <label class="form-check-label" for="acceptConditions">
+                Acepto las condiciones de uso
+            </label>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">
+                Registrarse
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>

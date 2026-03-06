@@ -11,37 +11,59 @@
 <div class="container mt-4">
     <h2 class="mb-4">Crear Nueva Categoría</h2>
 
-    <form method="post" th:object="${category}">
-        <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}">A simple danger alert-check it out!</div>
+    <form method="post" th:object="${category}" id="categoryForm" novalidate>
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
 
-        <div class="mb-3">
-            <label for="name" class="form-label">Nombre: </label>
-            <input type="text" class="form-control" id="name" th:field="*{categoryName}">
+        <div class="alert alert-danger" role="alert"
+             th:if="${error != null}" th:text="${error}">
+            Error
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Descripción: </label>
-            <input type="text" class="form-control" id="description" th:field="*{categoryDescription}">
+            <label for="name" class="form-label">Nombre:</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   th:field="*{categoryName}">
+            <div class="invalid-feedback" id="nameError"></div>
         </div>
 
         <div class="mb-3">
-            <label for="image" class="form-label">Imagen URL: </label>
-            <input type="text" class="form-control" id="image" th:field="*{categoryImage}">
+            <label for="description" class="form-label">Descripción:</label>
+            <input type="text"
+                   class="form-control"
+                   id="description"
+                   th:field="*{categoryDescription}">
+            <div class="invalid-feedback" id="descriptionError"></div>
         </div>
 
-        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> Enviar</button>
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen URL:</label>
+            <input type="text"
+                   class="form-control"
+                   id="image"
+                   th:field="*{categoryImage}">
+            <div class="invalid-feedback" id="imageError"></div>
+        </div>
 
-        <a th:href="@{/admin/categories/categories}" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left"></i> Cancelar</a>
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-regular fa-paper-plane"></i> Enviar
+        </button>
+
+        <a th:href="@{/admin/categories/categories}" class="btn btn-secondary">
+            <i class="fa-solid fa-arrow-rotate-left"></i> Cancelar
+        </a>
 
     </form>
 </div>
 
 <div th:replace="~{fragments/footer :: carousel}"></div>
-
 <div th:replace="~{fragments/footer :: footer}"></div>
-
 <div th:replace="~{fragments/footer :: copyright}"></div>
 
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
 </body>
 </html>
