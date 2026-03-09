@@ -9,7 +9,7 @@
 
 <!-- header -->
 <div th:fragment="header" class="top-header-area" id="sticker">
-    <div class="container">
+    <div class="container-fluid header-container">
         <div class="row">
             <div class="col-lg-12 col-sm-12 text-center">
                 <div class="main-menu-wrap">
@@ -46,9 +46,35 @@
                             <li><a th:href="@{/terms}">Condiciones de Uso</a></li>
                             <li>
                                 <div class="header-icons">
-                                    <a th:href="@{/register}">
-                                        <i class="fa-solid fa-user-plus"></i>
-                                    </a>
+
+                                    <div class="user-menu">
+
+                                        <!-- Usuario anónimo -->
+                                        <div sec:authorize="isAnonymous()">
+                                            <a href="#" class="user-icon">
+                                                <i class="fas fa-user"></i>
+                                            </a>
+
+                                            <div class="user-dropdown">
+                                                <a th:href="@{/login}">Iniciar sesión</a>
+                                                <a th:href="@{/register}">Registrarse</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Usuario logado -->
+                                        <div sec:authorize="isAuthenticated()">
+                                            <a href="#" class="user-icon">
+                                                <i class="fas fa-user"></i>
+                                                <span sec:authentication="name"></span>
+                                            </a>
+
+                                            <div class="user-dropdown">
+                                                <a href="#">Perfil</a>
+                                                <a th:href="@{/logout}">Cerrar sesión</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                     <a class="shopping-cart" href="#">
                                         <i class="fas fa-shopping-cart"></i>
                                     </a>
@@ -70,7 +96,7 @@
         </div>
     </div>
 </div>
-<!-- end header -->
+ end header -->
 
 <!-- breadcrumb -->
 <div th:fragment="breadcumb(subtitulo, titulo)" class="breadcrumb-section breadcrumb-bg">

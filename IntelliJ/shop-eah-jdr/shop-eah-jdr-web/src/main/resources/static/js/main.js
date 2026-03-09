@@ -165,4 +165,21 @@
     });
 
 
+    // seleccionar todos los iconos de usuario
+   /* const userIcons = document.querySelectorAll('.user-icon');
+
+    userIcons.forEach(icon => {
+        const menu = icon.nextElementSibling; // el dropdown
+        icon.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            menu.classList.toggle('show');
+        });
+    });
+
+// cerrar dropdown al hacer clic fuera
+    window.addEventListener('click', () => {
+        document.querySelectorAll('.user-dropdown').forEach(menu => menu.classList.remove('show'));
+    });*/
+
 }(jQuery));

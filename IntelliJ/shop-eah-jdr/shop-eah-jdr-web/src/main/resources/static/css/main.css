@@ -2877,3 +2877,50 @@ nav.main-menu ul ul.sub-menu li a:hover {
 .container-wide {
   max-width: 1450px !important;
 }
+
+.user-menu {
+  position: relative; /* crucial para que el dropdown se posicione respecto al icono */
+  display: inline-block;
+}
+
+/* Icono del usuario */
+.user-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px; /* espacio entre icono y nombre */
+}
+
+/* Dropdown oculto por defecto */
+.user-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;       /* justo debajo del icono */
+  right: 0;
+  background: #565AA6;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  min-width: 150px;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Dropdown links */
+.user-dropdown a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+.user-dropdown a:hover {
+  color: lightgrey !important;
+}
+
+/* Mostrar dropdown al pasar el ratón */
+.user-menu:hover .user-dropdown {
+  display: block;
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: auto;
+}
