@@ -103,4 +103,25 @@ VALUES
      'Admin',
      'admin@tienda.com',
      '$2a$12$SCr8t0pZYisI7OcNUaHlM.rR4tgjCQujP5XHznhP2p5s3HInW0yom',
+     CURRENT_TIMESTAMP),
+    ('user',
+     'User',
+     'User',
+     'user@tienda.com',
+     '$2a$12$SCr8t0pZYisI7OcNUaHlM.rR4tgjCQujP5XHznhP2p5s3HInW0yom',
      CURRENT_TIMESTAMP);
+
+-- INSERT del 3.3 para crear dos roles en el sistema
+INSERT INTO roles
+(rol_id, rol_description)
+VALUES
+    ('USER', 'Usuario normal'),
+    ('ADMIN', 'Administrador');
+
+-- INSERT del 3.3 para asignar al usuario admin el rol ADMIN
+INSERT INTO user_roles
+(user_id, rol_id)
+VALUES
+    ((SELECT user_id FROM userapp WHERE email = 'admin@tienda.com'), 'ADMIN'),
+    ((SELECT user_id FROM userapp WHERE email = 'admin@tienda.com'), 'USER'),
+    ((SELECT user_id FROM userapp WHERE email = 'user@tienda.com'), 'USER');

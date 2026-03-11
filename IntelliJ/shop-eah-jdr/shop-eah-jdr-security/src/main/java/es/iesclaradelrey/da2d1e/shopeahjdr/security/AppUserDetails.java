@@ -4,6 +4,7 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.AppUser;
 import lombok.Getter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -12,21 +13,29 @@ import java.util.Collections;
 public class AppUserDetails implements UserDetails {
 
     private String username;
+    @Getter
+    private String email;
     private String password;
 
-    public AppUserDetails(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+    @Getter
+    private Long userId;
+
+    private Collection<? extends GrantedAuthority> authorities;
 
     public AppUserDetails(AppUser appUser) {
-        this.username = appUser.getEmail();
+        this.username = appUser.getUsername();
+        this.email = appUser.getEmail();
         this.password = appUser.getPassword();
+        this.userId = appUser.getUserId();
+
+        this.authorities = appUser.getRoles().stream()
+                .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getRol_id()))
+                .toList();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // de momento sin roles asignados
+        return authorities;
     }
 
 
@@ -39,4 +48,5 @@ public class AppUserDetails implements UserDetails {
     public String getUsername() {
         return username;
     }
+
 }

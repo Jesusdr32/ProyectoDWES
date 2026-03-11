@@ -70,7 +70,13 @@
 
                                             <div class="user-dropdown">
                                                 <a href="#">Perfil</a>
-                                                <a th:href="@{/logout}">Cerrar sesión</a>
+                                                <!--<a th:href="@{/logout}">Cerrar sesión</a>-->
+                                                <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none"></form>
+                                                <a href="#"
+                                                   role="button"
+                                                   tabindex="0"
+                                                   aria-label="Cerrar Sesión"
+                                                   onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
                                             </div>
                                         </div>
 
@@ -96,7 +102,7 @@
         </div>
     </div>
 </div>
- end header -->
+<!-- end header -->
 
 <!-- breadcrumb -->
 <div th:fragment="breadcumb(subtitulo, titulo)" class="breadcrumb-section breadcrumb-bg">

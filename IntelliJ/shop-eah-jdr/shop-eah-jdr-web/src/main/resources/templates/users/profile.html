@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${title})}"></head>
+<body>
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<div class="contanier mt-5 mb-5" style="max-width: 700px">
+
+  <h2 class="mb-4 text-center" th:text="| Perfil de ${user.username} |"></h2>
+
+  <div class="card p-4 shadow-sm">
+    <p><strong>Nombre:</strong> <span th:text="| ${user.firstName} ${user.lastName} |"></span></p>
+    <p><strong>Apodo:</strong> <span th:text="${user.username}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+
+    <p><strong>Nombre de usuario:</strong></p>
+    <ul>
+      <li th:each="role : ${user.roles}" th:text="${role.rol_description}"></li>
+    </ul>
+  </div>
+
+</div>
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>

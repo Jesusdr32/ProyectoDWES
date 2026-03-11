@@ -36,7 +36,7 @@ public class RegisterController {
         mv.addObject("categories", categoryService.findAll());
         mv.addObject("brands", brandService.findAll());
         mv.addObject("title", "GEX - Registro");
-        mv.addObject("subtitulo","Crea tu cuenta");
+        mv.addObject("subtitulo","Crea tu cuenta :P");
         mv.addObject("titulo", "Registro");
         return mv;
     }
@@ -48,7 +48,7 @@ public class RegisterController {
         mv.addObject("categories", categoryService.findAll());
         mv.addObject("brands", brandService.findAll());
         mv.addObject("title", "GEX - Registro");
-        mv.addObject("subtitulo","Crea tu cuenta");
+        mv.addObject("subtitulo","Crea tu cuenta :P");
         mv.addObject("titulo", "Registro");
         mv.addObject("newUserDto", newUserDto);
 

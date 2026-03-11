@@ -17,9 +17,12 @@ public class AppUserDetailService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = appUserService.findByEmailIgnoreCase(username)
-                .orElseThrow(() -> new UsernameNotFoundException("No se ha encontrado el usuario con email: " + username));
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        // Buscar primero por username
+        AppUser appUser = appUserService.findByUsernameIgnoreCase(login)
+                .orElseGet(() ->
+                        appUserService.findByEmailIgnoreCase(login)
+                                .orElseThrow(() -> new UsernameNotFoundException("No se ha encontrado el usuario con email: " + login)));
 
         return new AppUserDetails(appUser);
     }

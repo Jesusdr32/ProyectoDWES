@@ -3,12 +3,15 @@ package es.iesclaradelrey.da2d1e.shopeahjdr.web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfiguration {
 
     @Bean
@@ -29,8 +32,8 @@ public class SecurityConfiguration {
                 // H2 console requiere login
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console/**").authenticated())
 
-                // administración requiere login
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/admin/**").authenticated())
+                // administración requiere rol ADMIN (RBAC añadido aquí)
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/admin/**").hasRole("ADMIN"))
 
                 // el resto permitido
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())

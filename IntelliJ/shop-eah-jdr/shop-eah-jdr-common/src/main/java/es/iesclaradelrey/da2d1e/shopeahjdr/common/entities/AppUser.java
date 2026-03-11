@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -41,5 +43,14 @@ public class AppUser {
 
     @Column(nullable = false)
     private LocalDateTime registrationDate;
+
+
+    @ManyToMany
+    @JoinTable(name ="user_roles",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="rol_id")})
+    private Set<AppRol> roles = new HashSet<>();
+
+
 
 }
