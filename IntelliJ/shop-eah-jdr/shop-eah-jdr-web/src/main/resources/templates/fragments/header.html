@@ -56,8 +56,8 @@
                                             </a>
 
                                             <div class="user-dropdown">
-                                                <a th:href="@{/login}">Iniciar sesión</a>
-                                                <a th:href="@{/register}">Registrarse</a>
+                                                <a th:href="@{/users/login}">Iniciar sesión</a>
+                                                <a th:href="@{/users/register}">Registrarse</a>
                                             </div>
                                         </div>
 
@@ -69,9 +69,9 @@
                                             </a>
 
                                             <div class="user-dropdown">
-                                                <a href="#">Perfil</a>
+                                                <a th:href="@{/users/profile}">Perfil</a>
                                                 <!--<a th:href="@{/logout}">Cerrar sesión</a>-->
-                                                <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none"></form>
+                                                <form id="logoutForm" th:action="@{/users/logout}" method="post" style="display: none"></form>
                                                 <a href="#"
                                                    role="button"
                                                    tabindex="0"

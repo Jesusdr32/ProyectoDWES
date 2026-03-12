@@ -7,22 +7,30 @@
 <div th:replace="~{fragments/header :: header}"></div>
 
 <div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+<div class="d-flex justify-content-center align-items-center vh-300">
+  <div style="max-width: 900px">
 
-<div class="contanier mt-5 mb-5" style="max-width: 700px">
+    <div class="card p-4 shadow-sm d-flex flex-row align-items-center">
+      <!-- Contenedor de texto -->
+      <div class="me-4" style="flex: 3;">
+        <p style="color: #6d3bd9"><strong>Nombre:</strong> <span th:text="| ${user.firstName} ${user.lastName} |"></span></p>
+        <p style="color: #6d3bd9"><strong>Apodo:</strong> <span th:text="${user.username}"></span></p>
+        <p style="color: #6d3bd9"><strong>Email:</strong> <span th:text="${user.email}"></span></p>
 
-  <h2 class="mb-4 text-center" th:text="| Perfil de ${user.username} |"></h2>
+        <p style="color: #6d3bd9">
+          <strong>Roles:</strong>
+          <span th:text="${#strings.arrayJoin(user.roles.![rol_description], ', ')}"></span>
+        </p>
+      </div>
 
-  <div class="card p-4 shadow-sm">
-    <p><strong>Nombre:</strong> <span th:text="| ${user.firstName} ${user.lastName} |"></span></p>
-    <p><strong>Apodo:</strong> <span th:text="${user.username}"></span></p>
-    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+      <!-- Contenedor de imagen -->
+      <div style="flex-shrink: 0;">
+        <img src="https://definicion.de/wp-content/uploads/2019/07/perfil-de-usuario.png" alt="Foto de usuario"
+             style="width: 300px; height: 300px; object-fit: cover; border-radius: 50%;">
+      </div>
+    </div>
 
-    <p><strong>Nombre de usuario:</strong></p>
-    <ul>
-      <li th:each="role : ${user.roles}" th:text="${role.rol_description}"></li>
-    </ul>
   </div>
-
 </div>
 
 <div th:replace="~{fragments/footer :: carousel}"></div>

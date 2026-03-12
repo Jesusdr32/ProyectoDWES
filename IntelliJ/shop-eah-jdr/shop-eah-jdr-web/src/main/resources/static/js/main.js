@@ -164,22 +164,21 @@
         jQuery(".loader").fadeOut(1000);
     });
 
+    const radioUsername = document.getElementById("radioUsername");
+    const radioEmail = document.getElementById("radioEmail");
+    const input = document.getElementById("username");
+    const label = document.getElementById("loginLabel");
 
-    // seleccionar todos los iconos de usuario
-   /* const userIcons = document.querySelectorAll('.user-icon');
-
-    userIcons.forEach(icon => {
-        const menu = icon.nextElementSibling; // el dropdown
-        icon.addEventListener('click', e => {
-            e.preventDefault();
-            e.stopPropagation();
-            menu.classList.toggle('show');
-        });
+    radioUsername.addEventListener("change", () => {
+        label.textContent = "Nombre de usuario";
+        input.type = "text";
+        input.placeholder = "Introduce tu nombre de usuario";
     });
 
-// cerrar dropdown al hacer clic fuera
-    window.addEventListener('click', () => {
-        document.querySelectorAll('.user-dropdown').forEach(menu => menu.classList.remove('show'));
-    });*/
+    radioEmail.addEventListener("change", () => {
+        label.textContent = "Correo electrónico";
+        input.type = "email";
+        input.placeholder = "Introduce tu correo electrónico";
+    });
 
 }(jQuery));

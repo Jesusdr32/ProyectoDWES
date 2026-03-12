@@ -35,11 +35,24 @@ public class SecurityConfiguration {
                 // administración requiere rol ADMIN (RBAC añadido aquí)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/admin/**").hasRole("ADMIN"))
 
+                // perfil de usuario requiere autenticación
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/users/profile/**").authenticated())
+
+                // Si el usuario no esta logado no podrá entrar
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/users/logout").authenticated())
+
                 // el resto permitido
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
 
                 // login por formulario
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/users/login")
+                        .loginProcessingUrl("/users/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll())
+
+                // logout por formulario
+                .logout(logout -> logout.logoutUrl("/users/logout").logoutSuccessUrl("/"))
 
                 // desactivar HTTP Basic
                 .httpBasic(AbstractHttpConfigurer::disable)
