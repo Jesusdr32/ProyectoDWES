@@ -2,6 +2,7 @@ package es.iesclaradelrey.da2d1e.shopeahjdr.common.dto;
 
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -17,6 +18,7 @@ public class NewUserDto {
     private String lastName;
     private String email;
     private Integer phone;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String password;
     private String confirmPassword;

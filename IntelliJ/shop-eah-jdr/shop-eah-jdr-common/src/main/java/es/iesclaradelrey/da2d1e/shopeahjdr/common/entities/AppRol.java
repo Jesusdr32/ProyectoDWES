@@ -18,10 +18,10 @@ import java.util.Set;
 public class AppRol {
     @Id
     @Column(length = 6)
-    private String rol_id;
+    private String rolId;
 
     @Column(length = 100, nullable = false)
-    private String rol_description;
+    private String rolDescription;
 
     @ManyToMany(mappedBy = "roles")
     private Set<AppUser> appUsers = new HashSet<>();

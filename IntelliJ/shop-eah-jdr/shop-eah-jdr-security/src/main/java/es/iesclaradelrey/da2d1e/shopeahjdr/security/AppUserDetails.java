@@ -30,7 +30,7 @@ public class AppUserDetails implements UserDetails {
         this.userId = appUser.getUserId();
 
         this.authorities = appUser.getRoles().stream()
-                .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getRol_id()))
+                .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getRolId()))
                 .collect(Collectors.toList());
     }
 
