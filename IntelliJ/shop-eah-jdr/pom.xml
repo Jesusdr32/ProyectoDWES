@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>es.iesclaradelrey.da2d1e.shop-eah-jdr</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>shop-eah-jdr-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 	<name>shop-eah-jdr</name>
@@ -26,6 +26,7 @@
         <module>shop-eah-jdr-web</module>
         <module>shop-eah-jdr-security</module>
         <module>shop-eah-jdr-security</module>
+        <module>shop-eah-jdr-api</module>
     </modules>
     <scm>
 		<connection/>
