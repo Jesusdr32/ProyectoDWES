@@ -1,5 +1,4 @@
-package es.iesclaradelrey.da2d1e.shopeahjdr.common.dto;
-
+package es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.api;
 
 import lombok.*;
 
@@ -7,10 +6,10 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class NewCategoryDto {
-    private Long categoryId;
+@AllArgsConstructor
+public class CategoryDto {
+    private String categoryId;
     private String categoryName;
     private String categoryDescription;
     private String categoryImage;

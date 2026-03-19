@@ -1,6 +1,6 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers.admin;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewProductsDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewProductsDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.ProductMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.ProductRepository;
@@ -26,15 +26,17 @@ public class ProductAdminController {
     private final BrandService brandService;
     private final ProductService productService;
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     @Value("${shop.validation.client-validation-enabled}")
     private boolean clientValidationEnabled;
 
-    public ProductAdminController(CategoryService categoryService, BrandService brandService, ProductService productService, ProductRepository productRepository) {
+    public ProductAdminController(CategoryService categoryService, BrandService brandService, ProductService productService, ProductRepository productRepository, ProductMapper productMapper) {
         this.categoryService = categoryService;
         this.brandService = brandService;
         this.productService = productService;
         this.productRepository = productRepository;
+        this.productMapper = productMapper;
     }
 
     @ModelAttribute(name = "clientValidationEnabled")
@@ -99,7 +101,7 @@ public class ProductAdminController {
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("No existe el producto con el id: %s", id)
                 ));
-        NewProductsDto newProductsDto = ProductMapper.map(product);
+        NewProductsDto newProductsDto = productMapper.map(product);
 
         model.addAttribute("product", newProductsDto);
         model.addAttribute("categories", categoryService.findAll());

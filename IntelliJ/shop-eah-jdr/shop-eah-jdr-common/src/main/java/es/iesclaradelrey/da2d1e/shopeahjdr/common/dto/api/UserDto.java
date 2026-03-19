@@ -1,5 +1,4 @@
-package es.iesclaradelrey.da2d1e.shopeahjdr.common.dto;
-
+package es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.api;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewUserDto {
+public class UserDto {
     private String username;
     private String firstName;
     private String lastName;

@@ -1,7 +1,7 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers.admin;
 
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewCategoryDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.CategoryMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
@@ -26,12 +26,14 @@ public class CategoryAdminController {
     private final BrandServiceImpl brandService;
     private final ProductService productService;
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
-    public CategoryAdminController(CategoryServiceImpl categoryService, BrandServiceImpl brandService, ProductService productService, CategoryRepository categoryRepository) {
+    public CategoryAdminController(CategoryServiceImpl categoryService, BrandServiceImpl brandService, ProductService productService, CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryService = categoryService;
         this.brandService = brandService;
         this.productService = productService;
         this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
     }
 
     @GetMapping( "/admin/categories/categories")
@@ -88,7 +90,7 @@ public class CategoryAdminController {
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("No se encuentra la categoria con id %d", id)
                 ));
-        NewCategoryDto newCategoryDto = CategoryMapper.map(category);
+        NewCategoryDto newCategoryDto = categoryMapper.map(category);
 
         model.addAttribute("category", newCategoryDto);
         model.addAttribute("title", "GEX - Editar Categoria");

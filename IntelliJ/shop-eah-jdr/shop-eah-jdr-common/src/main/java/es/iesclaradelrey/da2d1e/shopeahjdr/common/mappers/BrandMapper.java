@@ -1,27 +1,15 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewBrandDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.api.BrandDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewBrandDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
+import org.mapstruct.Mapper;
 
-public class BrandMapper {
+@Mapper(componentModel = "spring")
+public interface BrandMapper {
+    NewBrandDto map(Brand brand);
+    Brand map(NewBrandDto brand);
 
-    private BrandMapper() {}
-
-    public static NewBrandDto map(Brand brand) {
-        return NewBrandDto.builder()
-                .brandId(brand.getId())
-                .brandName(brand.getName())
-                .brandDescription(brand.getDescription())
-                .brandImage(brand.getImage())
-                .build();
-    }
-
-    public static Brand map(NewBrandDto newBrandDto) {
-        return Brand.builder()
-                .id(newBrandDto.getBrandId())
-                .name(newBrandDto.getBrandName())
-                .description(newBrandDto.getBrandDescription())
-                .image(newBrandDto.getBrandImage())
-                .build();
-    }
+//    BrandDto map(Brand brand);
+    Brand map(BrandDto brand);
 }

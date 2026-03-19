@@ -1,11 +1,8 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers.admin;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewBrandDto;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewBrandDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.BrandMapper;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.CategoryMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.BrandRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.BrandServiceImpl;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.CategoryServiceImpl;
@@ -25,12 +22,14 @@ public class BrandAdminController {
     private final BrandServiceImpl brandService;
     private final ProductService productService;
     private final BrandRepository brandRepository;
+    private final BrandMapper brandMapper;
 
-    public BrandAdminController(CategoryServiceImpl categoryService, BrandServiceImpl brandService, ProductService productService, BrandRepository brandRepository) {
+    public BrandAdminController(CategoryServiceImpl categoryService, BrandServiceImpl brandService, ProductService productService, BrandRepository brandRepository, BrandMapper brandMapper) {
         this.categoryService = categoryService;
         this.brandService = brandService;
         this.productService = productService;
         this.brandRepository = brandRepository;
+        this.brandMapper = brandMapper;
     }
 
     @GetMapping( "/admin/brands/brands")
@@ -87,7 +86,7 @@ public class BrandAdminController {
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("No se encuentra la desarrolladora con id %d", id)
                 ));
-        NewBrandDto newBrandDto = BrandMapper.map(brand);
+        NewBrandDto newBrandDto = brandMapper.map(brand);
 
         model.addAttribute("brand",  newBrandDto);
         model.addAttribute("title", "GEX - Editar Categoria");

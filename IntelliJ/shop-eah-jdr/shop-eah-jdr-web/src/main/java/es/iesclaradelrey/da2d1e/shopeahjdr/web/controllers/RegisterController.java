@@ -1,7 +1,7 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers;
 
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewUserDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewUserDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.AppUser;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.UserMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.AppUserService;
@@ -26,12 +26,14 @@ public class RegisterController {
     private final PasswordEncoder passwordEncoder;
     private final CategoryService categoryService;
     private final BrandService brandService;
+    private final UserMapper userMapper;
 
-    public RegisterController(AppUserService appUserService, PasswordEncoder passwordEncoder, CategoryService categoryService, BrandService brandService) {
+    public RegisterController(AppUserService appUserService, PasswordEncoder passwordEncoder, CategoryService categoryService, BrandService brandService, UserMapper userMapper) {
         this.appUserService = appUserService;
         this.passwordEncoder = passwordEncoder;
         this.categoryService = categoryService;
         this.brandService = brandService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/register")
@@ -70,7 +72,7 @@ public class RegisterController {
 
         try {
             String encodedPassword = passwordEncoder.encode(newUserDto.getPassword());
-            AppUser appUser = UserMapper.map(newUserDto, encodedPassword);
+            AppUser appUser = userMapper.map(newUserDto, encodedPassword);
             appUserService.save(appUser);
 
             // Registro correcto → redirigir al login con mensaje flash

@@ -1,7 +1,7 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewProductsDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewProductsDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -24,11 +23,13 @@ public class ProductServiceImpl implements ProductService{
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
+    private final ProductMapper productMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository, BrandRepository brandRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository, BrandRepository brandRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
+        this.productMapper = productMapper;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class ProductServiceImpl implements ProductService{
             newProductsDto.setProductImage(null);
         }
 
-        Product product = ProductMapper.map(newProductsDto);
+        Product product = productMapper.map(newProductsDto);
         product.setBrand(brand);
         product.setCategories(categories);
 

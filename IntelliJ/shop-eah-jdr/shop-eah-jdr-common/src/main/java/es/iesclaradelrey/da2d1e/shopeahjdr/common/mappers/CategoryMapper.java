@@ -1,27 +1,27 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewCategoryDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-public class CategoryMapper {
+import java.util.Set;
 
-    private CategoryMapper() {}
+@Mapper(componentModel = "spring")
+public interface CategoryMapper {
+    NewCategoryDto map(Category category);
+    Category map(NewCategoryDto category);
 
-    public static NewCategoryDto map(Category category) {
-        return NewCategoryDto.builder()
-                .categoryId(category.getId())
-                .categoryName(category.getName())
-                .categoryDescription(category.getDescription())
-                .categoryImage(category.getImage())
-                .build();
+//    Set<Long> map(Set<Category> categories);
+//    Set<Category> map(Set<Long> categoriesIds);
+//
+    default Long mapToId(Category category) {
+        return category.getId();
     }
+//
+//    default Category map(Long categoryId, CategoryRepository categoryRepository) {
+//        return  categoryRepository.getReferenceById(categoryId);
+//    }
 
-    public static Category map(NewCategoryDto newCategoryDto) {
-        return Category.builder()
-                .id(newCategoryDto.getCategoryId())
-                .name(newCategoryDto.getCategoryName())
-                .description(newCategoryDto.getCategoryDescription())
-                .image(newCategoryDto.getCategoryImage())
-                .build();
-    }
 }

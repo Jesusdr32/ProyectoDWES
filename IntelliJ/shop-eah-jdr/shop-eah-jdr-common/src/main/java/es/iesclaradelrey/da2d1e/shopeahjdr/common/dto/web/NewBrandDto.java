@@ -1,4 +1,4 @@
-package es.iesclaradelrey.da2d1e.shopeahjdr.common.dto;
+package es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web;
 
 
 import lombok.*;

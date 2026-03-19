@@ -1,25 +1,22 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewUserDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.api.UserDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewUserDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.AppUser;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.time.LocalDateTime;
+@Mapper(componentModel = "spring")
+public interface UserMapper {
+    NewUserDto map(AppUser user);
+    AppUser map(NewUserDto user);
 
-public class UserMapper {
+    //UserDto map(AppUser user);
+    AppUser map(UserDto user);
 
-    private UserMapper() {}
+    @Mapping(target = "password", source = "password")
+    AppUser map(NewUserDto user, String password);
 
-    public static AppUser map(NewUserDto dto, String encodedPassword) {
-
-        return AppUser.builder()
-                .username(dto.getUsername())
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
-                .email(dto.getEmail())
-                .phone(dto.getPhone())
-                .birthDate(dto.getBirthDate())
-                .password(encodedPassword)
-                .registrationDate(LocalDateTime.now())
-                .build();
-    }
+    @Mapping(target = "password", source = "password")
+    AppUser map(UserDto user, String password);
 }

@@ -1,6 +1,6 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewBrandDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewBrandDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.BrandMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.BrandRepository;
@@ -14,9 +14,11 @@ import java.util.Optional;
 public class BrandServiceImpl implements BrandService {
 
     private final BrandRepository brandRepository;
+    private final BrandMapper brandMapper;
 
-    public BrandServiceImpl(BrandRepository brandRepository) {
+    public BrandServiceImpl(BrandRepository brandRepository, BrandMapper brandMapper) {
         this.brandRepository = brandRepository;
+        this.brandMapper = brandMapper;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand createNew(NewBrandDto newBrandDto) {
-        Brand brand = BrandMapper.map(newBrandDto);
+        Brand brand = brandMapper.map(newBrandDto);
 
         if (newBrandDto.getBrandImage().isEmpty()) {
             newBrandDto.setBrandImage(null);

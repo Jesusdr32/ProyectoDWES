@@ -1,9 +1,8 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewCategoryDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.CategoryMapper;
 
 import java.util.List;
 import java.util.Optional;

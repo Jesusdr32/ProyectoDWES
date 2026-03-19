@@ -1,30 +1,27 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewCategoryDto;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.NewProductsDto;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewCategoryDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.CategoryMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final CategoryMapper categoryMapper;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.categoryMapper = categoryMapper;
     }
 
     @Override
@@ -45,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category createNew(NewCategoryDto newCategoryDto) {
 
-        Category category = CategoryMapper.map(newCategoryDto);
+        Category category = categoryMapper.map(newCategoryDto);
 
         if (newCategoryDto.getCategoryImage().isEmpty()) {
             newCategoryDto.setCategoryImage(null);

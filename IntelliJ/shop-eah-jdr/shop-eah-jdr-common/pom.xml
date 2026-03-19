@@ -11,31 +11,54 @@
 
     <artifactId>common</artifactId>
 
-    <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>annotationProcessor</scope>
-        </dependency>
+        <!--
+        Las dependencias en este módulo no llevan versión porque se
+        usa el <dependencyManagement> en el módulo padre para definir
+        las versiones adecuadas. Así la versión será la misma en todos
+        los módulos hijos.
+        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <!--
+            Marcada como provided para que no se incluya en el JAR final
+            Esto se hace porque Lombok es un generador de código. Una vez generado
+            el código (getters, setters, builder, etc.) y compilado, ya no hace
+            falta, se puede ejecutar sin tener Lombok.
+            -->
+            <scope>provided</scope>
+            <!--
+            No se propaga a los módulos que usen common. Si un módulo que use common
+            necesita Lombok, tendrá que incluirla explícitamente en su POM.
+            -->
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <!--
+            Esta dependencia no se puede marcar como provided porque, aunque MapStruct
+            también genera código, no se puede quitar del compilado, porque está el
+            código asociado a anotaciones como @Mapper o @Mapping.
+            -->
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!--
+                La configuración del plugin se extrae del pom del padre.
+                Ojo: si se escribe aquí configuración puede anular la
+                configuración definida en el módulo padre.
+                -->
             </plugin>
         </plugins>
     </build>
