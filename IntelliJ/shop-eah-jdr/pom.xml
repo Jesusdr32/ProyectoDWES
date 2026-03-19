@@ -25,7 +25,6 @@
         <module>shop-eah-jdr-common</module>
         <module>shop-eah-jdr-web</module>
         <module>shop-eah-jdr-security</module>
-        <module>shop-eah-jdr-security</module>
     </modules>
     <scm>
 		<connection/>
