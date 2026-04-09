@@ -13,6 +13,8 @@ public interface ProductService {
     Optional<Product> findById(Long id);
     Product createNew(NewProductsDto newProductsDto);
     Product update(Long productId, NewProductsDto newProductsDto);
+
+    List<Product> findByCategory(Long categoryId);
 //    List<Product> findByCategoryId(Long categoryId); same
     //void deleteById(Long id);
 }

@@ -10,6 +10,7 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.BrandRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -34,7 +35,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> findAll() {
-        return productRepository.findAll();
+        return productRepository.findAll(Sort.by("name").ascending());
     }
 
     @Override
@@ -99,10 +100,10 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.save(product);
     }
 
-//    @Override
-//    public List<Product> findByCategoryId(Long categoryId) {
-//        return productRepository.findByCategoryId(categoryId); same
-//    }
+    @Override
+    public List<Product> findByCategory(Long categoryId) {
+        return productRepository.findByCategoriesId(categoryId, Sort.by("name").ascending());
+    }
 
     //@Override
     //public void deleteById(Long id) {

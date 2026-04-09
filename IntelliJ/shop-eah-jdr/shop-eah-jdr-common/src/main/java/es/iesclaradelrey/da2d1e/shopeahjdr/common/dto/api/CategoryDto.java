@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDto {
-    private String categoryId;
-    private String categoryName;
-    private String categoryDescription;
-    private String categoryImage;
+    private String id;
+    private String name;
+    private String description;
+    private String image;
 }

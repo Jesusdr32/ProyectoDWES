@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -19,14 +20,27 @@ public class SecurityConfiguration {
                 // Definición de permisos de acceso a las rutas
                 .authorizeHttpRequests(auth -> auth
                         // Cualquier otra petición está permitida
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/v*/**").permitAll()
+//                                request.getRequestURI().matches("/api/v\\d+/auth(/.*)?")).permitAll()
+                        .anyRequest().authenticated()
                 )
 
                 // Desactivar autenticación HTTP Basic
                 .httpBasic(AbstractHttpConfigurer::disable)
 
+                // Desactivar protección CSRF
+                .csrf(AbstractHttpConfigurer::disable)
+
+                // Desactuivar login por formulario
+                .formLogin(AbstractHttpConfigurer::disable)
+
+                // Desactivar sesiones
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                // Desactivar logout
+                .logout(AbstractHttpConfigurer::disable)
+
                 // Configuración necesaria para usar la consola H2
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         return http.build();

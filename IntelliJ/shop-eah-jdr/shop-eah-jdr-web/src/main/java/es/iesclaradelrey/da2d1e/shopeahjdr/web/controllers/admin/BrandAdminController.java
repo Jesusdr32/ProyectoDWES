@@ -86,7 +86,7 @@ public class BrandAdminController {
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("No se encuentra la desarrolladora con id %d", id)
                 ));
-        NewBrandDto newBrandDto = brandMapper.map(brand);
+        NewBrandDto newBrandDto = brandMapper.mapWeb(brand);
 
         model.addAttribute("brand",  newBrandDto);
         model.addAttribute("title", "GEX - Editar Categoria");

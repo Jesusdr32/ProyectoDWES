@@ -38,7 +38,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand createNew(NewBrandDto newBrandDto) {
-        Brand brand = brandMapper.map(newBrandDto);
+        Brand brand = brandMapper.mapWeb(newBrandDto);
 
         if (newBrandDto.getBrandImage().isEmpty()) {
             newBrandDto.setBrandImage(null);
