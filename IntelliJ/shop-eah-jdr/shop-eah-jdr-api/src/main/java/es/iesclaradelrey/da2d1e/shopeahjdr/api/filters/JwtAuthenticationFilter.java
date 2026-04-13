@@ -21,7 +21,7 @@ import java.io.IOException;
 @NullMarked
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final String AUTH_HEADER = "Authoritation";
+    private static final String AUTH_HEADER = "Authorization";
     private static final String AUTH_PREFIX = "Bearer ";
 
     private final JwtService jwtService;
@@ -65,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails =  this.userDetailsService.loadUserByUsername(username);
 
             // 6. Verificar si el token ha caducado
-            if (!jwtService.isTokenExpired(jwt)) {
+            if (jwtService.isTokenValid(jwt, userDetails.getUsername())) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

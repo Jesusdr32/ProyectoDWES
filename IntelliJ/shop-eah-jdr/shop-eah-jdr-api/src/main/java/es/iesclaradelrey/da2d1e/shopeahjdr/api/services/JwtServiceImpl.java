@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 
 @Service
@@ -19,13 +19,28 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.access-token.expiration}")
     long accessTokenExpiration;
 
+    @Value("${jwt.refresh-token.expiration}")
+    long refreshTokenExpiration;
+
     @Override
     public String generateAccessToken(String username) {
         return Jwts.builder()
                 .signWith(getKey())
                 .subject(username)
+                .claim("type", "access")
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + accessTokenExpiration))
+                .compact();
+    }
+
+    @Override
+    public String generateRefreshToken(String username) {
+        return Jwts.builder()
+                .signWith(getKey())
+                .subject(username)
+                .claim("type", "refresh")
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + refreshTokenExpiration))
                 .compact();
     }
 
@@ -41,8 +56,29 @@ public class JwtServiceImpl implements JwtService {
         return claims.getExpiration().before(new Date(System.currentTimeMillis()));
     }
 
+    @Override
+    public boolean isTokenValid(String token, String username) {
+        Claims claims = getClaims(token);
+        String user = claims.getSubject();
+        String type = claims.get("type", String.class);
+        return user.equals(username)
+                && "access".equals(type)
+                && !isTokenExpired(token);
+    }
+
+//    @Override
+//    public boolean isRefreshTokenValid(String token, String username) {
+//        Claims claims = getClaims(token);
+//        String user = claims.getSubject();
+//        String type = claims.get("type", String.class);
+//
+//        return user.equals(username)
+//                && "refresh".equals(type)
+//                && !isTokenExpired(token);
+//    }
+
     private SecretKey getKey() {
-        byte[] secretBytes = secret.getBytes(StandardCharsets.UTF_8);
+        byte[] secretBytes = Base64.getDecoder().decode(secret);
         return Keys.hmacShaKeyFor(secretBytes);
     }
 

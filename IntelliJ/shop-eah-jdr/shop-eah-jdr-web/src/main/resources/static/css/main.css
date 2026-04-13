@@ -2924,3 +2924,14 @@ nav.main-menu ul ul.sub-menu li a:hover {
   max-width: 1400px;
   margin: auto;
 }
+
+.product-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.product-card.show {
+  opacity: 1;
+  transform: translate: translateY(0);
+}

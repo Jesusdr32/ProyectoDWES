@@ -39,6 +39,9 @@ public class Product{
     @Column(name = "discount", nullable = false)
     private Integer discount;
 
+    @Column(name = "stock", nullable = false)
+    private Integer stock;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
@@ -50,6 +53,9 @@ public class Product{
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "product")
+    private Set<CartItem> cartItems = new HashSet<>();
 
 
     public String getSlug() {

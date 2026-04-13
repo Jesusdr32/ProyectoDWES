@@ -51,6 +51,7 @@ public class AppUser {
             inverseJoinColumns = {@JoinColumn(name="rol_id")})
     private Set<AppRol> roles = new HashSet<>();
 
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CartItem> cartItems = new HashSet<>();
 
 }
