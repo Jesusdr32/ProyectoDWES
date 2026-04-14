@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
-    Optional<CartItem> findByUsernameAndProductId(String username, Long productId);
+    Optional<CartItem> findByUserUsernameIgnoreCaseAndProductId(String username, Long productId);
 
-    void deleteByUsernameAndProductId(String username, Long productId);
+    void deleteByUserUsernameIgnoreCaseAndProductId(String username, Long productId);
 
-    void deleteByUsername(String username);
+    void deleteByUserUsernameIgnoreCase(String username);
 
     @Query("SELECT COUNT(ci) FROM CartItem ci WHERE ci.user.username = :username")
     long countDistinctProducts(String username);

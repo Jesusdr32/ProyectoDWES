@@ -17,12 +17,7 @@ public class CartRestController {
         this.cartService = cartService;
     }
 
-    @GetMapping
-    public ResponseEntity<CartResponseDto> getCart(Authentication authentication) {
-        return ResponseEntity.ok(cartService.getCart(authentication.getName()));
-    }
-
-    @PostMapping("/items")
+    @PostMapping
     public ResponseEntity<CartResponseDto> addProduct(
             Authentication authentication,
             @RequestBody AddProductToCartDto dto
@@ -30,7 +25,12 @@ public class CartRestController {
         return ResponseEntity.ok(cartService.addProduct(authentication.getName(), dto));
     }
 
-    @DeleteMapping("/items/{productId}")
+    @GetMapping
+    public ResponseEntity<CartResponseDto> getCart(Authentication authentication) {
+        return ResponseEntity.ok(cartService.getCart(authentication.getName()));
+    }
+
+    @DeleteMapping("/{productId}")
     public ResponseEntity<CartResponseDto> removeProduct(
             Authentication authentication,
             @PathVariable Long productId

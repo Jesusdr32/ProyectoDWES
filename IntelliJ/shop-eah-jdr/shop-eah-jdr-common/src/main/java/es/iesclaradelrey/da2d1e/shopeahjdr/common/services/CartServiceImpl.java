@@ -45,7 +45,7 @@ public class CartServiceImpl implements CartService {
                 .orElseThrow();
 
         CartItem item = cartItemRepository
-                .findByUsernameAndProductId(username, product.getId())
+                .findByUserUsernameIgnoreCaseAndProductId(username, product.getId())
                 .orElse(null);
 
         int existingUnits = (item != null) ? item.getUnits() : 0;
@@ -107,7 +107,7 @@ public class CartServiceImpl implements CartService {
                 .orElseThrow(ProductNotFoundException::new);
 
         CartItem item = cartItemRepository
-                .findByUsernameAndProductId(username, productId)
+                .findByUserUsernameIgnoreCaseAndProductId(username, productId)
                 .orElseThrow(ProductNotFoundException::new);
 
         cartItemRepository.delete(item);
@@ -117,7 +117,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartResponseDto clearCart(String username) {
-        cartItemRepository.deleteByUsername(username);
+        cartItemRepository.deleteByUserUsernameIgnoreCase(username);
 
         return getCart(username);
     }

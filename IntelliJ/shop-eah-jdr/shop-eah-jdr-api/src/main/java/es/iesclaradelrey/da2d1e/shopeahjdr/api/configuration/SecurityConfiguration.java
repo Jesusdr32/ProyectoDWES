@@ -1,5 +1,6 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.api.configuration;
 
+import es.iesclaradelrey.da2d1e.shopeahjdr.api.filters.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,19 +11,20 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain getSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain getSecurityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
 
                 // Definición de permisos de acceso a las rutas
                 .authorizeHttpRequests(auth -> auth
                         // Cualquier otra petición está permitida
-                        .requestMatchers("/api/v*/**").permitAll()
+                        .requestMatchers("/api/v*/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 //                                request.getRequestURI().matches("/api/v\\d+/auth(/.*)?")).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -41,6 +43,9 @@ public class SecurityConfiguration {
 
                 // Desactivar logout
                 .logout(AbstractHttpConfigurer::disable)
+
+                // Añadido el filtro JWT
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
                 // Configuración necesaria para usar la consola H2
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));

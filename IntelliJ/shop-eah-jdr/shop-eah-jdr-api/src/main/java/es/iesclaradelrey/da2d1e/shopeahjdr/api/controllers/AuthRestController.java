@@ -4,6 +4,7 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.api.dto.LoginRequestDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.api.dto.LoginResponseDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.api.dto.NumericSimpleValueDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.api.services.JwtService;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.AppUserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +25,12 @@ public class AuthRestController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
-    public AuthRestController(AuthenticationManager authenticationManager, JwtService jwtService) {
+    public AuthRestController(AuthenticationManager authenticationManager, JwtService jwtService, UserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
     }
 
     @PostMapping("/login")
@@ -42,8 +47,10 @@ public class AuthRestController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        String accessToken = jwtService.generateAccessToken(request.getUsername());
-        String refreshToken = jwtService.generateRefreshToken(request.getUsername());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+
+        String accessToken = jwtService.generateAccessToken(userDetails.getUsername());
+        String refreshToken = jwtService.generateRefreshToken(userDetails.getUsername());
 
         LoginResponseDto response = LoginResponseDto.builder()
                 .accessToken(accessToken)

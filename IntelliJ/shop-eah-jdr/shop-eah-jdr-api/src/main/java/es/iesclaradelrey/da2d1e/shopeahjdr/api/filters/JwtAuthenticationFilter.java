@@ -61,6 +61,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
+            System.out.printf("USERNAME %s\n\n", username);
+
             // 5. Buscar el usuario - Esto lanza excepción userNotfoundException si no existe el usuario
             UserDetails userDetails =  this.userDetailsService.loadUserByUsername(username);
 
