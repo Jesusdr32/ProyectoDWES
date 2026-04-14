@@ -1,5 +1,9 @@
-package es.iesclaradelrey.da2d1e.shopeahjdr.api.exceptions;
+package es.iesclaradelrey.da2d1e.shopeahjdr.api.controllers;
 
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.InsufficientStockException;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.InvalidUnitsException;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.ProductNotFoundException;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.ProductNotInCartException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;

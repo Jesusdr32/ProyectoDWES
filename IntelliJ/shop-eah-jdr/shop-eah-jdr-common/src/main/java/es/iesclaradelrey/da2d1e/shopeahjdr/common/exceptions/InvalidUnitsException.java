@@ -1,3 +1,3 @@
-package es.iesclaradelrey.da2d1e.shopeahjdr.api.exceptions;
+package es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions;
 
 public class InvalidUnitsException extends RuntimeException {}

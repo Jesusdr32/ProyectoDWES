@@ -14,7 +14,7 @@ INSERT INTO category (name, description, image) VALUES
 INSERT INTO brand (name, description, image) VALUES
                     ('Nintendo','Desarrolladora y editora japonesa creadora de sagas icónicas como Mario, Zelda y Pokémon.','/images/brands/nintendo.png'),
                     ('Rockstar Games','Estudio estadounidense conocido por desarrollar juegos de mundo abierto como GTA y Red Dead Redemption.','/images/brands/rockstar.png'),
-                    ('CD Projekt Red','Desarrolladora polaca reconocida por The Witcher y Cyberpunk 2077.','/images/brands/cdprojektred.png'),
+                    ('CD Project Red','Desarrolladora polaca reconocida por The Witcher y Cyberpunk 2077.','/images/brands/cdprojektred.png'),
                     ('Ubisoft','Compañía francesa desarrolladora de franquicias como Assassin’s Creed.','/images/brands/ubisoft.png'),
                     ('FromSoftware','Estudio japonés famoso por la saga Dark Souls y Elden Ring.','/images/brands/fromsoftware.png'),
                     ('Naughty Dog','Estudio de Sony responsable de The Last of Us y Uncharted.','/images/brands/naughtydog.png'),
