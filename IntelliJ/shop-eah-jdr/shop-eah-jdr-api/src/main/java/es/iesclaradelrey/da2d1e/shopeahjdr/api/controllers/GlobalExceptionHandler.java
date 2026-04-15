@@ -1,9 +1,6 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.api.controllers;
 
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.InsufficientStockException;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.InvalidUnitsException;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.ProductNotFoundException;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.ProductNotInCartException;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -41,6 +38,22 @@ public class GlobalExceptionHandler {
         return ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT,
                 "Product not in cart"
+        );
+    }
+
+    @ExceptionHandler(BrandNotFoundException.class)
+    public ProblemDetail brandNotFound() {
+        return ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND,
+                "Brand not found"
+        );
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ProblemDetail categoryNotFound() {
+        return ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND,
+                "Category not found"
         );
     }
 }

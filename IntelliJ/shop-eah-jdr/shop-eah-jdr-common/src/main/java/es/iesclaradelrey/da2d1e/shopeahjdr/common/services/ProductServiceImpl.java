@@ -5,6 +5,8 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewProductsDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.BrandNotFoundException;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.exceptions.CategoryNotFoundException;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.ProductMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.BrandRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
@@ -13,10 +15,10 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import javax.xml.stream.*;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.util.*;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -109,4 +111,165 @@ public class ProductServiceImpl implements ProductService{
     //public void deleteById(Long id) {
         //productRepository.deleteById(id);
     //}
+
+    @Override
+    public String exportAllStax() throws XMLStreamException {
+        // Obtener productos
+        List<Product> products = productRepository.findAll();
+
+        // Crear fábrica StAX
+        XMLOutputFactory factory = XMLOutputFactory.newInstance();
+
+        // Usamos StringWriter para devolver el XML como String
+        StringWriter stringWriter = new StringWriter();
+
+        // Crear wrtier XML
+        XMLStreamWriter writer = factory.createXMLStreamWriter(stringWriter);
+
+        // Escribir documento XML
+        writer.writeStartDocument("1.0");
+
+        // Elemento raíz
+        writer.writeStartElement("products");
+
+        // Exportar productos
+        exportProducts(products, writer);
+
+        // Cerrar raíz
+        writer.writeEndElement();
+
+        // Finalizar documento
+        writer.writeEndDocument();
+
+        writer.flush();
+        writer.close();
+
+        return stringWriter.toString();
+    }
+
+    @Override
+    public void importProductsStax(InputStream productsStream) throws XMLStreamException {
+        List<Product> products = readProductsFromXmlStax(productsStream);
+        productRepository.saveAll(products);
+    }
+
+
+    private void exportProducts(List<Product> products, XMLStreamWriter writer) throws XMLStreamException {
+        for (Product product : products) {
+            writer.writeStartElement("product");
+
+            // Atributos principales
+            writer.writeAttribute("productId", String.valueOf(product.getId()));
+            writer.writeAttribute("productEan", String.valueOf(product.getEan()));
+            writer.writeAttribute("productPrice", String.valueOf(product.getPrice()));
+            writer.writeAttribute("productDiscount", String.valueOf(product.getDiscount()));
+            writer.writeAttribute("productStock", String.valueOf(product.getStock()));
+
+            // Elemento nombre del producto
+            writer.writeStartElement("productName");
+            writer.writeCharacters(product.getName());
+            writer.writeEndElement();
+
+            // Elemento descripción del producto
+            writer.writeStartElement("productDescription");
+            writer.writeCharacters(product.getDescription());
+            writer.writeEndElement();
+
+            // Elemento marca del producto
+            writer.writeStartElement("brand");
+            writer.writeAttribute("brandId", String.valueOf(product.getBrand().getId()));
+
+            // Elemento nombre de la marca
+            writer.writeStartElement("brandName");
+            writer.writeCharacters(product.getBrand().getName());
+            writer.writeEndElement();
+
+            // Elemento descripción de la marca
+            writer.writeStartElement("brandDescription");
+            writer.writeCharacters(product.getBrand().getDescription());
+            writer.writeEndElement();
+
+            writer.writeEndElement();
+
+            //Elementos categorías del producto
+            writer.writeStartElement("categories");
+            for (Category category : product.getCategories()) {
+                //Elemento categoría
+                writer.writeStartElement("category");
+                writer.writeAttribute("categoryId", String.valueOf(category.getId()));
+
+                // Elemento nombre de la categoría
+                writer.writeStartElement("categoryName");
+                writer.writeCharacters(category.getName());
+                writer.writeEndElement();
+
+                // Elemento descripción de la categoría
+                writer.writeStartElement("categoryDescription");
+                writer.writeCharacters(category.getDescription());
+                writer.writeEndElement();
+
+                writer.writeEndElement();
+            }
+            writer.writeEndElement();
+        }
+    }
+
+    private List<Product> readProductsFromXmlStax(InputStream inputStream) throws XMLStreamException {
+        List<Product> products = new ArrayList<>();
+
+        XMLInputFactory factory = XMLInputFactory.newInstance();
+        XMLStreamReader reader = factory.createXMLStreamReader(inputStream);
+
+        Product currentProduct = null;
+        Set<Category> currentCategories = null;
+
+        while (reader.hasNext()) {
+            reader.next();
+
+            if (reader.isStartElement()) {
+                String tag = reader.getLocalName();
+
+                if ("product".equals(tag)) {
+                    currentProduct = new Product();
+                    setProductAttributesStax(reader, currentProduct);
+                    currentCategories = new HashSet<>();
+                } else if ("productName".equals(tag) && currentProduct != null) {
+                    String text = reader.getElementText();
+                    currentProduct.setName(text);
+                } else if ("productDescription".equals(tag) && currentProduct != null) {
+                    String text = reader.getElementText();
+                    currentProduct.setDescription(text);
+                } else if ("brand".equals(tag) && currentProduct != null) {
+                    currentProduct.setBrand(
+                            brandRepository.findById(Long.valueOf(reader
+                                            .getAttributeValue(null, "brandId")))
+                                    .orElseThrow(BrandNotFoundException::new));
+                } else if ("category".equals(tag) && currentProduct != null) {
+                    currentCategories.add(
+                            categoryRepository.findById(Long.valueOf(reader
+                                    .getAttributeValue(null, "categoryId")))
+                                    .orElseThrow(CategoryNotFoundException::new));
+                }
+            } else if (reader.isEndElement()) {
+                if ("product".equals(reader.getLocalName()) && currentProduct != null) {
+                    currentProduct.setCategories(currentCategories);
+                    products.add(currentProduct);
+                    currentProduct = null;
+                    currentCategories = null;
+                }
+            }
+        }
+
+        reader.close();
+        return products;
+    }
+
+    private void setProductAttributesStax(XMLStreamReader reader, Product product) {
+        product.setId(Long.valueOf(reader.getAttributeValue(null, "productId")));
+        product.setEan(reader.getAttributeValue(null, "productEan"));
+        product.setPrice(Double.valueOf(reader.getAttributeValue(null, "productPrice")));
+        product.setDiscount(Integer.valueOf(reader.getAttributeValue(null, "productDiscount")));
+        product.setStock(Integer.valueOf(reader.getAttributeValue(null, "productStock")));
+    }
+
 }
