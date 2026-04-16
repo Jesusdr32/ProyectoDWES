@@ -211,6 +211,7 @@ public class ProductServiceImpl implements ProductService{
                 writer.writeEndElement();
             }
             writer.writeEndElement();
+            writer.writeEndElement();
         }
     }
 
@@ -265,7 +266,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     private void setProductAttributesStax(XMLStreamReader reader, Product product) {
-        product.setId(Long.valueOf(reader.getAttributeValue(null, "productId")));
+//        product.setId(Long.valueOf(reader.getAttributeValue(null, "productId")));
         product.setEan(reader.getAttributeValue(null, "productEan"));
         product.setPrice(Double.valueOf(reader.getAttributeValue(null, "productPrice")));
         product.setDiscount(Integer.valueOf(reader.getAttributeValue(null, "productDiscount")));

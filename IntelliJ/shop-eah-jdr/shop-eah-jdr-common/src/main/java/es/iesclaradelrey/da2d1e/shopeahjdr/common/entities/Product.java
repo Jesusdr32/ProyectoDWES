@@ -21,7 +21,7 @@ public class Product{
     private Long id;
 
     //@Pattern(regexp = "\\d{13}", message = "El código EAN debe tener 13 dígitos")
-    @Column(name = "ean", nullable = false, unique = true, length = 13)
+    @Column(name = "ean", nullable = false, length = 13)
     private String ean;
 
     @Column(name = "name",nullable = false, length = 200)

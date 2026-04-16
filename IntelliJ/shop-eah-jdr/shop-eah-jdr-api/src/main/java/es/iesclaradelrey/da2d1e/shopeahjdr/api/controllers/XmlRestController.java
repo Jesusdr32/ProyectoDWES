@@ -1,8 +1,6 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.api.controllers;
 
-
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.ProductService;
-import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.ProductServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +17,12 @@ public class XmlRestController {
 
     private final ProductService productService;
 
-
     public XmlRestController(ProductService productService) {
         this.productService = productService;
     }
 
     @GetMapping(produces = "application/xml")
-    public ResponseEntity<String> exportProducts() throws XMLStreamException {
-        String xmlDocument = productService.exportAllStax();
+    public ResponseEntity<String> exportProducts() throws XMLStreamException {String xmlDocument = productService.exportAllStax();
 
         String timestamp = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd.HH-mm"));
@@ -43,13 +39,16 @@ public class XmlRestController {
     @PostMapping
     public ResponseEntity<String> importProducts(@RequestParam("productsfile") MultipartFile productsfile) throws XMLStreamException, IOException {
         if (productsfile.isEmpty()) {
-            return ResponseEntity.badRequest().body("No se ha recibido fichero");
+            return ResponseEntity.badRequest().body("No se ha recibido el fichero");
         }
         if (productsfile.getSize() == 0) {
-            return ResponseEntity.badRequest().body("El fichero recibido está vacío.");
+            return ResponseEntity.badRequest().body("El fichero recibido está vacío");
         }
-        productService.importProductsStax(productsfile.getInputStream());
 
-        return ResponseEntity.ok("Fichero importado correctamente.");
+        System.out.printf("Tamaño del fichero recibido: %s\n", productsfile.getSize());
+        System.out.printf("Nombre original del fichero recibido: %s\n", productsfile.getOriginalFilename());
+
+        productService.importProductsStax(productsfile.getInputStream());
+        return ResponseEntity.ok("Fichero importado correctamente");
     }
 }
