@@ -12,6 +12,7 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.BrandRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -54,17 +55,21 @@ public class ProductServiceImpl implements ProductService{
     public Product createNew(NewProductsDto newProductsDto) {
 
         Set<Category> categories = Set.copyOf(categoryRepository.findAllById(newProductsDto.getCategories()));
+
         Brand brand = brandRepository.findById(newProductsDto.getBrandId()).orElseThrow(() -> new EntityNotFoundException(String.format("La desarrolladora con id %s no existe", newProductsDto.getBrandId())));
 
         if (categories.size()!= newProductsDto.getCategories().size()){
             throw new EntityNotFoundException("Alguno de los módulos no se han encontrado");
         }
+
         if (newProductsDto.getProductImage().isEmpty()) {
             newProductsDto.setProductImage(null);
         }
+
         Product product = productMapper.map(newProductsDto);
         product.setBrand(brand);
         product.setCategories(categories);
+
         return productRepository.save(product);
     }
 
@@ -136,13 +141,14 @@ public class ProductServiceImpl implements ProductService{
 
         // Finalizar documento
         writer.writeEndDocument();
+
         writer.flush();
         writer.close();
 
         return stringWriter.toString();
     }
 
-    
+    @Transactional
     @Override
     public void importProductsStax(InputStream productsStream) throws XMLStreamException {
         List<Product> products = readProductsFromXmlStax(productsStream);
@@ -153,6 +159,7 @@ public class ProductServiceImpl implements ProductService{
     public boolean existsByProductName(String productName) {
         return productRepository.existsByNameIgnoreCase(productName);
     }
+
 
     private void exportProducts(List<Product> products, XMLStreamWriter writer) throws XMLStreamException {
         for (Product product : products) {
