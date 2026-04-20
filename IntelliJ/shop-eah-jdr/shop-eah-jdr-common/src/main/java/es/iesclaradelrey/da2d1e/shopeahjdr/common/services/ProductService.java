@@ -23,4 +23,5 @@ public interface ProductService {
     void importProductsStax(InputStream productsStream) throws XMLStreamException;
 //    List<Product> findByCategoryId(Long categoryId); same
     //void deleteById(Long id);
+    boolean existsByProductName(String productName);
 }

@@ -11,4 +11,6 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     // Consulta derivada
     List<Product> findByCategoriesId(Long categoryId, Sort sort);
+    // Para las validaciones del nombre del producto
+    boolean existsByNameIgnoreCase(String name);
 }

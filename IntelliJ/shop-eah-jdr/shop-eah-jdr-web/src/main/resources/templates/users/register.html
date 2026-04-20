@@ -4,28 +4,28 @@
 <head th:replace="~{fragments/head :: head(${title})}"></head>
 
 <body>
-
 <div th:replace="~{fragments/header :: preloader}"></div>
-
 <div th:replace="~{fragments/header :: header}"></div>
-
 <div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
-
 <div class="container mt-5 mb-5" style="max-width: 700px">
 
     <h2 class="mb-4 text-center">Crear cuenta</h2>
 
-    <form method="post" th:action="@{/users/register}" th:object="${newUserDto}">
+    <form method="post"
+          th:action="@{/users/register}"
+          th:object="${newUserDto}"
+          th:novalidate="${!clientValidationEnabled}">
 
-        <!-- CSRF -->
         <input type="hidden"
                th:name="${_csrf.parameterName}"
                th:value="${_csrf.token}" />
 
-        <!-- Error -->
-        <div class="alert alert-danger"
-             th:if="${error != null}"
-             th:text="${error}">
+        <div class="alert alert-danger" role="alert"
+             th:if="${#fields.hasAnyErrors()}">
+            <p>Se han producido errores. Por favor, corríjalos antes de volver a intentar la operación.</p>
+            <ul>
+                <li th:each="error : ${#fields.errors()}" th:text="${error}">Mensaje de error</li>
+            </ul>
         </div>
 
         <div class="mb-3">
@@ -33,7 +33,13 @@
             <input type="text"
                    class="form-control"
                    th:field="*{username}"
+                   th:errorclass="is-invalid"
                    required>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('username')}"
+                 th:errors="*{username}">
+                Error en username
+            </div>
         </div>
 
         <div class="mb-3">
@@ -41,7 +47,13 @@
             <input type="text"
                    class="form-control"
                    th:field="*{firstName}"
+                   th:errorclass="is-invalid"
                    required>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('firstName')}"
+                 th:errors="*{firstName}">
+                Error en nombre
+            </div>
         </div>
 
         <div class="mb-3">
@@ -49,7 +61,13 @@
             <input type="text"
                    class="form-control"
                    th:field="*{lastName}"
+                   th:errorclass="is-invalid"
                    required>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('lastName')}"
+                 th:errors="*{lastName}">
+                Error en apellidos
+            </div>
         </div>
 
         <div class="mb-3">
@@ -57,21 +75,39 @@
             <input type="email"
                    class="form-control"
                    th:field="*{email}"
+                   th:errorclass="is-invalid"
                    required>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">
+                Error en email
+            </div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Teléfono</label>
             <input type="number"
                    class="form-control"
-                   th:field="*{phone}">
+                   th:field="*{phone}"
+                   th:errorclass="is-invalid">
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('phone')}"
+                 th:errors="*{phone}">
+                Error en teléfono
+            </div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Fecha de nacimiento</label>
             <input type="date"
                    class="form-control"
-                   th:field="*{birthDate}">
+                   th:field="*{birthDate}"
+                   th:errorclass="is-invalid">
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('birthDate')}"
+                 th:errors="*{birthDate}">
+                Error en fecha de nacimiento
+            </div>
         </div>
 
         <div class="mb-3">
@@ -79,7 +115,13 @@
             <input type="password"
                    class="form-control"
                    th:field="*{password}"
+                   th:errorclass="is-invalid"
                    required>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}">
+                Error en contraseña
+            </div>
         </div>
 
         <div class="mb-3">
@@ -87,18 +129,31 @@
             <input type="password"
                    class="form-control"
                    th:field="*{confirmPassword}"
+                   th:errorclass="is-invalid"
                    required>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('confirmPassword')}"
+                 th:errors="*{confirmPassword}">
+                Error en confirmación de contraseña
+            </div>
         </div>
 
         <div class="form-check mb-4">
             <input class="form-check-input"
                    type="checkbox"
                    th:field="*{acceptConditions}"
+                   th:errorclass="is-invalid"
                    id="acceptConditions">
 
             <label class="form-check-label" for="acceptConditions">
                 Acepto las condiciones de uso
             </label>
+
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('acceptConditions')}"
+                 th:errors="*{acceptConditions}">
+                Error en aceptación de condiciones
+            </div>
         </div>
 
         <div class="d-grid">
@@ -106,18 +161,12 @@
                 Registrarse
             </button>
         </div>
-
     </form>
 
 </div>
-
 <div th:replace="~{fragments/footer :: carousel}"></div>
-
 <div th:replace="~{fragments/footer :: footer}"></div>
-
 <div th:replace="~{fragments/footer :: copyright}"></div>
-
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
-
 </body>
 </html>

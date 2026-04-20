@@ -8,9 +8,11 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.BrandService;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.CategoryService;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.ProductService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,16 +80,32 @@ public class ProductAdminController {
     }
 
     @PostMapping("/admin/products/new")
-    public String newProductPost(@ModelAttribute("product") NewProductsDto newProductsDto, Model model){
+    public String newProductPost(
+            @Valid @ModelAttribute("product") NewProductsDto newProductsDto,
+            BindingResult bindingResult,
+            Model model) {
+
         System.out.printf("Producto recibido: \n%s\n", newProductsDto);
-        try {
-            Product product = productService.createNew(newProductsDto);
-            return "redirect:/admin/products/products";
-        } catch (Exception e){
-            model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
-            model.addAttribute("product", newProductsDto);
+
+        if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("brands", brandService.findAll());
+            model.addAttribute("title", "GEX - New Product");
+            model.addAttribute("subtitulo", "Formulario de creación de productos :P");
+            model.addAttribute("titulo", "Nuevo Producto");
+            return "admin/products/new";
+        }
+
+        try {
+            productService.createNew(newProductsDto);
+            return "redirect:/admin/products/products";
+        } catch (Exception e) {
+            bindingResult.reject("global.error", "Se ha producido un error inesperado al crear el producto");
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("brands", brandService.findAll());
+            model.addAttribute("title", "GEX - New Product");
+            model.addAttribute("subtitulo", "Formulario de creación de productos :P");
+            model.addAttribute("titulo", "Nuevo Producto");
             return "admin/products/new";
         }
     }
@@ -112,16 +130,27 @@ public class ProductAdminController {
         return "admin/products/edit";
     }
 
+    // Post de editar modificado para la práctica 16 con binding
     @PostMapping("/admin/products/edit/{id}")
     public String postEdiProduct(@PathVariable Long id,
-                                 @ModelAttribute("product") NewProductsDto newProductsDto,
-                                 Model model){
+                                 @Valid @ModelAttribute("product") NewProductsDto newProductsDto,
+                                 BindingResult bindingResult,
+                                 Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("brands", brandService.findAll());
+            model.addAttribute("title", "GEX - Editar Producto");
+            model.addAttribute("titulo", "Editar Producto");
+            model.addAttribute("subtitulo", "Formulario de edición de productos");
+            return "admin/products/edit";
+        }
+
         try {
             productService.update(id, newProductsDto);
             return "redirect:/admin/products/products";
         } catch (Exception e) {
-            model.addAttribute("error", String.format("Se ha producido un error: %s", e.getMessage()));
-            model.addAttribute("product", newProductsDto);
+            bindingResult.reject("global.error", "Se ha producido un error inesperado al editar el producto");
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("brands", brandService.findAll());
             model.addAttribute("title", "GEX - Editar Producto");

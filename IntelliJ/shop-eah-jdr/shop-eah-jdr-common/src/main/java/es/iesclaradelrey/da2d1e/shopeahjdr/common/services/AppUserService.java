@@ -12,4 +12,6 @@ public interface AppUserService {
     Optional<AppUser> findByUsernameIgnoreCase(String username);
 
     Optional<AppUser> findById(Long id);
+
+    boolean existsByUsername(String username);
 }

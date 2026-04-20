@@ -45,5 +45,9 @@ public class AppUserServiceImpl implements AppUserService {
         return appUserRepository.findById(id);
     }
 
+    @Override
+    public boolean existsByUsername(String username) {
+        return appUserRepository.existsByUsernameIgnoreCase(username);
+    }
 
 }
