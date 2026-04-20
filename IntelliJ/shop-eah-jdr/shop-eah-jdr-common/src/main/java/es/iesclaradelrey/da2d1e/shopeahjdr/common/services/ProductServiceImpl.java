@@ -12,6 +12,7 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.BrandRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -147,6 +148,7 @@ public class ProductServiceImpl implements ProductService{
         return stringWriter.toString();
     }
 
+    @Transactional
     @Override
     public void importProductsStax(InputStream productsStream) throws XMLStreamException {
         List<Product> products = readProductsFromXmlStax(productsStream);
