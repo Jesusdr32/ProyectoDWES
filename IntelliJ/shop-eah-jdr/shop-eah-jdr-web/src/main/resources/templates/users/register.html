@@ -22,7 +22,7 @@
 
         <div class="alert alert-danger" role="alert"
              th:if="${#fields.hasAnyErrors()}">
-            <p>Se han producido errores. Por favor, corríjalos antes de volver a intentar la operación.</p>
+            <p style="color: black">Se han producido errores. Por favor, corríjalos antes de volver a intentar la operación.</p>
             <ul>
                 <li th:each="error : ${#fields.errors()}" th:text="${error}">Mensaje de error</li>
             </ul>

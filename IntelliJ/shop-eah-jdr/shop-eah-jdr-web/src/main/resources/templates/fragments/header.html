@@ -1,4 +1,6 @@
-
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
 <!-- PreLoader -->
 <div th:fragment="preloader" class="loader">
     <div class="loader-inner">
@@ -123,13 +125,59 @@
                 <span class="close-btn"><i class="fas fa-window-close"></i></span>
                 <div class="search-bar">
                     <div class="search-bar-tablecell">
-                        <h3>Search For:</h3>
-                        <input type="text" placeholder="Keywords">
-                        <button type="submit">Search <i class="fas fa-search"></i></button>
+<!--                        <h3>Buscar por:</h3>-->
+                        <form method="get" th:action="@{/products/search}">
+                            <label for="nD">Nombre / Descripción: </label>
+                            <input type="text" id="nD" placeholder="Nombre o Descripción" name="nD">
+
+                            <label for="mP">Precio máximo (€): </label>
+                            <input type="number" id="mP" name="mP" placeholder="0.0">
+
+                            <label for="m">Marca: </label>
+                            <select name="m" id="m">
+                                <option value="">Cualquier marca</option>
+                                <th:block th:remove="all-but-first">
+                                    <option value="">Valor por defecto</option>
+<!--                                    <option th:each="brand : ${brands}" th:value="${brandId}" th:text="${brand.name}">Valor</option>-->
+                                </th:block>
+                            </select>
+
+                            <label for="c">Categorías: </label>
+                            <select name="c" id="c">
+                                <option value="">Cualquier categoría</option>
+                                <th:block th:remove="all-but-first">
+                                    <option value="">Valor por defecto</option>
+<!--                                    <option th:each="category : ${categories}" th:value="${categoryId}" th:text="${category.name}">Valor</option>-->
+                                </th:block>
+                            </select>
+
+                            <label for="tP">Tamaño de página: </label>
+                            <select name="tP" id="tP">
+                                <option value="">Por defecto</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="50">50</option>
+                            </select>
+
+                            <label for="oP">Ordenar por: </label>
+                            <select name="oP" id="oP">
+                                <option value="">Por defecto</option>
+                                <option value="name">Nombre</option>
+                                <option value="priceMinMax">Precio de menor a mayor</option>
+                                <option value="priceMaxMin">Precio de mayor a menor</option>
+                                <option value="stockMinMax">Stock de menor a mayor</option>
+                                <option value="stockMaxMin">Stock de mayor a menor</option>
+                            </select>
+                            <button type="submit">Buscar <i class="fas fa-search"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</body>
 <!-- end search area -->
+</html>

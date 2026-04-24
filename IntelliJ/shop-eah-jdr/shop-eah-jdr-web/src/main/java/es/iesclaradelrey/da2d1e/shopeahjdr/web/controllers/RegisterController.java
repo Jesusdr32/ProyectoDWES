@@ -70,9 +70,8 @@ public class RegisterController {
             bindingResult.rejectValue("email", "email.duplicate", "Ya existe un usuario con ese correo electrónico.");
         }
 
-        if (bindingResult.hasErrors()) {
-            return getRegisterModelAndView(newUserDto, request);
-        }
+        if (bindingResult.hasErrors()) {return getRegisterModelAndView(newUserDto, request);}
+
         try {
             String encodedPassword = passwordEncoder.encode(newUserDto.getPassword());
             AppUser appUser = userMapper.map(newUserDto, encodedPassword);

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/head :: head(${title})}"></head>
+
+<body>
+<div th:replace="~{fragments/header :: preloader}"></div>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div th:replace="~{fragments/header :: breadcumb(${subtitulo}, ${titulo})}"></div>
+
+<div class="container mt-5 mb-5">
+
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+
+      <div class="card p-4 mb-5">
+        <h3 class="mb-4">Buscar productos</h3>
+
+        <form method="get" th:action="@{/products/search}">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="nD" class="form-label">Nombre / descripción</label>
+              <input type="text" id="nD" name="nD" class="form-control" th:value="${nD}" placeholder="Buscar productos...">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="mP" class="form-label">Precio máximo (€)</label>
+              <input type="number" id="mP" name="mP" class="form-control" step="0.01" min="0" th:value="${mP}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="m" class="form-label">Marca</label>
+              <select name="m" id="m" class="form-select">
+                <option value="">Cualquier marca</option>
+                <option th:each="brand : ${brands}"
+                        th:value="${brand.id}"
+                        th:text="${brand.name}"
+                        th:selected="${m != null and m == brand.id}">
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="c" class="form-label">Categoría</label>
+              <select name="c" id="c" class="form-select">
+                <option value="">Cualquier categoría</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}"
+                        th:selected="${c != null and c == category.id}">
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="tP" class="form-label">Tamaño de página</label>
+              <select name="tP" id="tP" class="form-select">
+                <option value="">Por defecto</option>
+                <option value="1" th:selected="${tP == 1}">1</option>
+                <option value="2" th:selected="${tP == 2}">2</option>
+                <option value="5" th:selected="${tP == 5}">5</option>
+                <option value="10" th:selected="${tP == 10}">10</option>
+                <option value="50" th:selected="${tP == 50}">50</option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="oP" class="form-label">Ordenar por</label>
+              <select name="oP" id="oP" class="form-select">
+                <option value="" th:selected="${oP == null or oP == ''}">Por defecto</option>
+                <option value="name" th:selected="${oP == 'name'}">Nombre</option>
+                <option value="priceMinMax" th:selected="${oP == 'priceMinMax'}">Precio de menor a mayor</option>
+                <option value="priceMaxMin" th:selected="${oP == 'priceMaxMin'}">Precio de mayor a menor</option>
+                <option value="stockMinMax" th:selected="${oP == 'stockMinMax'}">Stock de menor a mayor</option>
+                <option value="stockMaxMin" th:selected="${oP == 'stockMaxMin'}">Stock de mayor a menor</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="boxed-btn">
+            Buscar
+          </button>
+        </form>
+      </div>
+
+      <div th:if="${searched}">
+        <div th:if="${productsPage == null or productsPage.isEmpty()}" class="alert alert-warning">
+          No se han encontrado productos con los criterios indicados.
+        </div>
+
+        <div th:if="${productsPage != null and !productsPage.isEmpty()}">
+          <p class="mb-4">
+            Mostrando página
+            <span th:text="${productsPage.number + 1}">1</span>
+            de
+            <span th:text="${productsPage.totalPages}">1</span>.
+            Total de productos encontrados:
+            <span th:text="${productsPage.totalElements}">0</span>
+          </p>
+
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" th:each="product : ${productsPage.content}">
+              <div class="single-product-item text-center">
+                <div class="product-image">
+                  <a th:href="@{/products/{id}/{slug}(id=${product.id}, slug=${product.slug})}">
+                    <img th:src="${product.image != null ? product.image : '/images/default-product.png'}"
+                         th:alt="${product.name}">
+                  </a>
+                </div>
+                <h3 th:text="${product.name}">Nombre</h3>
+                <p class="product-price">
+                  <span th:text="${product.brand.name}">Marca</span>
+                  <span th:text="${#numbers.formatDecimal(product.price, 1, 2)} + ' €'">0.00 €</span>
+                </p>
+                <a th:href="@{/products/{id}/{slug}(id=${product.id}, slug=${product.slug})}"
+                   class="cart-btn">
+                  Ver detalle
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <nav th:if="${productsPage.totalPages > 1}" aria-label="Paginación">
+            <ul class="pagination justify-content-center mt-4">
+
+              <li class="page-item" th:classappend="${productsPage.first} ? 'disabled'">
+                <a class="page-link"
+                   th:if="${!productsPage.first}"
+                   th:href="@{/products/search(nD=${nD},mP=${mP},m=${m},c=${c},tP=${tP},oP=${oP},page=${productsPage.number - 1})}">
+                  Anterior
+                </a>
+                <span class="page-link" th:if="${productsPage.first}">Anterior</span>
+              </li>
+
+              <li class="page-item"
+                  th:each="i : ${#numbers.sequence(startPage, endPage)}"
+                  th:classappend="${i == productsPage.number} ? 'active'">
+                <a class="page-link"
+                   th:href="@{/products/search(nD=${nD},mP=${mP},m=${m},c=${c},tP=${tP},oP=${oP},page=${i})}"
+                   th:text="${i + 1}">
+                  1
+                </a>
+              </li>
+
+              <li class="page-item" th:classappend="${productsPage.last} ? 'disabled'">
+                <a class="page-link"
+                   th:if="${!productsPage.last}"
+                   th:href="@{/products/search(nD=${nD},mP=${mP},m=${m},c=${c},tP=${tP},oP=${oP},page=${productsPage.number + 1})}">
+                  Siguiente
+                </a>
+                <span class="page-link" th:if="${productsPage.last}">Siguiente</span>
+              </li>
+
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/footer :: carousel}"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: copyright}"></div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>
