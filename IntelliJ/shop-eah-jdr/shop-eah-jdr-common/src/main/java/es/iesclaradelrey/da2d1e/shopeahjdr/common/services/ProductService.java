@@ -3,6 +3,7 @@ package es.iesclaradelrey.da2d1e.shopeahjdr.common.services;
 
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.web.NewProductsDto;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
+import org.springframework.data.domain.Page;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.InputStream;
@@ -24,4 +25,6 @@ public interface ProductService {
 //    List<Product> findByCategoryId(Long categoryId); same
     //void deleteById(Long id);
     boolean existsByProductName(String productName);
+
+    Page<Product> search(String text, Double maxPrice, Long brandId, Long categoryId, int page, int size, String sortBy);
 }

@@ -12,5 +12,4 @@ public interface BrandService {
     Optional<Brand> findById(Long id);
     Brand createNew(NewBrandDto newBrandDto);
     Brand update(Long brandId, NewBrandDto newBrandDto);
-
 }

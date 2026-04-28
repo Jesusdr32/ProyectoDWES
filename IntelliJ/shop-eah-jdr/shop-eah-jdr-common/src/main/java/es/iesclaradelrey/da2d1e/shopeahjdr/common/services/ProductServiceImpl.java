@@ -11,9 +11,14 @@ import es.iesclaradelrey.da2d1e.shopeahjdr.common.mappers.ProductMapper;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.BrandRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.CategoryRepository;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.repositories.ProductRepository;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.specifications.ProductSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.xml.stream.*;
@@ -158,6 +163,31 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public boolean existsByProductName(String productName) {
         return productRepository.existsByNameIgnoreCase(productName);
+    }
+
+    @Override
+    public Page<Product> search(
+            String text,
+            Double maxPrice,
+            Long brandId,
+            Long categoryId,
+            int page,
+            int size,
+            String sortBy) {
+
+        Specification<Product> spec = ProductSpecifications.fromCriteria(text, maxPrice, brandId, categoryId);
+
+        Sort sort = switch (sortBy) {
+            case "priceAsc" -> Sort.by(Sort.Direction.ASC, "price");
+            case "priceDesc" -> Sort.by(Sort.Direction.DESC, "price");
+            case "stockAsc" -> Sort.by(Sort.Direction.ASC, "stock");
+            case "stockDesc" -> Sort.by(Sort.Direction.DESC, "stock");
+            default -> Sort.by(Sort.Direction.ASC, "name");
+        };
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        return productRepository.findAll(spec, pageable);
     }
 
 

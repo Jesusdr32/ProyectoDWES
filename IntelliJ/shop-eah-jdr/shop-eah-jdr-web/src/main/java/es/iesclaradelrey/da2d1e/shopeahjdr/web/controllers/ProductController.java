@@ -1,6 +1,8 @@
 package es.iesclaradelrey.da2d1e.shopeahjdr.web.controllers;
 
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.dto.api.ProductDto;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Brand;
+import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Category;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.entities.Product;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.BrandService;
 import es.iesclaradelrey.da2d1e.shopeahjdr.common.services.CategoryService;
@@ -10,11 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -150,16 +152,72 @@ public class ProductController {
 //
 //    }
 
-    private Sort buildSort(String sort) {
-        if (sort == null || sort.isBlank() || sort.equals("NAME")) {
-            return Sort.by(Sort.Direction.ASC, "name");
-        }
-        return switch (sort) {
-            case "PRICE_ASC" -> Sort.by(Sort.Direction.ASC, "price");
-            case "PRICE_DESC" -> Sort.by(Sort.Direction.DESC, "price");
-            case "STOCK_ASC" -> Sort.by(Sort.Direction.ASC, "stock");
-            case "STOCK_DESC" -> Sort.by(Sort.Direction.DESC, "stock");
-            default -> Sort.by(Sort.Direction.ASC, "name");
-        };
+    public record SelectOption(String value, String text){}
+
+    @ModelAttribute("brands")
+    public List<Brand> getBrands() {
+        return brandService.findAll();
     }
+
+    @ModelAttribute("categories")
+    public List<Category> getCategories() {
+        return categoryService.findAll();
+    }
+
+    @ModelAttribute("PageSizes")
+    public List<Integer> getPageSizes() {
+        return List.of(1, 2, 5, 10, 50);
+    }
+
+    @ModelAttribute("sortOptions")
+    public List<SelectOption> getSortOptions() {
+        return List.of(
+                new SelectOption("nameAsc", "Nombre"),
+                new SelectOption("priceAsc", "Precio (menor a mayor)"),
+                new SelectOption("priceDesc", "Precio (mayor a menor"),
+                new SelectOption("stockAsc", "Stock (menor a mayor"),
+                new SelectOption("stockDesc", "Stock (mayor a menor)")
+        );
+    }
+
+    @GetMapping("/search")
+    public String search(
+            @RequestParam(value = "text", required = false) String text,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Long brandId,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "nameAsc") String sortBy,
+            Model model) {
+
+        Page<Product> foundProductPage = productService.search(text, maxPrice, brandId, categoryId, page, size, sortBy);
+
+        // Añadir parámetros como atributos al modelo
+        model.addAttribute("text", text);
+        model.addAttribute("maxPrice", maxPrice);
+        model.addAttribute("brandId", brandId);
+        model.addAttribute("categoryId", categoryId);
+        model.addAttribute("size", size);
+        model.addAttribute("sortBy", sortBy);
+
+        model.addAttribute("results", foundProductPage.toList());
+        model.addAttribute("totalPages", foundProductPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+
+        return "search";
+    }
+
+//    private Sort buildSort(String sort) {
+//        if (sort == null || sort.isBlank() || sort.equals("NAME")) {
+//            return Sort.by(Sort.Direction.ASC, "name");
+//        }
+//        return switch (sort) {
+//            case "PRICE_ASC" -> Sort.by(Sort.Direction.ASC, "price");
+//            case "PRICE_DESC" -> Sort.by(Sort.Direction.DESC, "price");
+//            case "STOCK_ASC" -> Sort.by(Sort.Direction.ASC, "stock");
+//            case "STOCK_DESC" -> Sort.by(Sort.Direction.DESC, "stock");
+//            default -> Sort.by(Sort.Direction.ASC, "name");
+//        };
+//    }
 }
